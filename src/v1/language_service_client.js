@@ -23,86 +23,110 @@
  * The only allowed edits are to method and file documentation. A 3-way
  * merge preserves those additions if the generated source changes.
  */
-/* TODO: introduce line-wrapping so that it never exceeds the limit. */
-/* jscs: disable maximumLineLength */
+
 'use strict';
 
-var configData = require('./language_service_client_config');
-var extend = require('extend');
-var gax = require('google-gax');
-var googleProtoFiles = require('google-proto-files');
-var path = require('path');
+const gax = require('google-gax');
+const path = require('path');
 
-var SERVICE_ADDRESS = 'language.googleapis.com';
-
-var DEFAULT_SERVICE_PORT = 443;
-
-var CODE_GEN_NAME_VERSION = 'gapic/0.0.5';
-
-/**
- * The scopes needed to make gRPC calls to all of the methods defined in
- * this service.
- */
-var ALL_SCOPES = [
-  'https://www.googleapis.com/auth/cloud-platform'
-];
+const gapicConfig = require('./language_service_client_config');
+const types = require('./types');
 
 /**
  * Provides text analysis operations such as sentiment analysis and entity
  * recognition.
  *
- *
  * @class
  */
-function LanguageServiceClient(gaxGrpc, loadedProtos, opts) {
-  opts = extend({
-    servicePath: SERVICE_ADDRESS,
-    port: DEFAULT_SERVICE_PORT,
-    clientConfig: {}
-  }, opts);
+class LanguageServiceClient {
+  constructor(opts) {
+    opts = opts || {};
+    opts.grpc = opts.grpc || {};
 
-  var googleApiClient = [
-    'gl-node/' + process.versions.node
-  ];
-  if (opts.libName && opts.libVersion) {
-    googleApiClient.push(opts.libName + '/' + opts.libVersion);
-  }
-  googleApiClient.push(
-    CODE_GEN_NAME_VERSION,
-    'gax/' + gax.version,
-    'grpc/' + gaxGrpc.grpcVersion
-  );
+    // Ensure that options include the service address and port.
+    opts = Object.assign({
+      clientConfig: {},
+      port: this.port,
+      servicePath: this.servicePath,
+    }, opts);
 
-  var defaults = gaxGrpc.constructSettings(
+    // Create a `gaxGrpc` object, with any grpc-specific options
+    // sent to the client.
+    Object.assign(opts.grpc, {scopes: this.scopes});
+    this._gaxGrpc = gax.grpc(opts.grpc);
+    delete opts.grpc;
+
+    // Determine the client header string.
+    var clientHeader = [
+      `gl-node/${process.version.node}`,
+      `grpc/${this._gaxGrpc.grpcVersion}`,
+      `gax/${gax.version}`,
+      `gapic/${this.version}`,
+    ];
+    if (opts.libName && opts.libVersion) {
+      clientHeader.push(`${opts.libName}/${opts.libVersion}`);
+    }
+
+    // Put together the default options sent with requests.
+    var defaults = this._gaxGrpc.constructSettings(
       'google.cloud.language.v1.LanguageService',
-      configData,
+      gapicConfig,
       opts.clientConfig,
-      {'x-goog-api-client': googleApiClient.join(' ')});
+      {'x-goog-api-client': clientHeader.join(' ')},
+    );
 
-  var self = this;
+    // Put together a "service stub".
+    var languageServiceStub = this._gaxGrpc.createStub(
+      types.LanguageService,
+      opts
+    );
 
-  this.auth = gaxGrpc.auth;
-  var languageServiceStub = gaxGrpc.createStub(
-      loadedProtos.google.cloud.language.v1.LanguageService,
-      opts);
-  var languageServiceStubMethods = [
-    'analyzeSentiment',
-    'analyzeEntities',
-    'analyzeEntitySentiment',
-    'analyzeSyntax',
-    'annotateText'
-  ];
-  languageServiceStubMethods.forEach(function(methodName) {
-    self['_' + methodName] = gax.createApiCall(
-      languageServiceStub.then(function(languageServiceStub) {
-        return function() {
+    return;
+    // Iterate over each of the methods that the service provides and
+    // provide a private API call method for it.
+    this._apiCalls = {};
+    var languageServiceStubMethods = [
+      'analyzeSentiment',
+      'analyzeEntities',
+      'analyzeEntitySentiment',
+      'analyzeSyntax',
+      'annotateText',
+    ];
+    for (let methodName of languageServiceStubMethods) {
+      this[`_${methodName}`] = gax.createApiCall(
+        languageServiceStub.then(stub => function() {
           var args = Array.prototype.slice.call(arguments, 0);
-          return languageServiceStub[methodName].apply(languageServiceStub, args);
-        };
-      }),
-      defaults[methodName],
-      null);
-  });
+          return stub[methodName].apply(stub, args);
+        }),
+        defaults[methodName],
+        null
+      );
+    }
+  }
+
+  /**
+   * The service address for this API.
+   */
+  static get servicePath() {
+    return 'language.googleapis.com';
+  }
+
+  /**
+   * The service port for this API.
+   */
+  static get port() {
+    return 443;
+  }
+
+  /**
+   * The scopes needed to make gRPC calls for every method defined
+   * in this service.
+   */
+  static get scopes() {
+    return [
+      'https://www.googleapis.com/auth/cloud-platform',
+    ];
+  }
 }
 
 
@@ -404,7 +428,7 @@ function LanguageServiceClientBuilder(gaxGrpc) {
 
   var languageServiceStubProtos = gaxGrpc.loadProto(
     path.join(__dirname, '..', '..', 'protos', 'google/cloud/language/v1/language_service.proto'));
-  extend(this, languageServiceStubProtos.google.cloud.language.v1);
+  Object.assign(this, languageServiceStubProtos.google.cloud.language.v1);
 
 
   /**
@@ -424,8 +448,8 @@ function LanguageServiceClientBuilder(gaxGrpc) {
   this.languageServiceClient = function(opts) {
     return new LanguageServiceClient(gaxGrpc, languageServiceStubProtos, opts);
   };
-  extend(this.languageServiceClient, LanguageServiceClient);
+  Object.assign(this.languageServiceClient, LanguageServiceClient);
 }
 module.exports = LanguageServiceClientBuilder;
-module.exports.SERVICE_ADDRESS = SERVICE_ADDRESS;
-module.exports.ALL_SCOPES = ALL_SCOPES;
+module.exports.SERVICE_ADDRESS = LanguageServiceClient.serviceAddress;
+module.exports.ALL_SCOPES = LanguageServiceClient.scopes;
