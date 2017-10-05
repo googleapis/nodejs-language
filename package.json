@@ -1,5 +1,5 @@
 {
-  "repository": "GoogleCloudPlatform/google-cloud-node",
+  "repository": "googleapis/nodejs-language",
   "name": "@google-cloud/language",
   "version": "0.12.1",
   "author": "Google Inc",
@@ -55,10 +55,12 @@
     "google-gax": "^0.13.5"
   },
   "devDependencies": {
+    "@google-cloud/nodejs-repo-tools": "^2.0.7",
     "mocha": "^3.2.0"
   },
   "scripts": {
-    "publish-module": "node ../../scripts/publish.js language",
+    "samples-test": "cd samples/ && npm test && cd ../",
+    "generate-scaffolding": "repo-tools generate all && repo-tools generate lib_samples_readme -l samples/ --config ../.cloud-repo-tools.json",
     "smoke-test": "mocha smoke-test/*.js --timeout 5000",
     "test": "mocha test/*.js"
   },
