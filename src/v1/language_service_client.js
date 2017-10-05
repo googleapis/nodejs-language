@@ -40,9 +40,6 @@ const types = require('./types');
  */
 class LanguageServiceClient {
   constructor(opts) {
-    opts = opts || {};
-    opts.grpc = opts.grpc || {};
-
     // Ensure that options include the service address and port.
     opts = Object.assign({
       clientConfig: {},
@@ -52,9 +49,8 @@ class LanguageServiceClient {
 
     // Create a `gaxGrpc` object, with any grpc-specific options
     // sent to the client.
-    Object.assign(opts.grpc, {scopes: this.scopes});
-    this._gaxGrpc = gax.grpc(opts.grpc);
-    delete opts.grpc;
+    Object.assign(opts, {scopes: this.scopes});
+    this._gaxGrpc = gax.grpc(opts);
 
     // Determine the client header string.
     var clientHeader = [
@@ -81,7 +77,6 @@ class LanguageServiceClient {
       opts
     );
 
-    return;
     // Iterate over each of the methods that the service provides and
     // provide a private API call method for it.
     this._apiCalls = {};
@@ -93,7 +88,7 @@ class LanguageServiceClient {
       'annotateText',
     ];
     for (let methodName of languageServiceStubMethods) {
-      this[`_${methodName}`] = gax.createApiCall(
+      this._apiCalls[methodName] = gax.createApiCall(
         languageServiceStub.then(stub => function() {
           var args = Array.prototype.slice.call(arguments, 0);
           return stub[methodName].apply(stub, args);
@@ -191,7 +186,7 @@ LanguageServiceClient.prototype.analyzeSentiment = function(request, options, ca
     options = {};
   }
 
-  return this._analyzeSentiment(request, options, callback);
+  return this._apiCalls.analyzeSentiment(request, options, callback);
 };
 
 /**
@@ -246,7 +241,7 @@ LanguageServiceClient.prototype.analyzeEntities = function(request, options, cal
     options = {};
   }
 
-  return this._analyzeEntities(request, options, callback);
+  return this._apiCalls.analyzeEntities(request, options, callback);
 };
 
 /**
@@ -300,7 +295,7 @@ LanguageServiceClient.prototype.analyzeEntitySentiment = function(request, optio
     options = {};
   }
 
-  return this._analyzeEntitySentiment(request, options, callback);
+  return this._apiCalls.analyzeEntitySentiment(request, options, callback);
 };
 
 /**
@@ -355,7 +350,7 @@ LanguageServiceClient.prototype.analyzeSyntax = function(request, options, callb
     options = {};
   }
 
-  return this._analyzeSyntax(request, options, callback);
+  return this._apiCalls.analyzeSyntax(request, options, callback);
 };
 
 /**
@@ -418,7 +413,7 @@ LanguageServiceClient.prototype.annotateText = function(request, options, callba
     options = {};
   }
 
-  return this._annotateText(request, options, callback);
+  return this._apiCalls.annotateText(request, options, callback);
 };
 
 function LanguageServiceClientBuilder(gaxGrpc) {
