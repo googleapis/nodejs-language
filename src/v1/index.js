@@ -24,3 +24,4 @@ function v1(options) {
 
 module.exports = v1;
 module.exports.types = types;
+module.exports.LanguageServiceClient = LanguageServiceClient;
