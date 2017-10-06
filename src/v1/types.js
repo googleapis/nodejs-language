@@ -13,17 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*!
- * @module language
- * @name Language
- */
+
 'use strict';
 
-var gapic = {
-  v1: require('./v1'),
-  v1beta2: require('./v1beta2'),
-};
+const path = require('path');
 
-module.exports = gapic.v1;
-module.exports.v1 = gapic.v1;
-module.exports.v1beta2 = gapic.v1beta2;
+const gax = require('google-gax');
+
+
+// Iterate over all applicable protos and amalgamate them together.
+var grpc = gax.grpc();
+var protos = [
+  'google/cloud/language/v1/language_service.proto',
+];
+var answer = {};
+for (let proto of protos) {
+  let base = grpc.loadProto(path.join(__dirname, '..', '..', 'protos', proto));
+  Object.assign(answer, base.google.cloud.language.v1);
+}
+
+// Export the loaded protos.
+module.exports = answer;
