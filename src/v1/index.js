@@ -15,20 +15,6 @@
  */
 'use strict';
 
-var languageServiceClient = require('./language_service_client');
-var gax = require('google-gax');
-var extend = require('extend');
+const LanguageServiceClient = require('./language_service_client');
 
-function v1(options) {
-  options = extend({
-    scopes: v1.ALL_SCOPES
-  }, options);
-  var gaxGrpc = gax.grpc(options);
-  return languageServiceClient(gaxGrpc);
-}
-
-v1.GAPIC_VERSION = '0.0.5';
-v1.SERVICE_ADDRESS = languageServiceClient.SERVICE_ADDRESS;
-v1.ALL_SCOPES = languageServiceClient.ALL_SCOPES;
-
-module.exports = v1;
+module.exports.LanguageServiceClient = LanguageServiceClient;
