@@ -16,6 +16,25 @@
 
 'use strict';
 
+/*!
+ * DO NOT REMOVE THE FOLLOWING NAMESPACE DEFINITIONS
+ */
+/**
+ * @namespace google
+ */
+/**
+ * @namespace google.cloud
+ */
+/**
+ * @namespace google.cloud.language
+ */
+/**
+ * @namespace google.cloud.language.v1
+ */
+/**
+ * @namespace google.cloud.language.v1beta2
+ */
+
 const VERSION = require('../package.json').version;
 
 // Import the clients for each version supported by this package.
@@ -24,7 +43,57 @@ var gapic = {
   v1beta2: require('./v1beta2'),
 };
 
+/**
+ * The `@google-cloud/language` package has three named exports:
+ *
+ * - `LanguageServiceClient` - Reference to {@link v1.LanguageServiceClient}.
+ * - `v1` - Object with the following properties:
+ *   - `LanguageServiceClient` - Reference to {@link v1.LanguageServiceClient}.
+ * - `v1beta2` - Object with the following properties:
+ *   - `LanguageServiceClient` - Reference to {@link v1beta2.LanguageServiceClient}.
+ *
+ * See {@link v1.LanguageServiceClient} for client options and methods.
+ *
+ * @module {object} @google-cloud/language
+ * @alias nodejs-language
+ *
+ * @example <caption>Install the client library with <a href="https://www.npmjs.com/">npm</a>:</caption>
+ * npm install --save @google-cloud/language
+ *
+ * @example <caption>Import the client library</caption>
+ * const LanguageServiceClient = require('@google-cloud/language').LanguageServiceClient;
+ *
+ * @example <caption>Create a client that uses <a href="https://cloud.google.com/docs/authentication/production#providing_credentials_to_your_application">Application Default Credentials (ADC)</a>:</caption>
+ * const language = new LanguageServiceClient();
+ *
+ * @example <caption>Create a client with <a href="https://cloud.google.com/docs/authentication/production#obtaining_and_providing_service_account_credentials_manually">explicit credentials</a>:</caption>
+ * const language = new LanguageServiceClient({
+ *   projectId: 'your-project-id',
+ *   keyFilename: '/path/to/keyfile.json'
+ * });
+ *
+ * @example <caption>include:samples/quickstart.js</caption>
+ * region_tag:language_quickstart
+ * Full quickstart example:
+ */
+
+/**
+ * Reference to {@link v1.LanguageServiceClient}.
+ *
+ * @name module:@google-cloud/language.LanguageServiceClient
+ * @type {constructor}
+ */
 module.exports = gapic.v1;
+
+/**
+ * @type {object}
+ * @property {constructor} LanguageServiceClient Reference to {@link v1.LanguageServiceClient}.
+ */
 module.exports.v1 = gapic.v1;
+
+/**
+ * @type {object}
+ * @property {constructor} LanguageServiceClient Reference to {@link v1beta2.LanguageServiceClient}.
+ */
 module.exports.v1beta2 = gapic.v1beta2;
 module.exports.default = Object.assign({}, module.exports);
