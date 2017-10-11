@@ -123,7 +123,7 @@ function startController() {
   );
 }
 
-function startBot(bot, cerr) {
+function startBot(bot) {
   console.error('RTM closed');
   let token = fs.readFileSync(process.env.SLACK_TOKEN_PATH, {encoding: 'utf8'});
   token = token.replace(/\s/g, '');

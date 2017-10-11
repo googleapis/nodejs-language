@@ -254,7 +254,7 @@ function classifyTextOfText(text) {
   const language = require('@google-cloud/language').v1beta2;
 
   // Creates a client
-  const language = Language.v1beta2();
+  const client = language.LanguageServiceClient();
 
   // The text to analyze, e.g. "Hello, world!"
   // const text = 'Hello, world!';
@@ -290,7 +290,7 @@ function classifyTextInFile(bucketName, fileName) {
   const language = require('@google-cloud/language').v1beta2;
 
   // Creates a client
-  const language = Language.v1beta2();
+  const client = language.LanguageServiceClient();
 
   // The name of the bucket where the file resides, e.g. "my-bucket"
   // const bucketName = 'my-bucket';

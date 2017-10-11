@@ -52,7 +52,8 @@
   ],
   "dependencies": {
     "extend": "^3.0",
-    "google-gax": "^0.14.1"
+    "google-gax": "^0.14.1",
+    "lodash.merge": "^4.6.0"
   },
   "devDependencies": {
     "@google-cloud/nodejs-repo-tools": "^2.0.7",
