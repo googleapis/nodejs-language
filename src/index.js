@@ -21,11 +21,12 @@
  */
 /**
  * @namespace google
- * @private
  */
 /**
  * @namespace google.cloud
- * @private
+ */
+/**
+ * @namespace google.cloud.language
  */
 /**
  * @namespace google.cloud.language.v1
