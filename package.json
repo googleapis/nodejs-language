@@ -71,7 +71,7 @@
     "generate-scaffolding": "repo-tools generate all && repo-tools generate lib_samples_readme -l samples/ --config ../.cloud-repo-tools.json",
     "lint": "repo-tools lint --cmd eslint -- src/ samples/ system-test/ test/",
     "samples-test": "cd samples/ && npm test && cd ../",
-    "smoke-test": "mocha smoke-test/*.js --timeout 5000",
+    "system-test": "mocha system-test/*.js --timeout 5000",
     "test": "mocha test/*.js"
   },
   "license": "Apache-2.0",

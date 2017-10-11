@@ -71,6 +71,7 @@ describe('LanguageServiceClient', () => {
       client.analyzeSentiment(request, (err, response) => {
         assert(err instanceof Error);
         assert.equal(err.code, FAKE_STATUS_CODE);
+        assert(typeof response === 'undefined');
         done();
       });
     });
@@ -124,6 +125,7 @@ describe('LanguageServiceClient', () => {
       client.analyzeEntities(request, (err, response) => {
         assert(err instanceof Error);
         assert.equal(err.code, FAKE_STATUS_CODE);
+        assert(typeof response === 'undefined');
         done();
       });
     });
@@ -177,6 +179,7 @@ describe('LanguageServiceClient', () => {
       client.analyzeEntitySentiment(request, (err, response) => {
         assert(err instanceof Error);
         assert.equal(err.code, FAKE_STATUS_CODE);
+        assert(typeof response === 'undefined');
         done();
       });
     });
@@ -230,6 +233,7 @@ describe('LanguageServiceClient', () => {
       client.analyzeSyntax(request, (err, response) => {
         assert(err instanceof Error);
         assert.equal(err.code, FAKE_STATUS_CODE);
+        assert(typeof response === 'undefined');
         done();
       });
     });
@@ -287,6 +291,7 @@ describe('LanguageServiceClient', () => {
       client.annotateText(request, (err, response) => {
         assert(err instanceof Error);
         assert.equal(err.code, FAKE_STATUS_CODE);
+        assert(typeof response === 'undefined');
         done();
       });
     });

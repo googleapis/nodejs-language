@@ -19,6 +19,8 @@ const gax = require('google-gax');
 const merge = require('lodash.merge');
 const path = require('path');
 
+const VERSION = require('../../package.json').version;
+
 /**
  * Provides text analysis operations such as sentiment analysis and entity
  * recognition.
@@ -80,7 +82,7 @@ class LanguageServiceClient {
       `gl-node/${process.version.node}`,
       `grpc/${gaxGrpc.grpcVersion}`,
       `gax/${gax.version}`,
-      `gapic/${this.version}`,
+      `gapic/${VERSION}`,
     ];
     if (opts.libName && opts.libVersion) {
       clientHeader.push(`${opts.libName}/${opts.libVersion}`);

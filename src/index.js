@@ -16,8 +16,6 @@
 
 'use strict';
 
-const VERSION = require('../package.json').version;
-
 // Import the clients for each version supported by this package.
 var gapic = {
   v1: require('./v1'),
