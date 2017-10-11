@@ -18,10 +18,10 @@
 function analyzeSentimentOfText (text) {
   // [START language_sentiment_string]
   // Imports the Google Cloud client library
-  const Language = require('@google-cloud/language');
+  const language = require('@google-cloud/language').v1beta2;
 
   // Instantiates a client
-  const language = Language({ apiVersion: 'v1beta2' });
+  const client = language.LanguageServiceClient();
 
   // The text to analyze, e.g. "Hello, world!"
   // const text = 'Hello, world!';
@@ -33,7 +33,7 @@ function analyzeSentimentOfText (text) {
   };
 
   // Detects the sentiment of the document
-  language.analyzeSentiment({ document: document })
+  client.analyzeSentiment({ document: document })
     .then((results) => {
       const sentiment = results[0].documentSentiment;
       console.log(`Document sentiment:`);
@@ -56,10 +56,10 @@ function analyzeSentimentOfText (text) {
 function analyzeSentimentInFile (bucketName, fileName) {
   // [START language_sentiment_file]
   // Imports the Google Cloud client libraries
-  const Language = require('@google-cloud/language');
+  const language = require('@google-cloud/language').v1beta2;
 
   // Instantiates the clients
-  const language = Language({ apiVersion: 'v1beta2' });
+  const client = language.LanguageServiceClient();
 
   // The name of the bucket where the file resides, e.g. "my-bucket"
   // const bucketName = 'my-bucket';
@@ -74,7 +74,7 @@ function analyzeSentimentInFile (bucketName, fileName) {
   };
 
   // Detects the sentiment of the document
-  language.analyzeSentiment({ document: document })
+  client.analyzeSentiment({ document: document })
     .then((results) => {
       const sentiment = results[0].documentSentiment;
       console.log(`Document sentiment:`);
@@ -97,10 +97,10 @@ function analyzeSentimentInFile (bucketName, fileName) {
 function analyzeEntitiesOfText (text) {
   // [START language_entities_string]
   // Imports the Google Cloud client library
-  const Language = require('@google-cloud/language');
+  const language = require('@google-cloud/language').v1beta2;
 
   // Instantiates the clients
-  const language = Language({ apiVersion: 'v1beta2' });
+  const client = language.LanguageServiceClient();
 
   // The text to analyze, e.g. "Hello, world!"
   // const text = 'Hello, world!';
@@ -112,7 +112,7 @@ function analyzeEntitiesOfText (text) {
   };
 
   // Detects entities in the document
-  language.analyzeEntities({ document: document })
+  client.analyzeEntities({ document: document })
     .then((results) => {
       const entities = results[0].entities;
 
@@ -134,10 +134,10 @@ function analyzeEntitiesOfText (text) {
 function analyzeEntitiesInFile (bucketName, fileName) {
   // [START language_entities_file]
   // Imports the Google Cloud client libraries
-  const Language = require('@google-cloud/language');
+  const language = require('@google-cloud/language').v1beta2;
 
   // Instantiates the clients
-  const language = Language({ apiVersion: 'v1beta2' });
+  const client = language.LanguageServiceClient();
 
   // The name of the bucket where the file resides, e.g. "my-bucket"
   // const bucketName = 'my-bucket';
@@ -152,7 +152,7 @@ function analyzeEntitiesInFile (bucketName, fileName) {
   };
 
   // Detects entities in the document
-  language.analyzeEntities({ document: document })
+  client.analyzeEntities({ document: document })
     .then((results) => {
       const entities = results[0].entities;
 
@@ -174,10 +174,10 @@ function analyzeEntitiesInFile (bucketName, fileName) {
 function analyzeSyntaxOfText (text) {
   // [START language_syntax_string]
   // Imports the Google Cloud client library
-  const Language = require('@google-cloud/language');
+  const language = require('@google-cloud/language').v1beta2;
 
   // Instantiates the clients
-  const language = Language({ apiVersion: 'v1beta2' });
+  const client = language.LanguageServiceClient();
 
   // The text to analyze, e.g. "Hello, world!"
   // const text = 'Hello, world!';
@@ -189,7 +189,7 @@ function analyzeSyntaxOfText (text) {
   };
 
   // Detects syntax in the document
-  language.analyzeSyntax({ document: document })
+  client.analyzeSyntax({ document: document })
     .then((results) => {
       const syntax = results[0];
 
@@ -208,10 +208,10 @@ function analyzeSyntaxOfText (text) {
 function analyzeSyntaxInFile (bucketName, fileName) {
   // [START language_syntax_file]
   // Imports the Google Cloud client libraries
-  const Language = require('@google-cloud/language');
+  const language = require('@google-cloud/language').v1beta2;
 
   // Instantiates the clients
-  const language = Language({ apiVersion: 'v1beta2' });
+  const client = language.LanguageServiceClient();
 
   // The name of the bucket where the file resides, e.g. "my-bucket"
   // const bucketName = 'my-bucket';
@@ -226,7 +226,7 @@ function analyzeSyntaxInFile (bucketName, fileName) {
   };
 
   // Detects syntax in the document
-  language.analyzeSyntax({ document: document })
+  client.analyzeSyntax({ document: document })
     .then((results) => {
       const syntax = results[0];
 
@@ -245,7 +245,7 @@ function analyzeSyntaxInFile (bucketName, fileName) {
 function classifyTextOfText (text) {
   // [START language_classify_string]
   // Imports the Google Cloud client library
-  const Language = require('@google-cloud/language');
+  const language = require('@google-cloud/language').v1beta2;
 
   // Creates a client
   const language = Language.v1beta2();
@@ -260,7 +260,7 @@ function classifyTextOfText (text) {
   };
 
   // Classifies text in the document
-  language.classifyText({ document: document })
+  client.classifyText({ document: document })
     .then((results) => {
       const classification = results[0];
 
@@ -278,7 +278,7 @@ function classifyTextOfText (text) {
 function classifyTextInFile (bucketName, fileName) {
   // [START language_classify_file]
   // Imports the Google Cloud client libraries
-  const Language = require('@google-cloud/language');
+  const language = require('@google-cloud/language').v1beta2;
 
   // Creates a client
   const language = Language.v1beta2();
@@ -296,7 +296,7 @@ function classifyTextInFile (bucketName, fileName) {
   };
 
   // Classifies text in the document
-  language.classifyText({ document: document })
+  client.classifyText({ document: document })
     .then((results) => {
       const classification = results[0];
 
