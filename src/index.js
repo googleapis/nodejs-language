@@ -54,7 +54,7 @@ var gapic = {
  *
  * See {@link v1.LanguageServiceClient} for client options and methods.
  *
- * @module {v1.LanguageServiceClient} @google-cloud/language
+ * @module {object} @google-cloud/language
  * @alias nodejs-language
  *
  * @example <caption>Install the client library with <a href="https://www.npmjs.com/">npm</a>:</caption>
