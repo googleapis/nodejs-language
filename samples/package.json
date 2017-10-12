@@ -17,9 +17,9 @@
     ]
   },
   "scripts": {
-    "lint": "samples lint",
-    "pretest": "npm run lint",
-    "test": "samples test run --cmd ava -- -T 20s --verbose system-test/*.test.js"
+    "ava": "ava -T 20s --verbose test/*.test.js system-test/*.test.js",
+    "cover": "nyc --reporter=lcov --cache ava -T 20s --verbose test/*.test.js system-test/*.test.js && nyc report",
+    "test": "repo-tools test run --cmd npm -- run cover"
   },
   "dependencies": {
     "@google-cloud/language": "0.12.1",
