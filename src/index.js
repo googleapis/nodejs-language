@@ -22,7 +22,10 @@
  * @namespace google.cloud.language
  */
 /**
- * @namesapce google.cloud.language.v1
+ * @namespace google.cloud.language.v1
+ */
+/**
+ * @namespace google.cloud.language.v1beta2
  */
 
 'use strict';
@@ -30,15 +33,16 @@
 // Import the clients for each version supported by this package.
 let gapic = {
   v1: require('./v1'),
+  v1beta2: require('./v1beta2'),
 };
 
 /**
  * The `@google-cloud/language` package has the following named exports:
  *
- * `LanguageServiceClient` - Reference to {@link v1.@client.clientName}}
+ * `LanguageServiceClient` - Reference to {@link v1.LanguageServiceClient}
  * - `v1` - This is used for selecting or pinning a
  *   particular backend service version. It exports:
- *     - `` - Reference to {@link v1.@client.clientName}}
+ *     - `` - Reference to {@link v1.LanguageServiceClient}
  *
  * @module {object} @google-cloud/language
  * @alias nodejs-language
@@ -67,6 +71,13 @@ module.exports = gapic.v1;
  *   Reference to {@link v1.LanguageServiceClient}
  */
 module.exports.v1 = gapic.v1;
+
+/**
+ * @type {object}
+ * @property {constructor} LanguageServiceClient
+ *   Reference to {@link v1beta2.LanguageServiceClient}
+ */
+module.exports.v1beta2 = gapic.v1beta2;
 
 // Alias `module.exports` as `module.exports.default`, for future-proofing.
 module.exports.default = Object.assign({}, module.exports);
