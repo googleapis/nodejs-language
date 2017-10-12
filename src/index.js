@@ -31,10 +31,10 @@
 'use strict';
 
 // Import the clients for each version supported by this package.
-let gapic = {
+const gapic = Object.freeze({
   v1: require('./v1'),
   v1beta2: require('./v1beta2'),
-};
+});
 
 /**
  * The `@google-cloud/language` package has the following named exports:
