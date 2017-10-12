@@ -42,7 +42,7 @@ let gapic = {
  * `LanguageServiceClient` - Reference to {@link v1.LanguageServiceClient}
  * - `v1` - This is used for selecting or pinning a
  *   particular backend service version. It exports:
- *     - `` - Reference to {@link v1.LanguageServiceClient}
+ *     - `LanguageServiceClient` - Reference to {@link v1.LanguageServiceClient}
  *
  * @module {object} @google-cloud/language
  * @alias nodejs-language
