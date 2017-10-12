@@ -39,11 +39,16 @@ const gapic = Object.freeze({
 /**
  * The `@google-cloud/language` package has the following named exports:
  *
- * `LanguageServiceClient` - Reference to {@link v1.LanguageServiceClient}
+ * - `LanguageServiceClient` - Reference to
+ *   {@link v1.LanguageServiceClient}
  * - `v1` - This is used for selecting or pinning a
  *   particular backend service version. It exports:
  *     - `LanguageServiceClient` - Reference to
  *       {@link v1.LanguageServiceClient}
+ * - `v1beta2` - This is used for selecting or pinning a
+ *   particular backend service version. It exports:
+ *     - `LanguageServiceClient` - Reference to
+ *       {@link v1beta2.LanguageServiceClient}
  *
  * @module {object} @google-cloud/language
  * @alias nodejs-language
@@ -58,11 +63,11 @@ const gapic = Object.freeze({
  * @example <caption>Create a client that uses
  *   <a href="https://goo.gl/64dyYX">Application Default Credentials
  *   (ADC)</a>:</caption>
- * let language = new LanguageServiceClient();
+ * let language = new language.LanguageServiceClient();
  *
  * @example <caption>Create a client with
  *   <a href="https://goo.gl/RXp6VL">explicit credentials</a>:</caption>
- * let language = new LanguageServiceClient({
+ * let language = new language.LanguageServiceClient({
  *   projectId: 'your-project-id',
  *   keyFilename: '/path/to/keyfile.json',
  * });
