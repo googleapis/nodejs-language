@@ -56,6 +56,10 @@ let gapic = {
  *
  * @example <caption>Create a client:</caption>
  * let client = new language.LanguageServiceClient();
+ *
+ * @example <caption>include:samples/quickstart.js</caption>
+ * region_tag:language_quickstart
+ * Full quickstart example:
  */
 
 /**
