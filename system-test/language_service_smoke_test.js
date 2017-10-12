@@ -15,7 +15,6 @@
 'use strict';
 
 describe('LanguageServiceSmokeTest', () => {
-
   it('successfully makes a call to the service', done => {
     const language = require('../src');
 
@@ -29,7 +28,8 @@ describe('LanguageServiceSmokeTest', () => {
       content: content,
       type: type,
     };
-    client.analyzeSentiment({document: document})
+    client
+      .analyzeSentiment({document: document})
       .then(responses => {
         var response = responses[0];
         console.log(response);

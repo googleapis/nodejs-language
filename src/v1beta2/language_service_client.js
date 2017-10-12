@@ -19,6 +19,8 @@ const gax = require('google-gax');
 const merge = require('lodash.merge');
 const path = require('path');
 
+const VERSION = require('../../package.json').version;
+
 /**
  * Provides text analysis operations such as sentiment analysis and entity
  * recognition.
@@ -58,11 +60,14 @@ class LanguageServiceClient {
     this._descriptors = {};
 
     // Ensure that options include the service address and port.
-    opts = Object.assign({
-      clientConfig: {},
-      port: this.constructor.port,
-      servicePath: this.constructor.servicePath,
-    }, opts);
+    opts = Object.assign(
+      {
+        clientConfig: {},
+        port: this.constructor.port,
+        servicePath: this.constructor.servicePath,
+      },
+      opts
+    );
 
     // Create a `gaxGrpc` object, with any grpc-specific options
     // sent to the client.
@@ -77,18 +82,19 @@ class LanguageServiceClient {
       `gl-node/${process.version.node}`,
       `grpc/${gaxGrpc.grpcVersion}`,
       `gax/${gax.version}`,
-      `gapic/${this.version}`,
+      `gapic/${VERSION}`,
     ];
     if (opts.libName && opts.libVersion) {
       clientHeader.push(`${opts.libName}/${opts.libVersion}`);
     }
 
     // Load the applicable protos.
-    var protos = merge({},
+    var protos = merge(
+      {},
       gaxGrpc.loadProto(
         path.join(__dirname, '..', '..', 'protos'),
         'google/cloud/language/v1beta2/language_service.proto'
-      ),
+      )
     );
 
     // Put together the default options sent with requests.
@@ -96,7 +102,7 @@ class LanguageServiceClient {
       'google.cloud.language.v1beta2.LanguageService',
       gapicConfig,
       opts.clientConfig,
-      {'x-goog-api-client': clientHeader.join(' ')},
+      {'x-goog-api-client': clientHeader.join(' ')}
     );
 
     // Set up a dictionary of "inner API calls"; the core implementation
@@ -123,10 +129,13 @@ class LanguageServiceClient {
     ];
     for (let methodName of languageServiceStubMethods) {
       this._innerApiCalls[methodName] = gax.createApiCall(
-        languageServiceStub.then(stub => function() {
-          var args = Array.prototype.slice.call(arguments, 0);
-          return stub[methodName].apply(stub, args);
-        }),
+        languageServiceStub.then(
+          stub =>
+            function() {
+              var args = Array.prototype.slice.call(arguments, 0);
+              return stub[methodName].apply(stub, args);
+            }
+        ),
         defaults[methodName],
         null
       );
@@ -152,9 +161,7 @@ class LanguageServiceClient {
    * in this service.
    */
   static get scopes() {
-    return [
-      'https://www.googleapis.com/auth/cloud-platform',
-    ];
+    return ['https://www.googleapis.com/auth/cloud-platform'];
   }
 
   /**
@@ -221,7 +228,7 @@ class LanguageServiceClient {
     options = options || {};
 
     return this._innerApiCalls.analyzeSentiment(request, options, callback);
-  };
+  }
 
   /**
    * Finds named entities (currently proper names and common nouns) in the text
@@ -275,7 +282,7 @@ class LanguageServiceClient {
     options = options || {};
 
     return this._innerApiCalls.analyzeEntities(request, options, callback);
-  };
+  }
 
   /**
    * Finds entities, similar to AnalyzeEntities in the text and analyzes
@@ -327,8 +334,12 @@ class LanguageServiceClient {
     }
     options = options || {};
 
-    return this._innerApiCalls.analyzeEntitySentiment(request, options, callback);
-  };
+    return this._innerApiCalls.analyzeEntitySentiment(
+      request,
+      options,
+      callback
+    );
+  }
 
   /**
    * Analyzes the syntax of the text and provides sentence boundaries and
@@ -382,7 +393,7 @@ class LanguageServiceClient {
     options = options || {};
 
     return this._innerApiCalls.analyzeSyntax(request, options, callback);
-  };
+  }
 
   /**
    * Classifies a document into categories.
@@ -430,7 +441,7 @@ class LanguageServiceClient {
     options = options || {};
 
     return this._innerApiCalls.classifyText(request, options, callback);
-  };
+  }
 
   /**
    * A convenience method that provides all syntax, sentiment, entity, and
@@ -492,8 +503,7 @@ class LanguageServiceClient {
     options = options || {};
 
     return this._innerApiCalls.annotateText(request, options, callback);
-  };
+  }
 }
-
 
 module.exports = LanguageServiceClient;
