@@ -17,10 +17,10 @@
 
 // [START language_quickstart]
 // Imports the Google Cloud client library
-const Language = require('@google-cloud/language');
+const language = require('@google-cloud/language');
 
 // Instantiates a client
-const language = Language();
+let client = new language.LanguageServiceClient();
 
 // The text to analyze
 const text = 'Hello, world!';
@@ -31,7 +31,7 @@ const document = {
 };
 
 // Detects the sentiment of the text
-language
+client
   .analyzeSentiment({document: document})
   .then(results => {
     const sentiment = results[0].documentSentiment;

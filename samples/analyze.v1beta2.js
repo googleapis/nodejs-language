@@ -21,7 +21,7 @@ function analyzeSentimentOfText(text) {
   const language = require('@google-cloud/language').v1beta2;
 
   // Instantiates a client
-  const client = language.LanguageServiceClient();
+  const client = new language.LanguageServiceClient();
 
   // The text to analyze, e.g. "Hello, world!"
   // const text = 'Hello, world!';
@@ -60,7 +60,7 @@ function analyzeSentimentInFile(bucketName, fileName) {
   const language = require('@google-cloud/language').v1beta2;
 
   // Instantiates the clients
-  const client = language.LanguageServiceClient();
+  const client = new language.LanguageServiceClient();
 
   // The name of the bucket where the file resides, e.g. "my-bucket"
   // const bucketName = 'my-bucket';
@@ -102,7 +102,7 @@ function analyzeEntitiesOfText(text) {
   const language = require('@google-cloud/language').v1beta2;
 
   // Instantiates the clients
-  const client = language.LanguageServiceClient();
+  const client = new language.LanguageServiceClient();
 
   // The text to analyze, e.g. "Hello, world!"
   // const text = 'Hello, world!';
@@ -140,7 +140,7 @@ function analyzeEntitiesInFile(bucketName, fileName) {
   const language = require('@google-cloud/language').v1beta2;
 
   // Instantiates the clients
-  const client = language.LanguageServiceClient();
+  const client = new language.LanguageServiceClient();
 
   // The name of the bucket where the file resides, e.g. "my-bucket"
   // const bucketName = 'my-bucket';
@@ -181,7 +181,7 @@ function analyzeSyntaxOfText(text) {
   const language = require('@google-cloud/language').v1beta2;
 
   // Instantiates the clients
-  const client = language.LanguageServiceClient();
+  const client = new language.LanguageServiceClient();
 
   // The text to analyze, e.g. "Hello, world!"
   // const text = 'Hello, world!';
@@ -216,7 +216,7 @@ function analyzeSyntaxInFile(bucketName, fileName) {
   const language = require('@google-cloud/language').v1beta2;
 
   // Instantiates the clients
-  const client = language.LanguageServiceClient();
+  const client = new language.LanguageServiceClient();
 
   // The name of the bucket where the file resides, e.g. "my-bucket"
   // const bucketName = 'my-bucket';
@@ -254,7 +254,7 @@ function classifyTextOfText(text) {
   const language = require('@google-cloud/language').v1beta2;
 
   // Creates a client
-  const client = language.LanguageServiceClient();
+  const client = new language.LanguageServiceClient();
 
   // The text to analyze, e.g. "Hello, world!"
   // const text = 'Hello, world!';
@@ -290,7 +290,7 @@ function classifyTextInFile(bucketName, fileName) {
   const language = require('@google-cloud/language').v1beta2;
 
   // Creates a client
-  const client = language.LanguageServiceClient();
+  const client = new language.LanguageServiceClient();
 
   // The name of the bucket where the file resides, e.g. "my-bucket"
   // const bucketName = 'my-bucket';
