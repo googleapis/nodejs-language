@@ -40,7 +40,10 @@ describe('LanguageServiceClient', () => {
       };
 
       // Mock Grpc layer
-      client._innerApiCalls.analyzeSentiment = mockSimpleGrpcMethod(request, expectedResponse);
+      client._innerApiCalls.analyzeSentiment = mockSimpleGrpcMethod(
+        request,
+        expectedResponse
+      );
 
       client.analyzeSentiment(request, (err, response) => {
         assert.ifError(err);
@@ -59,11 +62,16 @@ describe('LanguageServiceClient', () => {
       };
 
       // Mock Grpc layer
-      client._innerApiCalls.analyzeSentiment = mockSimpleGrpcMethod(request, null, error);
+      client._innerApiCalls.analyzeSentiment = mockSimpleGrpcMethod(
+        request,
+        null,
+        error
+      );
 
       client.analyzeSentiment(request, (err, response) => {
         assert(err instanceof Error);
         assert.equal(err.code, FAKE_STATUS_CODE);
+        assert(typeof response === 'undefined');
         done();
       });
     });
@@ -86,7 +94,10 @@ describe('LanguageServiceClient', () => {
       };
 
       // Mock Grpc layer
-      client._innerApiCalls.analyzeEntities = mockSimpleGrpcMethod(request, expectedResponse);
+      client._innerApiCalls.analyzeEntities = mockSimpleGrpcMethod(
+        request,
+        expectedResponse
+      );
 
       client.analyzeEntities(request, (err, response) => {
         assert.ifError(err);
@@ -105,11 +116,16 @@ describe('LanguageServiceClient', () => {
       };
 
       // Mock Grpc layer
-      client._innerApiCalls.analyzeEntities = mockSimpleGrpcMethod(request, null, error);
+      client._innerApiCalls.analyzeEntities = mockSimpleGrpcMethod(
+        request,
+        null,
+        error
+      );
 
       client.analyzeEntities(request, (err, response) => {
         assert(err instanceof Error);
         assert.equal(err.code, FAKE_STATUS_CODE);
+        assert(typeof response === 'undefined');
         done();
       });
     });
@@ -132,7 +148,10 @@ describe('LanguageServiceClient', () => {
       };
 
       // Mock Grpc layer
-      client._innerApiCalls.analyzeEntitySentiment = mockSimpleGrpcMethod(request, expectedResponse);
+      client._innerApiCalls.analyzeEntitySentiment = mockSimpleGrpcMethod(
+        request,
+        expectedResponse
+      );
 
       client.analyzeEntitySentiment(request, (err, response) => {
         assert.ifError(err);
@@ -151,11 +170,16 @@ describe('LanguageServiceClient', () => {
       };
 
       // Mock Grpc layer
-      client._innerApiCalls.analyzeEntitySentiment = mockSimpleGrpcMethod(request, null, error);
+      client._innerApiCalls.analyzeEntitySentiment = mockSimpleGrpcMethod(
+        request,
+        null,
+        error
+      );
 
       client.analyzeEntitySentiment(request, (err, response) => {
         assert(err instanceof Error);
         assert.equal(err.code, FAKE_STATUS_CODE);
+        assert(typeof response === 'undefined');
         done();
       });
     });
@@ -178,7 +202,10 @@ describe('LanguageServiceClient', () => {
       };
 
       // Mock Grpc layer
-      client._innerApiCalls.analyzeSyntax = mockSimpleGrpcMethod(request, expectedResponse);
+      client._innerApiCalls.analyzeSyntax = mockSimpleGrpcMethod(
+        request,
+        expectedResponse
+      );
 
       client.analyzeSyntax(request, (err, response) => {
         assert.ifError(err);
@@ -197,11 +224,16 @@ describe('LanguageServiceClient', () => {
       };
 
       // Mock Grpc layer
-      client._innerApiCalls.analyzeSyntax = mockSimpleGrpcMethod(request, null, error);
+      client._innerApiCalls.analyzeSyntax = mockSimpleGrpcMethod(
+        request,
+        null,
+        error
+      );
 
       client.analyzeSyntax(request, (err, response) => {
         assert(err instanceof Error);
         assert.equal(err.code, FAKE_STATUS_CODE);
+        assert(typeof response === 'undefined');
         done();
       });
     });
@@ -221,7 +253,10 @@ describe('LanguageServiceClient', () => {
       var expectedResponse = {};
 
       // Mock Grpc layer
-      client._innerApiCalls.classifyText = mockSimpleGrpcMethod(request, expectedResponse);
+      client._innerApiCalls.classifyText = mockSimpleGrpcMethod(
+        request,
+        expectedResponse
+      );
 
       client.classifyText(request, (err, response) => {
         assert.ifError(err);
@@ -240,11 +275,16 @@ describe('LanguageServiceClient', () => {
       };
 
       // Mock Grpc layer
-      client._innerApiCalls.classifyText = mockSimpleGrpcMethod(request, null, error);
+      client._innerApiCalls.classifyText = mockSimpleGrpcMethod(
+        request,
+        null,
+        error
+      );
 
       client.classifyText(request, (err, response) => {
         assert(err instanceof Error);
         assert.equal(err.code, FAKE_STATUS_CODE);
+        assert(typeof response === 'undefined');
         done();
       });
     });
@@ -269,7 +309,10 @@ describe('LanguageServiceClient', () => {
       };
 
       // Mock Grpc layer
-      client._innerApiCalls.annotateText = mockSimpleGrpcMethod(request, expectedResponse);
+      client._innerApiCalls.annotateText = mockSimpleGrpcMethod(
+        request,
+        expectedResponse
+      );
 
       client.annotateText(request, (err, response) => {
         assert.ifError(err);
@@ -290,16 +333,20 @@ describe('LanguageServiceClient', () => {
       };
 
       // Mock Grpc layer
-      client._innerApiCalls.annotateText = mockSimpleGrpcMethod(request, null, error);
+      client._innerApiCalls.annotateText = mockSimpleGrpcMethod(
+        request,
+        null,
+        error
+      );
 
       client.annotateText(request, (err, response) => {
         assert(err instanceof Error);
         assert.equal(err.code, FAKE_STATUS_CODE);
+        assert(typeof response === 'undefined');
         done();
       });
     });
   });
-
 });
 
 function mockSimpleGrpcMethod(expectedRequest, response, error) {
@@ -307,11 +354,9 @@ function mockSimpleGrpcMethod(expectedRequest, response, error) {
     assert.deepStrictEqual(actualRequest, expectedRequest);
     if (error) {
       callback(error);
-    }
-    else if (response) {
+    } else if (response) {
       callback(null, response);
-    }
-    else {
+    } else {
       callback(null);
     }
   };
