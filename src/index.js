@@ -63,11 +63,11 @@ const gapic = Object.freeze({
  * @example <caption>Create a client that uses
  *   <a href="https://goo.gl/64dyYX">Application Default Credentials
  *   (ADC)</a>:</caption>
- * let language = new language.LanguageServiceClient();
+ * let client = new language.LanguageServiceClient();
  *
  * @example <caption>Create a client with
  *   <a href="https://goo.gl/RXp6VL">explicit credentials</a>:</caption>
- * let language = new language.LanguageServiceClient({
+ * let client = new language.LanguageServiceClient({
  *   projectId: 'your-project-id',
  *   keyFilename: '/path/to/keyfile.json',
  * });
