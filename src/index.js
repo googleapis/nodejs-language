@@ -54,8 +54,17 @@ const gapic = Object.freeze({
  * @example <caption>Import the client library:</caption>
  * const language = require('@google-cloud/language');
  *
- * @example <caption>Create a client:</caption>
- * let client = new language.LanguageServiceClient();
+ * @example <caption>Create a client that uses
+ *   <a href="https://goo.gl/64dyYX">Application Default Credentials
+ *   (ADC)</a>:</caption>
+ * let language = new LanguageServiceClient();
+ *
+ * @example <caption>Create a client with
+ *   <a href="https://goo.gl/RXp6VL">explicit credentials</a>:</caption>
+ * let language = new LanguageServiceClient({
+ *   projectId: 'your-project-id',
+ *   keyFilename: '/path/to/keyfile.json',
+ * });
  *
  * @example <caption>include:samples/quickstart.js</caption>
  * region_tag:language_quickstart
