@@ -71,20 +71,10 @@ workflows:
               only: master
             tags:
               only: /^v[\d.]+$/
-      - slackbot_tests:
-          requires:
-            - lint
-            - docs
-          filters:
-            branches:
-              only: master
-            tags:
-              only: /^v[\d.]+$/
       - publish_npm:
           requires:
             - system_tests
             - sample_tests
-            - slackbot_tests
           filters:
             branches:
               ignore: /.*/
@@ -136,13 +126,6 @@ jobs:
             npm link @google-cloud/language
             cd ..
       - run:
-          name: Link the module being tested to the slackbot.
-          command: |
-            cd samples/slackbot/
-            npm install
-            npm link @google-cloud/language
-            cd ..
-      - run:
           name: Run linting.
           command: npm run lint
 
@@ -184,41 +167,6 @@ jobs:
       - run:
           name: Run sample tests.
           command: npm run samples-test
-          environment:
-            GCLOUD_PROJECT: long-door-651
-            GOOGLE_APPLICATION_CREDENTIALS: /var/language/.circleci/key.json
-      - run:
-          name: Remove unencrypted key.
-          command: rm .circleci/key.json
-          when: always
-    working_directory: /var/language/
-
-  slackbot_tests:
-    docker:
-      - image: node:8
-    steps:
-      - checkout
-      - run:
-          name: Decrypt credentials.
-          command: |
-            openssl aes-256-cbc -d -in .circleci/key.json.enc \
-                -out .circleci/key.json \
-                -k "${SYSTEM_TESTS_ENCRYPTION_KEY}"
-      - run:
-          name: Install and link the module.
-          command: |
-            npm install
-            npm link
-      - run:
-          name: Link the module being tested to the slackbot tests.
-          command: |
-            cd samples/slackbot/
-            npm install
-            npm link @google-cloud/language
-            cd ..
-      - run:
-          name: Run slackbot tests.
-          command: npm run slackbot-test
           environment:
             GCLOUD_PROJECT: long-door-651
             GOOGLE_APPLICATION_CREDENTIALS: /var/language/.circleci/key.json

@@ -32,7 +32,6 @@ describe('LanguageServiceSmokeTest', () => {
       .analyzeSentiment({document: document})
       .then(responses => {
         var response = responses[0];
-        console.log(response);
       })
       .then(done)
       .catch(done);

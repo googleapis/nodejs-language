@@ -18,11 +18,6 @@
       "file": "analyze.v1beta2.js",
       "docs_link": "https://cloud.google.com/natural-language/docs/",
       "usage": "node analyze.v1beta2.js --help"
-    },
-    {
-      "id": "slackbot",
-      "name": "Slack Bot",
-      "ref": "slackbot/README.md"
     }
   ]
 }

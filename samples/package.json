@@ -1,16 +1,13 @@
 {
   "name": "nodejs-docs-samples-language",
   "version": "0.0.1",
-  "private": true,
   "license": "Apache-2.0",
   "author": "Google Inc.",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/GoogleCloudPlatform/nodejs-docs-samples.git"
-  },
   "engines": {
     "node": ">=4.3.2"
   },
+  "repository": "googleapis/nodejs-language",
+  "private": true,
   "semistandard": {
     "ignore": [
       "node_modules"
@@ -23,14 +20,14 @@
   },
   "dependencies": {
     "@google-cloud/language": "0.12.1",
-    "@google-cloud/storage": "1.2.1",
-    "yargs": "8.0.2"
+    "@google-cloud/storage": "1.4.0",
+    "yargs": "9.0.1"
   },
   "devDependencies": {
-    "@google-cloud/nodejs-repo-tools": "^2.0.0",
-    "ava": "0.21.0",
+    "@google-cloud/nodejs-repo-tools": "2.0.8",
+    "ava": "0.22.0",
     "proxyquire": "1.8.0",
-    "sinon": "3.2.0",
-    "uuid": "^3.1.0"
+    "sinon": "4.0.1",
+    "uuid": "3.1.0"
   }
 }
