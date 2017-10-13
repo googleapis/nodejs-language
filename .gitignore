@@ -5,6 +5,6 @@
 docs/
 out/
 system-test/secrets.js
-key.json
+system-test/*key.json
 *.lock
 *-lock.json

@@ -18,22 +18,25 @@
 function analyzeSentimentOfText(text) {
   // [START language_sentiment_string]
   // Imports the Google Cloud client library
-  const language = require('@google-cloud/language').v1beta2;
+  const LanguageServiceClient = require('@google-cloud/language').v1beta2
+    .LanguageServiceClient;
 
-  // Instantiates a client
-  const client = new language.LanguageServiceClient();
+  // Creates a v1beta2 client
+  const language = new LanguageServiceClient();
 
-  // The text to analyze, e.g. "Hello, world!"
-  // const text = 'Hello, world!';
+  /**
+   * TODO(developer): Uncomment the following line to run this code.
+   */
+  // const text = 'Your text to analyze, e.g. Hello, world!';
 
-  // Instantiates a Document, representing the provided text
+  // Prepares a document, representing the provided text
   const document = {
     content: text,
     type: 'PLAIN_TEXT',
   };
 
   // Detects the sentiment of the document
-  client
+  language
     .analyzeSentiment({document: document})
     .then(results => {
       const sentiment = results[0].documentSentiment;
@@ -56,26 +59,27 @@ function analyzeSentimentOfText(text) {
 
 function analyzeSentimentInFile(bucketName, fileName) {
   // [START language_sentiment_file]
-  // Imports the Google Cloud client libraries
-  const language = require('@google-cloud/language').v1beta2;
+  // Imports the Google Cloud client library
+  const LanguageServiceClient = require('@google-cloud/language').v1beta2
+    .LanguageServiceClient;
 
-  // Instantiates the clients
-  const client = new language.LanguageServiceClient();
+  // Creates a v1beta2 client
+  const language = new LanguageServiceClient();
 
-  // The name of the bucket where the file resides, e.g. "my-bucket"
-  // const bucketName = 'my-bucket';
+  /**
+   * TODO(developer): Uncomment the following lines to run this code
+   */
+  // const bucketName = 'Your bucket name, e.g. my-bucket';
+  // const fileName = 'Your file name, e.g. my-file.txt';
 
-  // The name of the file to analyze, e.g. "file.txt"
-  // const fileName = 'file.txt';
-
-  // Instantiates a Document, representing a text file in Cloud Storage
+  // Prepares a document, representing a text file in Cloud Storage
   const document = {
     gcsContentUri: `gs://${bucketName}/${fileName}`,
     type: 'PLAIN_TEXT',
   };
 
   // Detects the sentiment of the document
-  client
+  language
     .analyzeSentiment({document: document})
     .then(results => {
       const sentiment = results[0].documentSentiment;
@@ -99,22 +103,25 @@ function analyzeSentimentInFile(bucketName, fileName) {
 function analyzeEntitiesOfText(text) {
   // [START language_entities_string]
   // Imports the Google Cloud client library
-  const language = require('@google-cloud/language').v1beta2;
+  const LanguageServiceClient = require('@google-cloud/language').v1beta2
+    .LanguageServiceClient;
 
-  // Instantiates the clients
-  const client = new language.LanguageServiceClient();
+  // Creates a v1beta2 client
+  const language = new LanguageServiceClient();
 
-  // The text to analyze, e.g. "Hello, world!"
-  // const text = 'Hello, world!';
+  /**
+   * TODO(developer): Uncomment the following line to run this code.
+   */
+  // const text = 'Your text to analyze, e.g. Hello, world!';
 
-  // Instantiates a Document, representing the provided text
+  // Prepares a document, representing the provided text
   const document = {
     content: text,
     type: 'PLAIN_TEXT',
   };
 
   // Detects entities in the document
-  client
+  language
     .analyzeEntities({document: document})
     .then(results => {
       const entities = results[0].entities;
@@ -136,26 +143,27 @@ function analyzeEntitiesOfText(text) {
 
 function analyzeEntitiesInFile(bucketName, fileName) {
   // [START language_entities_file]
-  // Imports the Google Cloud client libraries
-  const language = require('@google-cloud/language').v1beta2;
+  // Imports the Google Cloud client library
+  const LanguageServiceClient = require('@google-cloud/language').v1beta2
+    .LanguageServiceClient;
 
-  // Instantiates the clients
-  const client = new language.LanguageServiceClient();
+  // Creates a v1beta2 client
+  const language = new LanguageServiceClient();
 
-  // The name of the bucket where the file resides, e.g. "my-bucket"
-  // const bucketName = 'my-bucket';
+  /**
+   * TODO(developer): Uncomment the following lines to run this code
+   */
+  // const bucketName = 'Your bucket name, e.g. my-bucket';
+  // const fileName = 'Your file name, e.g. my-file.txt';
 
-  // The name of the file to analyze, e.g. "file.txt"
-  // const fileName = 'file.txt';
-
-  // Instantiates a Document, representing a text file in Cloud Storage
+  // Prepares a document, representing a text file in Cloud Storage
   const document = {
     gcsContentUri: `gs://${bucketName}/${fileName}`,
     type: 'PLAIN_TEXT',
   };
 
   // Detects entities in the document
-  client
+  language
     .analyzeEntities({document: document})
     .then(results => {
       const entities = results[0].entities;
@@ -178,22 +186,25 @@ function analyzeEntitiesInFile(bucketName, fileName) {
 function analyzeSyntaxOfText(text) {
   // [START language_syntax_string]
   // Imports the Google Cloud client library
-  const language = require('@google-cloud/language').v1beta2;
+  const LanguageServiceClient = require('@google-cloud/language').v1beta2
+    .LanguageServiceClient;
 
-  // Instantiates the clients
-  const client = new language.LanguageServiceClient();
+  // Creates a v1beta2 client
+  const language = new LanguageServiceClient();
 
-  // The text to analyze, e.g. "Hello, world!"
-  // const text = 'Hello, world!';
+  /**
+   * TODO(developer): Uncomment the following line to run this code.
+   */
+  // const text = 'Your text to analyze, e.g. Hello, world!';
 
-  // Instantiates a Document, representing the provided text
+  // Prepares a document, representing the provided text
   const document = {
     content: text,
     type: 'PLAIN_TEXT',
   };
 
   // Detects syntax in the document
-  client
+  language
     .analyzeSyntax({document: document})
     .then(results => {
       const syntax = results[0];
@@ -212,26 +223,27 @@ function analyzeSyntaxOfText(text) {
 
 function analyzeSyntaxInFile(bucketName, fileName) {
   // [START language_syntax_file]
-  // Imports the Google Cloud client libraries
-  const language = require('@google-cloud/language').v1beta2;
+  // Imports the Google Cloud client library
+  const LanguageServiceClient = require('@google-cloud/language').v1beta2
+    .LanguageServiceClient;
 
-  // Instantiates the clients
-  const client = new language.LanguageServiceClient();
+  // Creates a v1beta2 client
+  const language = new LanguageServiceClient();
 
-  // The name of the bucket where the file resides, e.g. "my-bucket"
-  // const bucketName = 'my-bucket';
+  /**
+   * TODO(developer): Uncomment the following lines to run this code
+   */
+  // const bucketName = 'Your bucket name, e.g. my-bucket';
+  // const fileName = 'Your file name, e.g. my-file.txt';
 
-  // The name of the file to analyze, e.g. "file.txt"
-  // const fileName = 'file.txt';
-
-  // Instantiates a Document, representing a text file in Cloud Storage
+  // Prepares a document, representing a text file in Cloud Storage
   const document = {
     gcsContentUri: `gs://${bucketName}/${fileName}`,
     type: 'PLAIN_TEXT',
   };
 
   // Detects syntax in the document
-  client
+  language
     .analyzeSyntax({document: document})
     .then(results => {
       const syntax = results[0];
@@ -251,22 +263,25 @@ function analyzeSyntaxInFile(bucketName, fileName) {
 function classifyTextOfText(text) {
   // [START language_classify_string]
   // Imports the Google Cloud client library
-  const language = require('@google-cloud/language').v1beta2;
+  const LanguageServiceClient = require('@google-cloud/language').v1beta2
+    .LanguageServiceClient;
 
-  // Creates a client
-  const client = new language.LanguageServiceClient();
+  // Creates a v1beta2 client
+  const language = new LanguageServiceClient();
 
-  // The text to analyze, e.g. "Hello, world!"
-  // const text = 'Hello, world!';
+  /**
+   * TODO(developer): Uncomment the following line to run this code.
+   */
+  // const text = 'Your text to analyze, e.g. Hello, world!';
 
-  // Instantiates a Document, representing the provided text
+  // Prepares a document, representing the provided text
   const document = {
     content: text,
     type: 'PLAIN_TEXT',
   };
 
   // Classifies text in the document
-  client
+  language
     .classifyText({document: document})
     .then(results => {
       const classification = results[0];
@@ -286,26 +301,27 @@ function classifyTextOfText(text) {
 
 function classifyTextInFile(bucketName, fileName) {
   // [START language_classify_file]
-  // Imports the Google Cloud client libraries
-  const language = require('@google-cloud/language').v1beta2;
+  // Imports the Google Cloud client library
+  const LanguageServiceClient = require('@google-cloud/language').v1beta2
+    .LanguageServiceClient;
 
-  // Creates a client
-  const client = new language.LanguageServiceClient();
+  // Creates a v1beta2 client
+  const language = new LanguageServiceClient();
 
-  // The name of the bucket where the file resides, e.g. "my-bucket"
-  // const bucketName = 'my-bucket';
+  /**
+   * TODO(developer): Uncomment the following lines to run this code
+   */
+  // const bucketName = 'Your bucket name, e.g. my-bucket';
+  // const fileName = 'Your file name, e.g. my-file.txt';
 
-  // The name of the file to analyze, e.g. "file.txt"
-  // const fileName = 'file.txt';
-
-  // Instantiates a Document, representing a text file in Cloud Storage
+  // Prepares a document, representing a text file in Cloud Storage
   const document = {
     gcsContentUri: `gs://${bucketName}/${fileName}`,
     type: 'PLAIN_TEXT',
   };
 
   // Classifies text in the document
-  client
+  language
     .classifyText({document: document})
     .then(results => {
       const classification = results[0];
@@ -323,7 +339,7 @@ function classifyTextInFile(bucketName, fileName) {
   // [END language_classify_file]
 }
 
-require(`yargs`) // eslint-disable-line
+require(`yargs`)
   .demand(1)
   .command(
     `sentiment-text <text>`,

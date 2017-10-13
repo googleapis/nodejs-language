@@ -20,7 +20,7 @@
 const language = require('@google-cloud/language');
 
 // Instantiates a client
-let client = new language.LanguageServiceClient();
+const client = new language.LanguageServiceClient();
 
 // The text to analyze
 const text = 'Hello, world!';

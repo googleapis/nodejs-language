@@ -12,7 +12,6 @@
 * [Samples](#samples)
   * [Analyze v1](#analyze-v1)
   * [Analyze v1beta2](#analyze-v1beta2)
-  * [Slack Bot](#slack-bot)
 
 ## Before you begin
 
@@ -96,10 +95,3 @@ For more information, see https://cloud.google.com/natural-language/docs
 
 [analyze-v1beta2_1_docs]: https://cloud.google.com/natural-language/docs/
 [analyze-v1beta2_1_code]: analyze.v1beta2.js
-
-### Slack Bot
-
-
-View the [README](slackbot/README.md).
-
-

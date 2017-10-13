@@ -4,7 +4,7 @@
 
 [![release level](https://img.shields.io/badge/release%20level-beta-yellow.svg?style&#x3D;flat)](https://cloud.google.com/terms/launch-stages)
 [![CircleCI](https://img.shields.io/circleci/project/github/googleapis/nodejs-language.svg?style=flat)](https://circleci.com/gh/googleapis/nodejs-language)
-[![AppVeyor](https://ci.appveyor.com/api/projects/status/github/googleapis/nodejs-language?svg=true)](https://ci.appveyor.com/project/googleapis/nodejs-language)
+[![AppVeyor](https://ci.appveyor.com/api/projects/status/github/googleapis/nodejs-language?branch=master&svg=true)](https://ci.appveyor.com/project/googleapis/nodejs-language)
 [![codecov](https://img.shields.io/codecov/c/github/googleapis/nodejs-language/master.svg?style=flat)](https://codecov.io/gh/googleapis/nodejs-language)
 
 > Node.js idiomatic client for [Natural Language API][product-docs].
@@ -62,29 +62,30 @@ Google APIs Client Libraries, in [Client Libraries Explained][explained].
 
 ```javascript
 // Imports the Google Cloud client library
-const Language = require('@google-cloud/language');
+const language = require('@google-cloud/language');
 
 // Instantiates a client
-const language = Language();
+const client = new language.LanguageServiceClient();
 
 // The text to analyze
 const text = 'Hello, world!';
 
 const document = {
-  'content': text,
-  type: 'PLAIN_TEXT'
+  content: text,
+  type: 'PLAIN_TEXT',
 };
 
 // Detects the sentiment of the text
-language.analyzeSentiment({'document': document})
-  .then((results) => {
+client
+  .analyzeSentiment({document: document})
+  .then(results => {
     const sentiment = results[0].documentSentiment;
 
     console.log(`Text: ${text}`);
     console.log(`Sentiment score: ${sentiment.score}`);
     console.log(`Sentiment magnitude: ${sentiment.magnitude}`);
   })
-  .catch((err) => {
+  .catch(err => {
     console.error('ERROR:', err);
   });
 ```
@@ -98,7 +99,6 @@ has instructions for running the samples.
 | --------------------------- | --------------------------------- |
 | Analyze v1 | [source code](https://github.com/googleapis/nodejs-language/blob/master/samples/analyze.v1.js) |
 | Analyze v1beta2 | [source code](https://github.com/googleapis/nodejs-language/blob/master/samples/analyze.v1beta2.js) |
-| Slack Bot | [source code](https://github.com/googleapis/nodejs-language/blob/master/samples/) |
 
 The [Natural Language API Node.js Client API Reference][client-docs] documentation
 also contains samples.
