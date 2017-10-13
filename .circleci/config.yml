@@ -122,8 +122,8 @@ jobs:
           name: Link the module being tested to the samples.
           command: |
             cd samples/
-            npm install
             npm link @google-cloud/language
+            npm install
             cd ..
       - run:
           name: Run linting.
@@ -161,8 +161,8 @@ jobs:
           name: Link the module being tested to the samples.
           command: |
             cd samples/
-            npm install
             npm link @google-cloud/language
+            npm install
             cd ..
       - run:
           name: Run sample tests.
