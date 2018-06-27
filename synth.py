@@ -15,8 +15,7 @@ for version in ['v1', 'v1beta2']:
     # skip index, protos, package.json, and README.md
     s.copy(
         library,
-        excludes=['package.json', 'README.md', 'src/index.js',
-                  f'src/{version}/index.js'])
+        excludes=['package.json', 'README.md', 'src/index.js'])
 
 #
 # Node.js specific cleanup
