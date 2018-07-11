@@ -383,6 +383,7 @@ describe('LanguageServiceClient', () => {
       });
     });
   });
+
 });
 
 function mockSimpleGrpcMethod(expectedRequest, response, error) {
