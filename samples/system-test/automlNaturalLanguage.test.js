@@ -24,7 +24,7 @@ const cmdPredict = `node ./automl/automlNaturalLanguagePredict.js`;
 
 const testDataSetName = `testDataSet`;
 const dummyDataSet = `dummyDataSet`;
-const testModelName = 'dummyModel';
+const testModelName = `dummyModel`;
 const sampleText = `./automl/resources/test.txt`;
 
 //skipped because it's been taking too long to delete datasets
