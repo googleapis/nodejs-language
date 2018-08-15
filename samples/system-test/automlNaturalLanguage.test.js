@@ -15,19 +15,12 @@
 
 'use strict';
 
-const path = require(`path`);
-const storage = require(`@google-cloud/storage`)();
 const test = require(`ava`);
 const tools = require(`@google-cloud/nodejs-repo-tools`);
-const uuid = require(`uuid`);
 
-const bucketName = `nodejs-docs-samples-test-${uuid.v4()}`;
 const cmdDataset = `node ./automl/automlNaturalLanguageDataset.js`;
 const cmdModel = `node ./automl/automlNaturalLanguageModel.js`;
 const cmdPredict = `node ./automl/automlNaturalLanguagePredict.js`;
-
-const flowerTrainData = `gs://`;
-const cwd = path.join(__dirname, `..`);
 
 const testDataSetName = `testDataSet`;
 const dummyDataSet = `dummyDataSet`;
@@ -84,7 +77,7 @@ test.skip(`It should create a dataset, import data, and start making a model`, a
 
   // Import Data
   output = await tools.runAsync(
-    `${cmdDataset} importData -i "${dataSetId}" -p "gs://nodejs-docs-samples-vcm/flowerTraindata20lines.csv"`
+    `${cmdDataset} importData -i "${dataSetId}" -p "gs://nodejs-docs-samples-vcm/happiness.csv"`
   );
   t.true(output.includes(`Data imported.`));
 
