@@ -61,7 +61,6 @@
   },
   "dependencies": {
     "google-gax": "^0.18.0",
-    "lodash": "^4.17.10",
     "lodash.merge": "^4.6.1"
   },
   "devDependencies": {
