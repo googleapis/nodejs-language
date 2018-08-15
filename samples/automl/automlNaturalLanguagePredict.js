@@ -23,6 +23,8 @@
 
 'use strict';
 
+/* eslint node/no-extraneous-require: off */
+
 /**
  * Classify the content.
  *

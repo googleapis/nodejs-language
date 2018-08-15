@@ -23,6 +23,8 @@
 
 'use strict';
 
+/* eslint node/no-extraneous-require: off */
+
 function createModel(projectId, computeRegion, datasetId, modelName) {
   // [START automl_natural_language_createModel]
   const automl = require('@google-cloud/automl');

@@ -23,6 +23,8 @@
 
 'use strict';
 
+/* eslint node/no-extraneous-require: off */
+
 function createDataset(projectId, computeRegion, datasetName, multilabel) {
   // [START automl_natural_language_createDataset]
   const automl = require('@google-cloud/automl');
