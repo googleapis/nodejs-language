@@ -25,18 +25,6 @@
 
 /* eslint node/no-extraneous-require: off */
 
-/**
- * Classify the content.
- *
- * @param {string} projectId
- *   Id of the project.
- * @param {string} computeRegion
- *   Region name.
- * @param {string} modelId
- *   Id of the model which will be used for text classification.
- * @param {string} filePath
- *   Local text file path of the content to be classified.
- */
 function predict(projectId, computeRegion, modelId, filePath) {
   // [START automl_natural_language_predict]
   const automl = require('@google-cloud/automl');
@@ -44,6 +32,14 @@ function predict(projectId, computeRegion, modelId, filePath) {
 
   // Create client for prediction service.
   const client = new automl.v1beta1.PredictionServiceClient();
+
+  /**
+   * TODO(developer): Uncomment the following line before running the sample.
+   */
+  // const projectId = `The GCLOUD_PROJECT string, e.g. "my-gcloud-project"`;
+  // const computeRegion = `region-name, e.g. "us-central1"`;
+  // const modelId = `id of the model, e.g. “ICN12345”`;
+  // const filePath = `local text file path of content to be classified, e.g. "./resources/test.txt"`;
 
   // Get the full path of the model.
   const modelFullId = client.modelPath(projectId, computeRegion, modelId);
