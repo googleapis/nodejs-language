@@ -16,7 +16,7 @@
 'use strict';
 
 function analyzeSentimentOfText(text) {
-  // [START language_sentiment_string]
+  // [START language_sentiment_text]
   // Imports the Google Cloud client library
   const language = require('@google-cloud/language');
 
@@ -53,11 +53,11 @@ function analyzeSentimentOfText(text) {
     .catch(err => {
       console.error('ERROR:', err);
     });
-  // [END language_sentiment_string]
+  // [END language_sentiment_text]
 }
 
 function analyzeSentimentInFile(bucketName, fileName) {
-  // [START language_sentiment_file]
+  // [START language_sentiment_file_gcs]
   // Imports the Google Cloud client library
   const language = require('@google-cloud/language');
 
@@ -95,7 +95,7 @@ function analyzeSentimentInFile(bucketName, fileName) {
     .catch(err => {
       console.error('ERROR:', err);
     });
-  // [END language_sentiment_file]
+  // [END language_sentiment_file_gcs]
 }
 
 function analyzeEntitiesOfText(text) {
