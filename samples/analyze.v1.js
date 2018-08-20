@@ -99,7 +99,7 @@ function analyzeSentimentInFile(bucketName, fileName) {
 }
 
 function analyzeEntitiesOfText(text) {
-  // [START language_entities_string]
+  // [START language_entities_text]
   // Imports the Google Cloud client library
   const language = require('@google-cloud/language');
 
@@ -135,11 +135,11 @@ function analyzeEntitiesOfText(text) {
     .catch(err => {
       console.error('ERROR:', err);
     });
-  // [END language_entities_string]
+  // [END language_entities_text]
 }
 
 function analyzeEntitiesInFile(bucketName, fileName) {
-  // [START language_entities_file]
+  // [START language_entities_file_gcs]
   // Imports the Google Cloud client library
   const language = require('@google-cloud/language');
 
@@ -176,7 +176,7 @@ function analyzeEntitiesInFile(bucketName, fileName) {
     .catch(err => {
       console.error('ERROR:', err);
     });
-  // [END language_entities_file]
+  // [END language_entities_file_gcs]
 }
 
 function analyzeSyntaxOfText(text) {
@@ -255,7 +255,7 @@ function analyzeSyntaxInFile(bucketName, fileName) {
 }
 
 function analyzeEntitySentimentOfText(text) {
-  // [START language_entity_sentiment_string]
+  // [START language_entity_sentiment_text]
   // Imports the Google Cloud client library
   const language = require('@google-cloud/language');
 
@@ -290,11 +290,11 @@ function analyzeEntitySentimentOfText(text) {
     .catch(err => {
       console.error('ERROR:', err);
     });
-  // [END language_entity_sentiment_string]
+  // [END language_entity_sentiment_text]
 }
 
 function analyzeEntitySentimentInFile(bucketName, fileName) {
-  // [START language_entity_sentiment_file]
+  // [START language_entity_sentiment_file_gcs]
   // Imports the Google Cloud client library
   const language = require('@google-cloud/language');
 
@@ -330,7 +330,7 @@ function analyzeEntitySentimentInFile(bucketName, fileName) {
     .catch(err => {
       console.error('ERROR:', err);
     });
-  // [END language_entity_sentiment_file]
+  // [END language_entity_sentiment_file_gcs]
 }
 
 function classifyTextOfText(text) {
