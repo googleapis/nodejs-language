@@ -334,7 +334,7 @@ function analyzeEntitySentimentInFile(bucketName, fileName) {
 }
 
 function classifyTextOfText(text) {
-  // [START language_classify_string]
+  // [START language_classify_text]
   // Imports the Google Cloud client library
   const language = require('@google-cloud/language');
 
@@ -368,11 +368,11 @@ function classifyTextOfText(text) {
     .catch(err => {
       console.error('ERROR:', err);
     });
-  // [END language_classify_string]
+  // [END language_classify_text]
 }
 
 function classifyTextInFile(bucketName, fileName) {
-  // [START language_classify_file]
+  // [START language_classify_file_gcs]
   // Imports the Google Cloud client library.
   const language = require('@google-cloud/language');
 
@@ -407,7 +407,7 @@ function classifyTextInFile(bucketName, fileName) {
     .catch(err => {
       console.error('ERROR:', err);
     });
-  // [END language_classify_file]
+  // [END language_classify_file_gcs]
 }
 
 require(`yargs`)
