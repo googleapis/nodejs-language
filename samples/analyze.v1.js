@@ -180,7 +180,7 @@ function analyzeEntitiesInFile(bucketName, fileName) {
 }
 
 function analyzeSyntaxOfText(text) {
-  // [START language_syntax_string]
+  // [START language_syntax_text]
   // Imports the Google Cloud client library
   const language = require('@google-cloud/language');
 
@@ -213,7 +213,7 @@ function analyzeSyntaxOfText(text) {
     .catch(err => {
       console.error('ERROR:', err);
     });
-  // [END language_syntax_string]
+  // [END language_syntax_text]
 }
 
 function analyzeSyntaxInFile(bucketName, fileName) {
