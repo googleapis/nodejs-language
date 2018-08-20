@@ -217,7 +217,7 @@ function analyzeSyntaxOfText(text) {
 }
 
 function analyzeSyntaxInFile(bucketName, fileName) {
-  // [START language_syntax_file]
+  // [START language_syntax_file_gcs]
   // Imports the Google Cloud client library
   const language = require('@google-cloud/language');
 
@@ -251,7 +251,7 @@ function analyzeSyntaxInFile(bucketName, fileName) {
     .catch(err => {
       console.error('ERROR:', err);
     });
-  // [END language_syntax_file]
+  // [END language_syntax_file_gcs]
 }
 
 function analyzeEntitySentimentOfText(text) {
