@@ -157,18 +157,18 @@ For more information, see https://cloud.google.com/natural-language/docs
 ```
 
 [automlNaturalLanguageDataset_docs]: https://cloud.google.com/natural-language/docs/
-[automlNaturalLanguageDataset_code]: analyze.v1beta2.js
+[automlNaturalLanguageDataset_code]: automl/automlNaturalLanguageDataset.js
 
 [shell_img]: //gstatic.com/cloudssh/images/open-btn.png
 [shell_link]: https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-language&page=editor&open_in_editor=samples/README.md
 
-### automlNautralLanguageModel
+### automlNaturalLanguageModel
 
-View the [source code][automlNautralLanguageModel_code].
+View the [source code][automlNaturalLanguageModel_code].
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-language&page=editor&open_in_editor=samples/automl/automlNautralLanguageModel.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-language&page=editor&open_in_editor=samples/automl/automlNaturalLanguageModel.js,samples/README.md)
 
-__Usage:__ `node automlNautralLanguageModel.js --help`
+__Usage:__ `node automlNaturalLanguageModel.js --help`
 
 ```
 analyze.v1beta2.js <command>
@@ -209,8 +209,8 @@ Examples:
 For more information, see https://cloud.google.com/natural-language/docs
 ```
 
-[automlNautralLanguageModel_docs]: https://cloud.google.com/natural-language/docs/
-[automlNautralLanguageModel_code]: automl/automlNautralLanguageModel.js
+[automlNaturalLanguageModel_docs]: https://cloud.google.com/natural-language/docs/
+[automlNaturalLanguageModel_code]: automl/automlNaturalLanguageModel.js
 
 [shell_img]: //gstatic.com/cloudssh/images/open-btn.png
 [shell_link]: https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-language&page=editor&open_in_editor=samples/README.md
@@ -247,7 +247,7 @@ For more information, see https://cloud.google.com/natural-language/docs
 ```
 
 [automlNaturalLanguagePredict_docs]: https://cloud.google.com/natural-language/docs/
-[automlNaturalLanguagePredict_code]: automlNaturalLanguagePredict.js
+[automlNaturalLanguagePredict_code]: automl/automlNaturalLanguagePredict.js
 
 [shell_img]: //gstatic.com/cloudssh/images/open-btn.png
 [shell_link]: https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-language&page=editor&open_in_editor=samples/README.md
