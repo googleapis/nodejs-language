@@ -210,7 +210,7 @@ For more information, see https://cloud.google.com/natural-language/docs
 ```
 
 [automlNautralLanguageModel_docs]: https://cloud.google.com/natural-language/docs/
-[automlNautralLanguageModel_code]: automlNautralLanguageModel.js
+[automlNautralLanguageModel_code]: automl/automlNautralLanguageModel.js
 
 [shell_img]: //gstatic.com/cloudssh/images/open-btn.png
 [shell_link]: https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-language&page=editor&open_in_editor=samples/README.md
