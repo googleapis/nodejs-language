@@ -21,13 +21,13 @@
  * https://cloud.google.com/natural-language/automl/docs/
  */
 
-'use strict';
+`use strict`;
 
 /* eslint node/no-extraneous-require: off */
 
 function createDataset(projectId, computeRegion, datasetName, multilabel) {
   // [START automl_natural_language_createDataset]
-  const automl = require('@google-cloud/automl');
+  const automl = require(`@google-cloud/automl`);
 
   const client = new automl.v1beta1.AutoMlClient();
 
@@ -43,9 +43,9 @@ function createDataset(projectId, computeRegion, datasetName, multilabel) {
   const projectLocation = client.locationPath(projectId, computeRegion);
 
   // Classification type is assigned based on multilabel value.
-  var classificationType = 'MULTICLASS';
+  var classificationType = `MULTICLASS`;
   if (multilabel) {
-    classificationType = 'MULTILABEL';
+    classificationType = `MULTILABEL`;
   }
 
   // Specify the text classification type for the dataset.
@@ -66,18 +66,17 @@ function createDataset(projectId, computeRegion, datasetName, multilabel) {
       const dataset = responses[0];
 
       // Display the dataset information.
-      console.log('Dataset name: ', dataset.name);
-      console.log('Dataset id: ', dataset.name.split('/').pop(-1));
-      console.log('Dataset display name: ', dataset.displayName);
-      console.log('Dataset example count: ', dataset.exampleCount);
-      console.log('Text classification type:');
+      console.log(`Dataset name: ${dataset.name}`);
+      console.log(`Dataset id: ${dataset.name.split(`/`).pop(-1)}`);
+      console.log(`Dataset display name: ${dataset.displayName}`);
+      console.log(`Dataset example count: ${dataset.exampleCount}`);
+      console.log(`Text classification type:`);
       console.log(
-        '\t',
-        dataset.textClassificationDatasetMetadata.classificationType
+        `\t ${dataset.textClassificationDatasetMetadata.classificationType}`
       );
-      console.log('Dataset create time:');
-      console.log('\tseconds: ', dataset.createTime.seconds);
-      console.log('\tnanos: ', dataset.createTime.nanos);
+      console.log(`Dataset create time:`);
+      console.log(`\tseconds: ${dataset.createTime.seconds}`);
+      console.log(`\tnanos: ${dataset.createTime.nanos}`);
     })
     .catch(err => {
       console.error(err);
@@ -87,7 +86,7 @@ function createDataset(projectId, computeRegion, datasetName, multilabel) {
 
 function listDatasets(projectId, computeRegion, filter_) {
   // [START automl_natural_language_listDatasets]
-  const automl = require('@google-cloud/automl');
+  const automl = require(`@google-cloud/automl`);
 
   const client = new automl.v1beta1.AutoMlClient();
 
@@ -108,21 +107,20 @@ function listDatasets(projectId, computeRegion, filter_) {
       const dataset = responses[0];
 
       // Display the dataset information.
-      console.log('List of datasets:');
-      for (let i = 0; i < dataset.length; i += 1) {
-        console.log('Dataset name: ', dataset[i].name);
-        console.log('Dataset id: ', dataset[i].name.split('/').pop(-1));
-        console.log('Dataset display name: ', dataset[i].displayName);
-        console.log('Dataset example count: ', dataset[i].exampleCount);
-        console.log('Text classification type:');
+      console.log(`List of datasets:`);
+      for (let i of dataset) {
+        console.log(`Dataset name: ${i.name}`);
+        console.log(`Dataset id: ${i.name.split(`/`).pop(-1)}`);
+        console.log(`Dataset display name: ${i.displayName}`);
+        console.log(`Dataset example count: ${i.exampleCount}`);
+        console.log(`Text classification type:`);
         console.log(
-          '\t',
-          dataset[i].textClassificationDatasetMetadata.classificationType
+          `\t ${i.textClassificationDatasetMetadata.classificationType}`
         );
-        console.log('Dataset create time: ');
-        console.log('\tseconds: ', dataset[i].createTime.seconds);
-        console.log('\tnanos: ', dataset[i].createTime.nanos);
-        console.log('\n');
+        console.log(`Dataset create time: `);
+        console.log(`\tseconds: ${i.createTime.seconds}`);
+        console.log(`\tnanos: ${i.createTime.nanos}`);
+        console.log(`\n`);
       }
     })
     .catch(err => {
@@ -133,7 +131,7 @@ function listDatasets(projectId, computeRegion, filter_) {
 
 function getDataset(projectId, computeRegion, datasetId) {
   // [START automl_natural_language_getDataset]
-  const automl = require('@google-cloud/automl');
+  const automl = require(`@google-cloud/automl`);
 
   const client = new automl.v1beta1.AutoMlClient();
 
@@ -154,17 +152,18 @@ function getDataset(projectId, computeRegion, datasetId) {
       const dataset = responses[0];
 
       // Display the dataset information.
-      console.log('Dataset name: ', dataset.name);
-      console.log('Dataset id: ', dataset.name.split('/').pop(-1));
-      console.log('Dataset display name: ', dataset.displayName);
-      console.log('Dataset example count: ', dataset.exampleCount);
+      console.log(`Dataset name: ${dataset.name}`);
+      console.log(`Dataset id: ${dataset.name.split(`/`).pop(-1)}`);
+      console.log(`Dataset display name: ${dataset.displayName}`);
+      console.log(`Dataset example count: ${dataset.exampleCount}`);
       console.log(
-        'Text classification type: ',
-        dataset.textClassificationDatasetMetadata.classificationType
+        `Text classification type: ${
+          dataset.textClassificationDatasetMetadata.classificationType
+        }`
       );
-      console.log('Dataset create time: ');
-      console.log('\tseconds: ', dataset.createTime.seconds);
-      console.log('\tnanos: ', dataset.createTime.nanos);
+      console.log(`Dataset create time: `);
+      console.log(`\tseconds: ${dataset.createTime.seconds}`);
+      console.log(`\tnanos: ${dataset.createTime.nanos}`);
     })
     .catch(err => {
       console.error(err);
@@ -174,7 +173,7 @@ function getDataset(projectId, computeRegion, datasetId) {
 
 function importData(projectId, computeRegion, datasetId, path) {
   // [START automl_natural_language_importDataset]
-  const automl = require('@google-cloud/automl');
+  const automl = require(`@google-cloud/automl`);
 
   const client = new automl.v1beta1.AutoMlClient();
 
@@ -190,7 +189,7 @@ function importData(projectId, computeRegion, datasetId, path) {
   const datasetFullId = client.datasetPath(projectId, computeRegion, datasetId);
 
   // Get the multiple Google Cloud Storage URIs.
-  const inputUris = path.split(',');
+  const inputUris = path.split(`,`);
   const inputConfig = {
     gcsSource: {
       inputUris: inputUris,
@@ -202,12 +201,12 @@ function importData(projectId, computeRegion, datasetId, path) {
     .importData({name: datasetFullId, inputConfig: inputConfig})
     .then(responses => {
       const operation = responses[0];
-      console.log('Processing import...');
+      console.log(`Processing import...`);
       return operation.promise();
     })
     .then(responses => {
       // The final result of the operation.
-      if (responses[2].done === true) console.log('Data imported.');
+      if (responses[2].done === true) console.log(`Data imported.`);
     })
     .catch(err => {
       console.error(err);
@@ -217,7 +216,7 @@ function importData(projectId, computeRegion, datasetId, path) {
 
 function exportData(projectId, computeRegion, datasetId, outputUri) {
   // [START automl_natural_language_exportDataset]
-  const automl = require('@google-cloud/automl');
+  const automl = require(`@google-cloud/automl`);
 
   const client = new automl.v1beta1.AutoMlClient();
 
@@ -244,12 +243,12 @@ function exportData(projectId, computeRegion, datasetId, outputUri) {
     .exportData({name: datasetFullId, outputConfig: outputConfig})
     .then(responses => {
       const operation = responses[0];
-      console.log('Processing export...');
+      console.log(`Processing export...`);
       return operation.promise();
     })
     .then(responses => {
       // The final result of the operation.
-      if (responses[2].done === true) console.log('Data exported.');
+      if (responses[2].done === true) console.log(`Data exported.`);
     })
     .catch(err => {
       console.error(err);
@@ -259,7 +258,7 @@ function exportData(projectId, computeRegion, datasetId, outputUri) {
 
 function deleteDataset(projectId, computeRegion, datasetId) {
   // [START automl_natural_language_deleteDataset]
-  const automl = require('@google-cloud/automl');
+  const automl = require(`@google-cloud/automl`);
 
   const client = new automl.v1beta1.AutoMlClient();
 
@@ -282,7 +281,7 @@ function deleteDataset(projectId, computeRegion, datasetId) {
     })
     .then(responses => {
       // The final result of the operation.
-      if (responses[2].done === true) console.log('Dataset deleted.');
+      if (responses[2].done === true) console.log(`Dataset deleted.`);
     })
     .catch(err => {
       console.error(err);

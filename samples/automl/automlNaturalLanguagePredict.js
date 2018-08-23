@@ -21,14 +21,14 @@
  * https://cloud.google.com/natural-language/automl/docs/
  */
 
-'use strict';
+`use strict`;
 
 /* eslint node/no-extraneous-require: off */
 
 function predict(projectId, computeRegion, modelId, filePath) {
   // [START automl_natural_language_predict]
-  const automl = require('@google-cloud/automl');
-  const fs = require('fs');
+  const automl = require(`@google-cloud/automl`);
+  const fs = require(`fs`);
 
   // Create client for prediction service.
   const client = new automl.v1beta1.PredictionServiceClient();
@@ -45,13 +45,13 @@ function predict(projectId, computeRegion, modelId, filePath) {
   const modelFullId = client.modelPath(projectId, computeRegion, modelId);
 
   // Read the file content for prediction.
-  const snippet = fs.readFileSync(filePath, 'utf8');
+  const snippet = fs.readFileSync(filePath, `utf8`);
 
   // Set the payload by giving the content and type of the file.
   const payload = {
     textSnippet: {
       content: snippet,
-      mimeType: 'text/plain',
+      mimeType: `text/plain`,
     },
   };
 
@@ -60,10 +60,10 @@ function predict(projectId, computeRegion, modelId, filePath) {
   client
     .predict({name: modelFullId, payload: payload, params: {}})
     .then(responses => {
-      console.log('Prediction results:');
+      console.log(`Prediction results:`);
       responses[0].payload.forEach(result => {
-        console.log('Predicted class name: ', result.displayName);
-        console.log('Predicted class score: ', result.classification.score);
+        console.log(`Predicted class name: ${result.displayName}`);
+        console.log(`Predicted class score: ${result.classification.score}`);
       });
     })
     .catch(err => {

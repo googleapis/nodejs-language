@@ -21,13 +21,13 @@
  * https://cloud.google.com/natural-language/automl/docs/
  */
 
-'use strict';
+`use strict`;
 
 /* eslint node/no-extraneous-require: off */
 
 function createModel(projectId, computeRegion, datasetId, modelName) {
   // [START automl_natural_language_createModel]
-  const automl = require('@google-cloud/automl');
+  const automl = require(`@google-cloud/automl`);
 
   const client = new automl.v1beta1.AutoMlClient();
 
@@ -56,8 +56,8 @@ function createModel(projectId, computeRegion, datasetId, modelName) {
       const operation = responses[0];
       const initialApiResponse = responses[1];
 
-      console.log('Training operation name: ', initialApiResponse.name);
-      console.log('Training started...');
+      console.log(`Training operation name: ${initialApiResponse.name}`);
+      console.log(`Training started...`);
       return operation.promise();
     })
     .then(responses => {
@@ -65,21 +65,21 @@ function createModel(projectId, computeRegion, datasetId, modelName) {
       const model = responses[0];
 
       // Retrieve deployment state.
-      var deploymentState = '';
+      var deploymentState = ``;
       if (model.deploymentState === 1) {
-        deploymentState = 'deployed';
+        deploymentState = `deployed`;
       } else if (model.deploymentState === 2) {
-        deploymentState = 'undeployed';
+        deploymentState = `undeployed`;
       }
 
       // Display the model information.
-      console.log('Model name: ', model.name);
-      console.log('Model id: ', model.name.split('/').pop(-1));
-      console.log('Model display name: ', model.displayName);
-      console.log('Model create time:');
-      console.log('\tseconds: ', model.createTime.seconds);
-      console.log('\tnanos: ', model.createTime.nanos);
-      console.log('Model deployment state: ', deploymentState);
+      console.log(`Model name: ${model.name}`);
+      console.log(`Model id: ${model.name.split(`/`).pop(-1)}`);
+      console.log(`Model display name: ${model.displayName}`);
+      console.log(`Model create time:`);
+      console.log(`\tseconds: ${model.createTime.seconds}`);
+      console.log(`\tnanos: ${model.createTime.nanos}`);
+      console.log(`Model deployment state: ${deploymentState}`);
     })
     .catch(err => {
       console.error(err);
@@ -89,7 +89,7 @@ function createModel(projectId, computeRegion, datasetId, modelName) {
 
 function getOperationStatus(operationFullId) {
   // [START automl_natural_language_getOperationStatus]
-  const automl = require('@google-cloud/automl');
+  const automl = require(`@google-cloud/automl`);
 
   const client = new automl.v1beta1.AutoMlClient();
 
@@ -102,14 +102,14 @@ function getOperationStatus(operationFullId) {
   // Get the latest state of a long-running operation.
   client.operationsClient.getOperation(operationFullId).then(responses => {
     const response = responses[0];
-    console.log('Operation status: ', response);
+    console.log(`Operation status: ${response}`);
   });
   // [END automl_natural_language_getOperationStatus]
 }
 
 function listModels(projectId, computeRegion, filter_) {
   // [START automl_natural_language_listModels]
-  const automl = require('@google-cloud/automl');
+  const automl = require(`@google-cloud/automl`);
 
   const client = new automl.v1beta1.AutoMlClient();
 
@@ -134,62 +134,54 @@ function listModels(projectId, computeRegion, filter_) {
       const model = responses[0];
 
       // Display the model information.
-      console.log('List of models:');
-      for (let i = 0; i < model.length; i += 1) {
-        console.log('Model name: ', model[i].name);
-        console.log('Model id: ', model[i].name.split('/').pop(-1));
-        console.log('Model display name: ', model[i].displayName);
-        console.log('Model dataset id: ', model[i].datasetId);
-        if (model[i].modelMetadata === 'translationModelMetadata') {
-          console.log('Translation model metadata:');
+      console.log(`List of models:`);
+      for (let i of model) {
+        console.log(`Model name: ${i.name}`);
+        console.log(`Model id: ${i.name.split(`/`).pop(-1)}`);
+        console.log(`Model display name: ${i.displayName}`);
+        console.log(`Model dataset id: ${i.datasetId}`);
+        if (i.modelMetadata === `translationModelMetadata`) {
+          console.log(`Translation model metadata:`);
+          console.log(`\tBase model: ${i.translationModelMetadata.baseModel}`);
           console.log(
-            '\tBase model: ',
-            model[i].translationModelMetadata.baseModel
+            `\tSource language code: ${
+              i.translationModelMetadata.sourceLanguageCode
+            }`
           );
           console.log(
-            '\tSource language code: ',
-            model[i].translationModelMetadata.sourceLanguageCode
+            `\tTarget language code: ${
+              i.translationModelMetadata.targetLanguageCode
+            }`
+          );
+        } else if (i.modelMetadata === `textClassificationModelMetadata`) {
+          console.log(
+            `Text classification model metadata: ${
+              i.textClassificationModelMetadata
+            }`
+          );
+        } else if (i.modelMetadata === `imageClassificationModelMetadata`) {
+          console.log(`Image classification model metadata:`);
+          console.log(
+            `\tBase model id: ${i.imageClassificationModelMetadata.baseModelId}`
           );
           console.log(
-            '\tTarget language code: ',
-            model[i].translationModelMetadata.targetLanguageCode
-          );
-        } else if (
-          model[i].modelMetadata === 'textClassificationModelMetadata'
-        ) {
-          console.log(
-            'Text classification model metadata: ',
-            model[i].textClassificationModelMetadata
-          );
-        } else if (
-          model[i].modelMetadata === 'imageClassificationModelMetadata'
-        ) {
-          console.log('Image classification model metadata:');
-          console.log(
-            '\tBase model id: ',
-            model[i].imageClassificationModelMetadata.baseModelId
+            `\tTrain budget: ${i.imageClassificationModelMetadata.trainBudget}`
           );
           console.log(
-            '\tTrain budget: ',
-            model[i].imageClassificationModelMetadata.trainBudget
+            `\tTrain cost: ${i.imageClassificationModelMetadata.trainCost}`
           );
           console.log(
-            '\tTrain cost: ',
-            model[i].imageClassificationModelMetadata.trainCost
-          );
-          console.log(
-            '\tStop reason: ',
-            model[i].imageClassificationModelMetadata.stopReason
+            `\tStop reason: ${i.imageClassificationModelMetadata.stopReason}`
           );
         }
-        console.log('Model create time:');
-        console.log('\tseconds: ', model[i].createTime.seconds);
-        console.log('\tnanos: ', model[i].createTime.nanos);
-        console.log('Model update time:');
-        console.log('\tseconds: ', model[i].updateTime.seconds);
-        console.log('\tnanos: ', model[i].updateTime.nanos);
-        console.log('Model deployment state: ', model[i].deploymentState);
-        console.log('\n');
+        console.log(`Model create time:`);
+        console.log(`\tseconds: ${i.createTime.seconds}`);
+        console.log(`\tnanos: ${i.createTime.nanos}`);
+        console.log(`Model update time:`);
+        console.log(`\tseconds: ${i.updateTime.seconds}`);
+        console.log(`\tnanos: ${i.updateTime.nanos}`);
+        console.log(`Model deployment state: ${i.deploymentState}`);
+        console.log(`\n`);
       }
     })
     .catch(err => {
@@ -200,7 +192,7 @@ function listModels(projectId, computeRegion, filter_) {
 
 function getModel(projectId, computeRegion, modelId) {
   // [START automl_natural_language_getModel]
-  const automl = require('@google-cloud/automl');
+  const automl = require(`@google-cloud/automl`);
 
   const client = new automl.v1beta1.AutoMlClient();
 
@@ -221,52 +213,57 @@ function getModel(projectId, computeRegion, modelId) {
       const model = responses[0];
 
       // Display the model information.
-      console.log('Model name: ', model.name);
-      console.log('Model id: ', model.name.split('/').pop(-1));
-      console.log('Model display name: ', model.displayName);
-      console.log('Model dataset id: ', model.datasetId);
-      if (model.modelMetadata === 'translationModelMetadata') {
-        console.log('Translation model metadata:');
-        console.log('\tBase model: ', model.translationModelMetadata.baseModel);
+      console.log(`Model name: ${model.name}`);
+      console.log(`Model id: ${model.name.split(`/`).pop(-1)}`);
+      console.log(`Model display name: ${model.displayName}`);
+      console.log(`Model dataset id: ${model.datasetId}`);
+      if (model.modelMetadata === `translationModelMetadata`) {
+        console.log(`Translation model metadata:`);
         console.log(
-          '\tSource language code: ',
-          model.translationModelMetadata.sourceLanguageCode
+          `\tBase model: ${model.translationModelMetadata.baseModel}`
         );
         console.log(
-          '\tTarget language code: ',
-          model.translationModelMetadata.targetLanguageCode
-        );
-      } else if (model.modelMetadata === 'textClassificationModelMetadata') {
-        console.log(
-          'Text classification model metadata: ',
-          model.textClassificationModelMetadata
-        );
-      } else if (model.modelMetadata === 'imageClassificationModelMetadata') {
-        console.log('Image classification model metadata:');
-        console.log(
-          '\tBase model id: ',
-          model.imageClassificationModelMetadata.baseModelId
+          `\tSource language code: ${
+            model.translationModelMetadata.sourceLanguageCode
+          }`
         );
         console.log(
-          '\tTrain budget: ',
-          model.imageClassificationModelMetadata.trainBudget
+          `\tTarget language code: ${
+            model.translationModelMetadata.targetLanguageCode
+          }`
+        );
+      } else if (model.modelMetadata === `textClassificationModelMetadata`) {
+        console.log(
+          `Text classification model metadata: ${
+            model.textClassificationModelMetadata
+          }`
+        );
+      } else if (model.modelMetadata === `imageClassificationModelMetadata`) {
+        console.log(`Image classification model metadata:`);
+        console.log(
+          `\tBase model id: ${
+            model.imageClassificationModelMetadata.baseModelId
+          }`
         );
         console.log(
-          '\tTrain cost: ',
-          model.imageClassificationModelMetadata.trainCost
+          `\tTrain budget: ${
+            model.imageClassificationModelMetadata.trainBudget
+          }`
         );
         console.log(
-          '\tStop reason: ',
-          model.imageClassificationModelMetadata.stopReason
+          `\tTrain cost: ${model.imageClassificationModelMetadata.trainCost}`
+        );
+        console.log(
+          `\tStop reason: ${model.imageClassificationModelMetadata.stopReason}`
         );
       }
-      console.log('Model create time:');
-      console.log('\tseconds: ', model.createTime.seconds);
-      console.log('\tnanos: ', model.createTime.nanos);
-      console.log('Model update time:');
-      console.log('\tseconds: ', model.updateTime.seconds);
-      console.log('\tnanos: ', model.updateTime.nanos);
-      console.log('Model deployment state: ', model.deploymentState);
+      console.log(`Model create time:`);
+      console.log(`\tseconds: ${model.createTime.seconds}`);
+      console.log(`\tnanos: ${model.createTime.nanos}`);
+      console.log(`Model update time:`);
+      console.log(`\tseconds: ${model.updateTime.seconds}`);
+      console.log(`\tnanos: ${model.updateTime.nanos}`);
+      console.log(`Model deployment state: ${model.deploymentState}`);
     })
     .catch(err => {
       console.error(err);
@@ -276,8 +273,8 @@ function getModel(projectId, computeRegion, modelId) {
 
 function listModelEvaluations(projectId, computeRegion, modelId, filter_) {
   // [START automl_natural_language_listModelEvaluations]
-  const automl = require('@google-cloud/automl');
-  const util = require('util');
+  const automl = require(`@google-cloud/automl`);
+  const util = require(`util`);
 
   const client = new automl.v1beta1.AutoMlClient();
 
@@ -297,9 +294,9 @@ function listModelEvaluations(projectId, computeRegion, modelId, filter_) {
     .listModelEvaluations({parent: modelFullId, filter: filter_})
     .then(responses => {
       const element = responses[0];
-      console.log('List of model evaluations:');
-      for (let i = 0; i < element.length; i += 1) {
-        console.log(util.inspect(element[i], false, null));
+      console.log(`List of model evaluations:`);
+      for (let i of element) {
+        console.log(util.inspect(i, false, null));
       }
     })
     .catch(err => {
@@ -315,8 +312,8 @@ function getModelEvaluation(
   modelEvaluationId
 ) {
   // [START automl_natural_language_getModelEvaluation]
-  const automl = require('@google-cloud/automl');
-  const util = require('util');
+  const automl = require(`@google-cloud/automl`);
+  const util = require(`util`);
 
   const client = new automl.v1beta1.AutoMlClient();
 
@@ -351,8 +348,8 @@ function getModelEvaluation(
 
 function displayEvaluation(projectId, computeRegion, modelId, filter_) {
   // [START automl_natural_language_displayEvaluation]
-  const automl = require('@google-cloud/automl');
-  const math = require('mathjs');
+  const automl = require(`@google-cloud/automl`);
+  const math = require(`mathjs`);
 
   const client = new automl.v1beta1.AutoMlClient();
 
@@ -376,7 +373,7 @@ function displayEvaluation(projectId, computeRegion, modelId, filter_) {
         // There is evaluation for each class in a model and for overall model.
         // Get only the evaluation of overall model.
         if (!element.annotationSpecId) {
-          const modelEvaluationId = element.name.split('/').pop(-1);
+          const modelEvaluationId = element.name.split(`/`).pop(-1);
 
           // Resource name for the model evaluation.
           const modelEvaluationFullId = client.modelEvaluationPath(
@@ -402,32 +399,32 @@ function displayEvaluation(projectId, computeRegion, modelId, filter_) {
               for (let confidenceMetricsEntry of confidenceMetricsEntries) {
                 if (confidenceMetricsEntry.confidenceThreshold === 0.5) {
                   console.log(
-                    'Precision and recall are based on a score threshold of 0.5'
+                    `Precision and recall are based on a score threshold of 0.5`
                   );
                   console.log(
-                    'Model Precision: ',
-                    math.round(confidenceMetricsEntry.precision * 100, 2) + '%'
+                    `Model Precision: `,
+                    math.round(confidenceMetricsEntry.precision * 100, 2) + `%`
                   );
                   console.log(
-                    'Model Recall: ',
-                    math.round(confidenceMetricsEntry.recall * 100, 2) + '%'
+                    `Model Recall: `,
+                    math.round(confidenceMetricsEntry.recall * 100, 2) + `%`
                   );
                   console.log(
-                    'Model F1 score: ',
-                    math.round(confidenceMetricsEntry.f1Score * 100, 2) + '%'
+                    `Model F1 score: `,
+                    math.round(confidenceMetricsEntry.f1Score * 100, 2) + `%`
                   );
                   console.log(
-                    'Model Precision@1: ',
+                    `Model Precision@1: `,
                     math.round(confidenceMetricsEntry.precisionAt1 * 100, 2) +
-                      '%'
+                      `%`
                   );
                   console.log(
-                    'Model Recall@1: ',
-                    math.round(confidenceMetricsEntry.recallAt1 * 100, 2) + '%'
+                    `Model Recall@1: `,
+                    math.round(confidenceMetricsEntry.recallAt1 * 100, 2) + `%`
                   );
                   console.log(
-                    'Model F1 score@1: ',
-                    math.round(confidenceMetricsEntry.f1ScoreAt1 * 100, 2) + '%'
+                    `Model F1 score@1: `,
+                    math.round(confidenceMetricsEntry.f1ScoreAt1 * 100, 2) + `%`
                   );
                 }
               }
@@ -446,7 +443,7 @@ function displayEvaluation(projectId, computeRegion, modelId, filter_) {
 
 function deleteModel(projectId, computeRegion, modelId) {
   // [START automl_natural_language_deleteModel]
-  const automl = require('@google-cloud/automl');
+  const automl = require(`@google-cloud/automl`);
 
   const client = new automl.v1beta1.AutoMlClient();
 
@@ -469,7 +466,7 @@ function deleteModel(projectId, computeRegion, modelId) {
     })
     .then(responses => {
       // The final result of the operation.
-      if (responses[2].done === true) console.log('Model deleted.');
+      if (responses[2].done === true) console.log(`Model deleted.`);
     })
     .catch(err => {
       console.error(err);
