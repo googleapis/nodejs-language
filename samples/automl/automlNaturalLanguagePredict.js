@@ -23,8 +23,6 @@
 
 `use strict`;
 
-/* eslint node/no-extraneous-require: off */
-
 function predict(projectId, computeRegion, modelId, filePath) {
   // [START automl_natural_language_predict]
   const automl = require(`@google-cloud/automl`);
@@ -55,8 +53,8 @@ function predict(projectId, computeRegion, modelId, filePath) {
     },
   };
 
-  // params is additional domain-specific parameters.
-  // currently there is no additional parameters supported.
+  // Params is additional domain-specific parameters.
+  // Currently there is no additional parameters supported.
   client
     .predict({name: modelFullId, payload: payload, params: {}})
     .then(responses => {
@@ -91,7 +89,6 @@ require(`yargs`)
     },
     modelId: {
       alias: `i`,
-      //default: ``,
       type: `string`,
       requiresArg: true,
       description: `Id of the model which will be used for text classification`,

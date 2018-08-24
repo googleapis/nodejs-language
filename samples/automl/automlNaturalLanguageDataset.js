@@ -23,8 +23,6 @@
 
 `use strict`;
 
-/* eslint node/no-extraneous-require: off */
-
 function createDataset(projectId, computeRegion, datasetName, multilabel) {
   // [START automl_natural_language_createDataset]
   const automl = require(`@google-cloud/automl`);
@@ -37,26 +35,23 @@ function createDataset(projectId, computeRegion, datasetName, multilabel) {
   // const projectId = `The GCLOUD_PROJECT string, e.g. "my-gcloud-project"`;
   // const computeRegion = `region-name, e.g. "us-central1"`;
   // const datasetName = `name of the dataset to create, e.g. “myDataset”`;
-  // const modelName = `Name of the model, e.g. "myModel"`;
+  // const multiLabel = `type of the classification problem, e.g “False”, “True” (multilabel)`;
 
   // A resource that represents Google Cloud Platform location.
   const projectLocation = client.locationPath(projectId, computeRegion);
 
   // Classification type is assigned based on multilabel value.
-  var classificationType = `MULTICLASS`;
+  let classificationType = `MULTICLASS`;
   if (multilabel) {
     classificationType = `MULTILABEL`;
   }
 
-  // Specify the text classification type for the dataset.
-  const datasetMetadata = {
-    classificationType: classificationType,
-  };
-
   // Set dataset name and metadata.
   const myDataset = {
     displayName: datasetName,
-    textClassificationDatasetMetadata: datasetMetadata,
+    textClassificationDatasetMetadata: {
+      classificationType: classificationType,
+    },
   };
 
   // Create a dataset with the dataset metadata in the region.
@@ -97,7 +92,7 @@ function listDatasets(projectId, computeRegion, filter_) {
   // const computeRegion = `region-name, e.g. "us-central1"`;
   // const filter_ = `filter expressions, must specify field e.g. “imageClassificationModelMetadata:*”`;
 
-  // A resource that represents Google Cloud Platform location.
+  // A resource that represents a Google Cloud Platform location.
   const projectLocation = client.locationPath(projectId, computeRegion);
 
   // List all the datasets available in the region by applying filter.
@@ -331,7 +326,6 @@ require(`yargs`)
     outputUri: {
       alias: `o`,
       type: `string`,
-      //default: `gs://nodejs-docs-samples-vcm/dataSetOutput.csv`,
       requiresArg: true,
       description: `URI (or local path) to export dataset`,
     },
