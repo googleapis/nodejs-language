@@ -161,7 +161,9 @@ class LanguageServiceClient {
    * in this service.
    */
   static get scopes() {
-    return ['https://www.googleapis.com/auth/cloud-platform'];
+    return [
+      'https://www.googleapis.com/auth/cloud-platform',
+    ];
   }
 
   /**
@@ -333,11 +335,7 @@ class LanguageServiceClient {
     }
     options = options || {};
 
-    return this._innerApiCalls.analyzeEntitySentiment(
-      request,
-      options,
-      callback
-    );
+    return this._innerApiCalls.analyzeEntitySentiment(request, options, callback);
   }
 
   /**
@@ -504,5 +502,6 @@ class LanguageServiceClient {
     return this._innerApiCalls.annotateText(request, options, callback);
   }
 }
+
 
 module.exports = LanguageServiceClient;
