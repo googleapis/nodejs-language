@@ -526,7 +526,7 @@ require(`yargs`)
     projectId: {
       alias: `z`,
       type: `number`,
-      default: process.env.PROJECT_ID,
+      default: process.env.GCLOUD_PROJECT,
       requiresArg: true,
       description: `The GCLOUD_PROJECT string, e.g. "my-gcloud-project"`,
     },
