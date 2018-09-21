@@ -127,7 +127,7 @@ class LanguageServiceClient {
       'classifyText',
       'annotateText',
     ];
-    for (const methodName of languageServiceStubMethods) {
+    for (let methodName of languageServiceStubMethods) {
       this._innerApiCalls[methodName] = gax.createApiCall(
         languageServiceStub.then(
           stub =>
