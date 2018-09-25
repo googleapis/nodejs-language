@@ -79,7 +79,7 @@ function createDataset(projectId, computeRegion, datasetName, multilabel) {
   // [END automl_natural_language_createDataset]
 }
 
-function listDatasets(projectId, computeRegion, filter_) {
+function listDatasets(projectId, computeRegion, filter) {
   // [START automl_natural_language_listDatasets]
   const automl = require(`@google-cloud/automl`);
 
@@ -97,26 +97,26 @@ function listDatasets(projectId, computeRegion, filter_) {
 
   // List all the datasets available in the region by applying filter.
   client
-    .listDatasets({parent: projectLocation, filter: filter_})
+    .listDatasets({parent: projectLocation, filter: filter})
     .then(responses => {
-      const dataset = responses[0];
+      const datasets = responses[0];
 
       // Display the dataset information.
       console.log(`List of datasets:`);
-      for (let i of dataset) {
-        console.log(`Dataset name: ${i.name}`);
-        console.log(`Dataset id: ${i.name.split(`/`).pop(-1)}`);
-        console.log(`Dataset display name: ${i.displayName}`);
-        console.log(`Dataset example count: ${i.exampleCount}`);
+      datasets.forEach(dataset => {
+        console.log(`Dataset name: ${dataset.name}`);
+        console.log(`Dataset id: ${dataset.name.split(`/`).pop(-1)}`);
+        console.log(`Dataset display name: ${dataset.displayName}`);
+        console.log(`Dataset example count: ${dataset.exampleCount}`);
         console.log(`Text classification type:`);
         console.log(
-          `\t ${i.textClassificationDatasetMetadata.classificationType}`
+          `\t ${dataset.textClassificationDatasetMetadata.classificationType}`
         );
         console.log(`Dataset create time: `);
-        console.log(`\tseconds: ${i.createTime.seconds}`);
-        console.log(`\tnanos: ${i.createTime.nanos}`);
+        console.log(`\tseconds: ${dataset.createTime.seconds}`);
+        console.log(`\tnanos: ${dataset.createTime.nanos}`);
         console.log(`\n`);
-      }
+      });
     })
     .catch(err => {
       console.error(err);
@@ -307,12 +307,12 @@ require(`yargs`)
       requiresArg: true,
       description: `Id of the dataset`,
     },
-    filter_: {
+    filter: {
       alias: `f`,
       default: `text_classification_dataset_metadata:*`,
       type: `string`,
-      requiresArg: true,
-      description: `Name of the Dataset to search for`,
+      requiresArg: false,
+      description: `filter expression`,
     },
     multilabel: {
       alias: `m`,
@@ -345,7 +345,7 @@ require(`yargs`)
       description: `The GCLOUD_PROJECT string, e.g. "my-gcloud-project"`,
     },
   })
-  .command(`createDataset`, `creates a new Dataset`, {}, opts =>
+  .command(`create-dataset`, `creates a new Dataset`, {}, opts =>
     createDataset(
       opts.projectId,
       opts.computeRegion,
@@ -353,20 +353,20 @@ require(`yargs`)
       opts.multilabel
     )
   )
-  .command(`listDatasets`, `list all Datasets`, {}, opts =>
-    listDatasets(opts.projectId, opts.computeRegion, opts.filter_)
+  .command(`list-datasets`, `list all Datasets`, {}, opts =>
+    listDatasets(opts.projectId, opts.computeRegion, opts.filter)
   )
-  .command(`getDataset`, `Get a Dataset`, {}, opts =>
+  .command(`get-dataset`, `Get a Dataset`, {}, opts =>
     getDataset(opts.projectId, opts.computeRegion, opts.datasetId)
   )
-  .command(`deleteDataset`, `Delete a dataset`, {}, opts =>
+  .command(`delete-dataset`, `Delete a dataset`, {}, opts =>
     deleteDataset(opts.projectId, opts.computeRegion, opts.datasetId)
   )
-  .command(`importData`, `Import labeled items into dataset`, {}, opts =>
+  .command(`import-data`, `Import labeled items into dataset`, {}, opts =>
     importData(opts.projectId, opts.computeRegion, opts.datasetId, opts.path)
   )
   .command(
-    `exportData`,
+    `export-data`,
     `Export a dataset to a Google Cloud Storage Bucket`,
     {},
     opts =>
@@ -377,15 +377,15 @@ require(`yargs`)
         opts.outputUri
       )
   )
-  .example(`node $0 createDataset -n "newDataSet"`)
-  .example(`node $0 listDatasets -f "imageClassificationDatasetMetadata:*"`)
-  .example(`node $0 getDataset -i "DATASETID"`)
-  .example(`node $0 deleteDataset -i "DATASETID"`)
+  .example(`node $0 create-dataset -n "newDataSet"`)
+  .example(`node $0 list-datasets -f "imageClassificationDatasetMetadata:*"`)
+  .example(`node $0 get-dataset -i "DATASETID"`)
+  .example(`node $0 delete-dataset -i "DATASETID"`)
   .example(
-    `node $0 importData -i "dataSetId" -p "gs://myproject/mytraindata.csv"`
+    `node $0 import-data -i "dataSetId" -p "gs://myproject/mytraindata.csv"`
   )
   .example(
-    `node $0 exportData -i "dataSetId" -o "gs://myproject/outputdestination.csv"`
+    `node $0 export-data -i "dataSetId" -o "gs://myproject/outputdestination.csv"`
   )
   .wrap(120)
   .recommendCommands()

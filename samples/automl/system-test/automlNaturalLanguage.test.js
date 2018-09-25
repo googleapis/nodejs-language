@@ -18,25 +18,24 @@
 const test = require(`ava`);
 const tools = require(`@google-cloud/nodejs-repo-tools`);
 
-const automl = `node ./automl`;
-const cmdDataset = `${automl}/automlNaturalLanguageDataset.js`;
-const cmdModel = `${automl}/automlNaturalLanguageModel.js`;
-const cmdPredict = `${automl}/automlNaturalLanguagePredict.js`;
+const cmdDataset = `node automlNaturalLanguageDataset.js`;
+const cmdModel = `node automlNaturalLanguageModel.js`;
+const cmdPredict = `node automlNaturalLanguagePredict.js`;
 
 const testDataSetName = `testDataset`;
 const dummyDataSet = `dummyDataset`;
 const testModelName = `dummyModel`;
-const sampleText = `./automl/resources/test.txt`;
+const sampleText = `./resources/test.txt`;
 
 // Skipped because it's been taking too long to delete datasets
-test.skip(`It should create a create, list, and delete a dataset`, async t => {
+test.skip(`should create a create, list, and delete a dataset`, async t => {
   // Check to see that this dataset does not yet exist
-  let output = await tools.runAsync(`${cmdDataset} listDatasets`);
+  let output = await tools.runAsync(`${cmdDataset} list-datasets`);
   t.false(output.includes(testDataSetName));
 
   // Create dataset
   output = await tools.runAsync(
-    `${cmdDataset} createDataset -n "${testDataSetName}"`
+    `${cmdDataset} create-dataset -n "${testDataSetName}"`
   );
   const parsedOut = output.split(`\n`);
   const dataSetName = parsedOut[0].split(`:`)[1].trim();
@@ -50,21 +49,21 @@ test.skip(`It should create a create, list, and delete a dataset`, async t => {
 
   // Delete dataset
   output = await tools.runAsync(
-    `${cmdDataset} deleteDataset -i "${dataSetId}"`
+    `${cmdDataset} delete-dataset -i "${dataSetId}"`
   );
   t.true(output.includes(`Dataset deleted.`));
 });
 
 // See : https://github.com/GoogleCloudPlatform/python-docs-samples/blob/master/NaturalLanguage/automl/model_test.py
 // We make two models running this test, see hard-coded workaround below
-test.skip(`It should create a dataset, import data, and start making a model`, async t => {
+test.skip(`should create a dataset, import data, and start making a model`, async t => {
   // Check to see that this dataset does not yet exist
-  let output = await tools.runAsync(`${cmdDataset} listDatasets`);
+  let output = await tools.runAsync(`${cmdDataset} list-datasets`);
   t.false(output.includes(dummyDataSet));
 
   // Create dataset
   output = await tools.runAsync(
-    `${cmdDataset} createDataset -n "${dummyDataSet}"`
+    `${cmdDataset} create-dataset -n "${dummyDataSet}"`
   );
 
   const dataSetId = output
@@ -75,17 +74,17 @@ test.skip(`It should create a dataset, import data, and start making a model`, a
 
   // Import Data
   output = await tools.runAsync(
-    `${cmdDataset} importData -i "${dataSetId}" -p "gs://nodejs-docs-samples-vcm/happiness.csv"`
+    `${cmdDataset} import-data -i "${dataSetId}" -p "gs://nodejs-docs-samples-vcm/happiness.csv"`
   );
   t.true(output.includes(`Data imported.`));
 
   // Check to make sure model doesn't already exist
-  output = await tools.runAsync(`${cmdModel} listModels`);
+  output = await tools.runAsync(`${cmdModel} list-models`);
   t.false(output.includes(`${testModelName}`));
 
   // Begin training dataset, getting operation ID for next operation
   output = await tools.runAsync(
-    `${cmdModel} createModel -i "${dataSetId}" -m "${testModelName}" -t "2"`
+    `${cmdModel} create-model -i "${dataSetId}" -m "${testModelName}" -t "2"`
   );
   const operationName = output
     .split(`\n`)[0]
@@ -95,42 +94,42 @@ test.skip(`It should create a dataset, import data, and start making a model`, a
 
   // Poll operation status, here confirming that operation is not complete yet
   output = await tools.runAsync(
-    `${cmdModel} getOperationStatus -i "${dataSetId}" -o "${operationName}"`
+    `${cmdModel} get-operation-status -i "${dataSetId}" -o "${operationName}"`
   );
   t.true(output.includes(`done: false`));
 });
 
-test(`It should display evaluation from prexisting model`, async t => {
+test(`should display evaluation from prexisting model`, async t => {
   const displayName = `dummyDb`;
   const donotdeleteModelId = `TCN4740161257642267869`;
 
   // Confirm dataset exists
-  let output = await tools.runAsync(`${cmdDataset} listDatasets`);
+  let output = await tools.runAsync(`${cmdDataset} list-datasets`);
   t.true(output.includes(displayName));
 
   // List model evaluations, confirm model exists
   output = await tools.runAsync(
-    `${cmdModel} listModelEvaluations -a "${donotdeleteModelId}"`
+    `${cmdModel} list-model-evaluations -a "${donotdeleteModelId}"`
   );
 
   // Display evaluation
   output = await tools.runAsync(
-    `${cmdModel} displayEvaluation -a "${donotdeleteModelId}"`
+    `${cmdModel} display-evaluation -a "${donotdeleteModelId}"`
   );
   t.true(output.includes(`Model Precision:`));
 });
 
-test(`It should run Prediction from prexisting model`, async t => {
+test(`should run Prediction from prexisting model`, async t => {
   const displayName = `do_not_delete_me`;
   const donotdeleteModelId = `TCN4740161257642267869`;
 
   // Confirm dataset exists
-  let output = await tools.runAsync(`${cmdDataset} listDatasets`);
+  let output = await tools.runAsync(`${cmdDataset} list-datasets`);
   t.true(output.includes(displayName));
 
   // List model evaluations, confirm model exists
   output = await tools.runAsync(
-    `${cmdModel} listModelEvaluations -a "${donotdeleteModelId}"`
+    `${cmdModel} list-model-evaluations -a "${donotdeleteModelId}"`
   );
   t.true(output.includes(`classificationEvaluationMetrics:`));
 
@@ -143,6 +142,6 @@ test(`It should run Prediction from prexisting model`, async t => {
 
 // List datasets
 test(`should list datasets`, async t => {
-  const output = await tools.runAsync(`${cmdDataset} listDatasets`);
+  const output = await tools.runAsync(`${cmdDataset} list-datasets`);
   t.true(output.includes(`List of datasets:`));
 });

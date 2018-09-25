@@ -105,7 +105,7 @@ function getOperationStatus(operationFullId) {
   // [END automl_natural_language_getOperationStatus]
 }
 
-function listModels(projectId, computeRegion, filter_) {
+function listModels(projectId, computeRegion, filter) {
   // [START automl_natural_language_listModels]
   const automl = require(`@google-cloud/automl`);
 
@@ -122,65 +122,73 @@ function listModels(projectId, computeRegion, filter_) {
   const projectLocation = client.locationPath(projectId, computeRegion);
 
   // List all the models available in the region by applying filter.
-  if (filter_ === ``) filter_ = `textClassificationModelMetadata:*`;
+  if (filter === ``) filter = `textClassificationModelMetadata:*`;
   client
     .listModels({
       parent: projectLocation,
-      filter: filter_,
+      filter: filter,
     })
     .then(responses => {
-      const model = responses[0];
+      const models = responses[0];
 
       // Display the model information.
       console.log(`List of models:`);
-      for (let i of model) {
-        console.log(`Model name: ${i.name}`);
-        console.log(`Model id: ${i.name.split(`/`).pop(-1)}`);
-        console.log(`Model display name: ${i.displayName}`);
-        console.log(`Model dataset id: ${i.datasetId}`);
-        if (i.modelMetadata === `translationModelMetadata`) {
+      models.forEach(model => {
+        console.log(`Model name: ${model.name}`);
+        console.log(`Model id: ${model.name.split(`/`).pop(-1)}`);
+        console.log(`Model display name: ${model.displayName}`);
+        console.log(`Model dataset id: ${model.datasetId}`);
+        if (model.modelMetadata === `translationModelMetadata`) {
           console.log(`Translation model metadata:`);
-          console.log(`\tBase model: ${i.translationModelMetadata.baseModel}`);
+          console.log(
+            `\tBase model: ${model.translationModelMetadata.baseModel}`
+          );
           console.log(
             `\tSource language code: ${
-              i.translationModelMetadata.sourceLanguageCode
+              model.translationModelMetadata.sourceLanguageCode
             }`
           );
           console.log(
             `\tTarget language code: ${
-              i.translationModelMetadata.targetLanguageCode
+              model.translationModelMetadata.targetLanguageCode
             }`
           );
-        } else if (i.modelMetadata === `textClassificationModelMetadata`) {
+        } else if (model.modelMetadata === `textClassificationModelMetadata`) {
           console.log(
             `Text classification model metadata: ${
-              i.textClassificationModelMetadata
+              model.textClassificationModelMetadata
             }`
           );
-        } else if (i.modelMetadata === `imageClassificationModelMetadata`) {
+        } else if (model.modelMetadata === `imageClassificationModelMetadata`) {
           console.log(`Image classification model metadata:`);
           console.log(
-            `\tBase model id: ${i.imageClassificationModelMetadata.baseModelId}`
+            `\tBase model id: ${
+              model.imageClassificationModelMetadata.baseModelId
+            }`
           );
           console.log(
-            `\tTrain budget: ${i.imageClassificationModelMetadata.trainBudget}`
+            `\tTrain budget: ${
+              model.imageClassificationModelMetadata.trainBudget
+            }`
           );
           console.log(
-            `\tTrain cost: ${i.imageClassificationModelMetadata.trainCost}`
+            `\tTrain cost: ${model.imageClassificationModelMetadata.trainCost}`
           );
           console.log(
-            `\tStop reason: ${i.imageClassificationModelMetadata.stopReason}`
+            `\tStop reason: ${
+              model.imageClassificationModelMetadata.stopReason
+            }`
           );
         }
         console.log(`Model create time:`);
-        console.log(`\tseconds: ${i.createTime.seconds}`);
-        console.log(`\tnanos: ${i.createTime.nanos}`);
+        console.log(`\tseconds: ${model.createTime.seconds}`);
+        console.log(`\tnanos: ${model.createTime.nanos}`);
         console.log(`Model update time:`);
-        console.log(`\tseconds: ${i.updateTime.seconds}`);
-        console.log(`\tnanos: ${i.updateTime.nanos}`);
-        console.log(`Model deployment state: ${i.deploymentState}`);
+        console.log(`\tseconds: ${model.updateTime.seconds}`);
+        console.log(`\tnanos: ${model.updateTime.nanos}`);
+        console.log(`Model deployment state: ${model.deploymentState}`);
         console.log(`\n`);
-      }
+      });
     })
     .catch(err => {
       console.error(err);
@@ -291,11 +299,11 @@ function listModelEvaluations(projectId, computeRegion, modelId, filter_) {
   client
     .listModelEvaluations({parent: modelFullId, filter: filter_})
     .then(responses => {
-      const element = responses[0];
+      const elements = responses[0];
       console.log(`List of model evaluations:`);
-      for (let i of element) {
-        console.log(util.inspect(i, false, null));
-      }
+      elements.forEach(element => {
+        console.log(util.inspect(element, false, null));
+      });
     })
     .catch(err => {
       console.error(err);
@@ -344,7 +352,7 @@ function getModelEvaluation(
   // [END automl_natural_language_getModelEvaluation]
 }
 
-function displayEvaluation(projectId, computeRegion, modelId, filter_) {
+function displayEvaluation(projectId, computeRegion, modelId, filter) {
   // [START automl_natural_language_displayEvaluation]
   const automl = require(`@google-cloud/automl`);
   const math = require(`mathjs`);
@@ -364,10 +372,10 @@ function displayEvaluation(projectId, computeRegion, modelId, filter_) {
 
   // List all the model evaluations in the model by applying filter.
   client
-    .listModelEvaluations({parent: modelFullId, filter: filter_})
+    .listModelEvaluations({parent: modelFullId, filter: filter})
     .then(respond => {
       const response = respond[0];
-      for (let element of response) {
+      response.forEach(element => {
         // There is evaluation for each class in a model and for overall model.
         // Get only the evaluation of overall model.
         if (!element.annotationSpecId) {
@@ -394,7 +402,7 @@ function displayEvaluation(projectId, computeRegion, modelId, filter_) {
                 classMetrics.confidenceMetricsEntry;
 
               // Showing model score based on threshold of 0.5
-              for (let confidenceMetricsEntry of confidenceMetricsEntries) {
+              confidenceMetricsEntries.forEach(confidenceMetricsEntry => {
                 if (confidenceMetricsEntry.confidenceThreshold === 0.5) {
                   console.log(
                     `Precision and recall are based on a score threshold of 0.5`
@@ -425,13 +433,13 @@ function displayEvaluation(projectId, computeRegion, modelId, filter_) {
                     math.round(confidenceMetricsEntry.f1ScoreAt1 * 100, 2) + `%`
                   );
                 }
-              }
+              });
             })
             .catch(err => {
               console.error(err);
             });
         }
-      }
+      });
     })
     .catch(err => {
       console.error(err);
@@ -488,7 +496,7 @@ require(`yargs`)
       requiresArg: true,
       description: `Id of the dataset`,
     },
-    filter_: {
+    filter: {
       alias: `f`,
       default: ``,
       type: `string`,
@@ -538,7 +546,7 @@ require(`yargs`)
       description: `Budget for training the model`,
     },
   })
-  .command(`createModel`, `creates a new Model`, {}, opts =>
+  .command(`create-model`, `creates a new Model`, {}, opts =>
     createModel(
       opts.projectId,
       opts.computeRegion,
@@ -547,24 +555,27 @@ require(`yargs`)
       opts.trainBudget
     )
   )
-  .command(`getOperationStatus`, `Gets status of current operation`, {}, opts =>
-    getOperationStatus(opts.operationFullId)
+  .command(
+    `get-operation-status`,
+    `Gets status of current operation`,
+    {},
+    opts => getOperationStatus(opts.operationFullId)
   )
-  .command(`listModels`, `list all Models`, {}, opts =>
-    listModels(opts.projectId, opts.computeRegion, opts.filter_)
+  .command(`list-models`, `list all Models`, {}, opts =>
+    listModels(opts.projectId, opts.computeRegion, opts.filter)
   )
-  .command(`getModel`, `Get a Model`, {}, opts =>
+  .command(`get-model`, `Get a Model`, {}, opts =>
     getModel(opts.projectId, opts.computeRegion, opts.modelId)
   )
-  .command(`listModelEvaluations`, `List model evaluations`, {}, opts =>
+  .command(`list-model-evaluations`, `List model evaluations`, {}, opts =>
     listModelEvaluations(
       opts.projectId,
       opts.computeRegion,
       opts.modelId,
-      opts.filter_
+      opts.filter
     )
   )
-  .command(`getModelEvaluation`, `Get model evaluation`, {}, opts =>
+  .command(`get-model-evaluation`, `Get model evaluation`, {}, opts =>
     getModelEvaluation(
       opts.projectId,
       opts.computeRegion,
@@ -572,25 +583,25 @@ require(`yargs`)
       opts.modelEvaluationId
     )
   )
-  .command(`displayEvaluation`, `Display evaluation`, {}, opts =>
+  .command(`display-evaluation`, `Display evaluation`, {}, opts =>
     displayEvaluation(
       opts.projectId,
       opts.computeRegion,
       opts.modelId,
-      opts.filter_
+      opts.filter
     )
   )
-  .command(`deleteModel`, `Delete a Model`, {}, opts =>
+  .command(`delete-model`, `Delete a Model`, {}, opts =>
     deleteModel(opts.projectId, opts.computeRegion, opts.modelId)
   )
-  .example(`node $0 createModel -i "DatasetID" -m "myModelName" -t "2"`)
-  .example(`node $0 getOperationStatus -i "datasetId" -o "OperationFullID"`)
-  .example(`node $0 listModels -f "textClassificationModelMetadata:*"`)
-  .example(`node $0 getModel -a "ModelID"`)
-  .example(`node $0 listModelEvaluations -a "ModelID"`)
-  .example(`node $0 getModelEvaluation -a "ModelId" -e "ModelEvaluationID"`)
-  .example(`node $0 displayEvaluation -a "ModelId"`)
-  .example(`node $0 deleteModel -a "ModelID"`)
+  .example(`node $0 create-model -i "DatasetID" -m "myModelName" -t "2"`)
+  .example(`node $0 get-operation-status -i "datasetId" -o "OperationFullID"`)
+  .example(`node $0 list-models -f "textClassificationModelMetadata:*"`)
+  .example(`node $0 get-model -a "ModelID"`)
+  .example(`node $0 list-model-evaluations -a "ModelID"`)
+  .example(`node $0 get-model-evaluation -a "ModelId" -e "ModelEvaluationID"`)
+  .example(`node $0 display-evaluation -a "ModelId"`)
+  .example(`node $0 delete-model -a "ModelID"`)
   .wrap(120)
   .recommendCommands()
   .help()
