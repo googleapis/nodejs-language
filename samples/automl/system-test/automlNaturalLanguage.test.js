@@ -15,9 +15,8 @@
 
 'use strict';
 
-const test = require(`ava`);
+const assert = require(`assert`);
 const tools = require(`@google-cloud/nodejs-repo-tools`);
-
 const cmdDataset = `node automlNaturalLanguageDataset.js`;
 const cmdModel = `node automlNaturalLanguageModel.js`;
 const cmdPredict = `node automlNaturalLanguagePredict.js`;
@@ -28,38 +27,33 @@ const testModelName = `dummyModel`;
 const sampleText = `./resources/test.txt`;
 
 // Skipped because it's been taking too long to delete datasets
-test.skip(`should create a create, list, and delete a dataset`, async t => {
+it.skip(`should create a create, list, and delete a dataset`, async () => {
   // Check to see that this dataset does not yet exist
   let output = await tools.runAsync(`${cmdDataset} list-datasets`);
-  t.false(output.includes(testDataSetName));
+  //t.false(output.includes(testDataSetName));
+  assert.notStrictEqual(RegExp(`testDataset`).test(output));
 
   // Create dataset
   output = await tools.runAsync(
     `${cmdDataset} create-dataset -n "${testDataSetName}"`
   );
   const parsedOut = output.split(`\n`);
-  const dataSetName = parsedOut[0].split(`:`)[1].trim();
   const dataSetId = parsedOut[1].split(`:`)[1].trim();
-  const dataSetDisplayName = parsedOut[2].split(`:`)[1].trim();
-  t.true(output.includes(`Dataset display name:  ${testDataSetName}`));
-
-  console.log(`dataSetName: ${dataSetName}`);
-  console.log(`dataSetId: ${dataSetId}`);
-  console.log(`dataSetDisplayName: ${dataSetDisplayName}`);
+  assert(RegExp(`Dataset display name:  testDataset`).test(output));
 
   // Delete dataset
   output = await tools.runAsync(
     `${cmdDataset} delete-dataset -i "${dataSetId}"`
   );
-  t.true(output.includes(`Dataset deleted.`));
+  assert(RegExp(`Dataset deleted.`).test(output));
 });
 
 // See : https://github.com/GoogleCloudPlatform/python-docs-samples/blob/master/NaturalLanguage/automl/model_test.py
 // We make two models running this test, see hard-coded workaround below
-test.skip(`should create a dataset, import data, and start making a model`, async t => {
+it.skip(`should create a dataset, import data, and start making a model`, async () => {
   // Check to see that this dataset does not yet exist
   let output = await tools.runAsync(`${cmdDataset} list-datasets`);
-  t.false(output.includes(dummyDataSet));
+  assert.notStrictEqual(RegExp(`dummyDataset`).test(output));
 
   // Create dataset
   output = await tools.runAsync(
@@ -70,17 +64,17 @@ test.skip(`should create a dataset, import data, and start making a model`, asyn
     .split(`\n`)[1]
     .split(`:`)[1]
     .trim();
-  t.true(output.includes(`Dataset display name:  ${dummyDataSet}`));
+  assert(RegExp(`Dataset display name:  dummyDataSet`).test(output));
 
   // Import Data
   output = await tools.runAsync(
     `${cmdDataset} import-data -i "${dataSetId}" -p "gs://nodejs-docs-samples-vcm/happiness.csv"`
   );
-  t.true(output.includes(`Data imported.`));
+  assert(RegExp(`Data imported.`).test(output));
 
   // Check to make sure model doesn't already exist
   output = await tools.runAsync(`${cmdModel} list-models`);
-  t.false(output.includes(`${testModelName}`));
+  assert.notStrictEqual(RegExp(`dummyModel`).test(output));
 
   // Begin training dataset, getting operation ID for next operation
   output = await tools.runAsync(
@@ -90,22 +84,21 @@ test.skip(`should create a dataset, import data, and start making a model`, asyn
     .split(`\n`)[0]
     .split(`:`)[1]
     .trim();
-  t.true(output.includes(`Training started...`));
+  assert(RegExp(`Training started...`).test(output));
 
   // Poll operation status, here confirming that operation is not complete yet
   output = await tools.runAsync(
     `${cmdModel} get-operation-status -i "${dataSetId}" -o "${operationName}"`
   );
-  t.true(output.includes(`done: false`));
+  assert(RegExp(`done: false`).test(output));
 });
 
-test(`should display evaluation from prexisting model`, async t => {
-  const displayName = `dummyDb`;
+it(`should display evaluation from prexisting model`, async () => {
   const donotdeleteModelId = `TCN4740161257642267869`;
 
   // Confirm dataset exists
   let output = await tools.runAsync(`${cmdDataset} list-datasets`);
-  t.true(output.includes(displayName));
+  assert(RegExp(`dummyDb`).test(output));
 
   // List model evaluations, confirm model exists
   output = await tools.runAsync(
@@ -116,32 +109,31 @@ test(`should display evaluation from prexisting model`, async t => {
   output = await tools.runAsync(
     `${cmdModel} display-evaluation -a "${donotdeleteModelId}"`
   );
-  t.true(output.includes(`Model Precision:`));
+  assert(RegExp(`Model Precision:`).test(output));
 });
 
-test(`should run Prediction from prexisting model`, async t => {
-  const displayName = `do_not_delete_me`;
+it(`should run Prediction from prexisting model`, async () => {
   const donotdeleteModelId = `TCN4740161257642267869`;
 
   // Confirm dataset exists
   let output = await tools.runAsync(`${cmdDataset} list-datasets`);
-  t.true(output.includes(displayName));
+  assert(RegExp(`do_not_delete_me`).test(output));
 
   // List model evaluations, confirm model exists
   output = await tools.runAsync(
     `${cmdModel} list-model-evaluations -a "${donotdeleteModelId}"`
   );
-  t.true(output.includes(`classificationEvaluationMetrics:`));
+  assert(RegExp(`classificationEvaluationMetrics:`).test(output));
 
   // Run prediction on 'test.txt' in resources folder
   output = await tools.runAsync(
     `${cmdPredict} predict -i "${donotdeleteModelId}" -f "${sampleText}" -s "0.5"`
   );
-  t.true(output.includes(`Firm_Cheese`));
+  assert(RegExp(`Firm_Cheese`).test(output));
 });
 
 // List datasets
-test(`should list datasets`, async t => {
+it(`should list datasets`, async () => {
   const output = await tools.runAsync(`${cmdDataset} list-datasets`);
-  t.true(output.includes(`List of datasets:`));
+  assert(RegExp(`List of datasets:`).test(output));
 });

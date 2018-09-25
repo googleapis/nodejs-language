@@ -124,19 +124,19 @@ __Usage:__ `node automlNaturalLanguageDataset.js --help`
 automlNaturalLanguageDataset.js <command>
 
 Commands:
-  automlNaturalLanguageDataset.js createDataset  creates a new Dataset
-  automlNaturalLanguageDataset.js listDatasets   list all Datasets
-  automlNaturalLanguageDataset.js getDataset     Get a Dataset
-  automlNaturalLanguageDataset.js deleteDataset  Delete a dataset
-  automlNaturalLanguageDataset.js importData     Import labeled items into dataset
-  automlNaturalLanguageDataset.js exportData     Export a dataset to a Google Cloud Storage Bucket
+  automlNaturalLanguageDataset.js create-dataset  creates a new Dataset
+  automlNaturalLanguageDataset.js list-datasets   list all Datasets
+  automlNaturalLanguageDataset.js get-dataset     Get a Dataset
+  automlNaturalLanguageDataset.js delete-dataset  Delete a dataset
+  automlNaturalLanguageDataset.js import-data     Import labeled items into dataset
+  automlNaturalLanguageDataset.js export-data     Export a dataset to a Google Cloud Storage Bucket
 
 Options:
   --version            Show version number                                                                     [boolean]
   --computeRegion, -c  region name e.g. "us-central1"                                  [string] [default: "us-central1"]
   --datasetName, -n    Name of the Dataset                                             [string] [default: "testDataSet"]
   --datasetId, -i      Id of the dataset                                                                        [string]
-  --filter_, -f        Name of the Dataset to search for    [string] [default: "text_classification_dataset_metadata:*"]
+  --filter, -f        Name of the Dataset to search for    [string] [default: "text_classification_dataset_metadata:*"]
   --multilabel, -m     Type of the classification problem, False - MULTICLASS, True - MULTILABEL.
                                                                                                [string] [default: false]
   --outputUri, -o      URI (or local path) to export dataset                                                    [string]
@@ -146,12 +146,12 @@ Options:
   --help               Show help                                                                               [boolean]
 
 Examples:
-  node automlNaturalLanguageDataset.js createDataset -n "newDataSet"
-  node automlNaturalLanguageDataset.js listDatasets -f "imageClassificationDatasetMetadata:*"
-  node automlNaturalLanguageDataset.js getDataset -i "DATASETID"
-  node automlNaturalLanguageDataset.js deleteDataset -i "DATASETID"
-  node automlNaturalLanguageDataset.js importData -i "dataSetId" -p "gs://myproject/mytraindata.csv"
-  node automlNaturalLanguageDataset.js exportData -i "dataSetId" -o "gs://myproject/outputdestination.csv"
+  node automlNaturalLanguageDataset.js create-dataset -n "newDataSet"
+  node automlNaturalLanguageDataset.js list-datasets -f "imageClassificationDatasetMetadata:*"
+  node automlNaturalLanguageDataset.js get-dataset -i "DATASETID"
+  node automlNaturalLanguageDataset.js delete-dataset -i "DATASETID"
+  node automlNaturalLanguageDataset.js import-data -i "dataSetId" -p "gs://myproject/mytraindata.csv"
+  node automlNaturalLanguageDataset.js export-data -i "dataSetId" -o "gs://myproject/outputdestination.csv"
 
 For more information, see https://cloud.google.com/natural-language/docs
 ```
@@ -174,20 +174,20 @@ __Usage:__ `node automlNaturalLanguageModel.js --help`
 analyze.v1beta2.js <command>
 
 Commands:
-  automlNaturalLanguageModel.js createModel           creates a new Model
-  automlNaturalLanguageModel.js getOperationStatus    Gets status of current operation
-  automlNaturalLanguageModel.js listModels            list all Models
-  automlNaturalLanguageModel.js getModel              Get a Model
-  automlNaturalLanguageModel.js listModelEvaluations  List model evaluations
-  automlNaturalLanguageModel.js getModelEvaluation    Get model evaluation
-  automlNaturalLanguageModel.js displayEvaluation     Display evaluation
-  automlNaturalLanguageModel.js deleteModel           Delete a Model
+  automlNaturalLanguageModel.js create-model           creates a new Model
+  automlNaturalLanguageModel.js get-operation-status    Gets status of current operation
+  automlNaturalLanguageModel.js list-models            list all Models
+  automlNaturalLanguageModel.js get-model              Get a Model
+  automlNaturalLanguageModel.js list-model-evaluations  List model evaluations
+  automlNaturalLanguageModel.js get-model-evaluation    Get model evaluation
+  automlNaturalLanguageModel.js display-evaluation     Display evaluation
+  automlNaturalLanguageModel.js delete-model           Delete a Model
 
 Options:
   --version                Show version number                                                                 [boolean]
   --computeRegion, -c      region name e.g. "us-central1"                              [string] [default: "us-central1"]
   --datasetId, -i          Id of the dataset                                                                    [string]
-  --filter_, -f            Name of the Dataset to search for                                      [string] [default: ""]
+  --filter, -f            Name of the Dataset to search for                                      [string] [default: ""]
   --modelName, -m          Name of the model                                                   [string] [default: false]
   --modelId, -a            Id of the model                                                        [string] [default: ""]
   --modelEvaluationId, -e  Id of the model evaluation                                             [string] [default: ""]
@@ -197,14 +197,14 @@ Options:
   --help                   Show help                                                                           [boolean]
 
 Examples:
-  node automlNaturalLanguageModel.js createModel -i "DatasetID" -m "myModelName" -t "2"
-  node automlNaturalLanguageModel.js getOperationStatus -i "datasetId" -o "OperationFullID"
-  node automlNaturalLanguageModel.js listModels -f "textClassificationModelMetadata:*"
-  node automlNaturalLanguageModel.js getModel -a "ModelID"
-  node automlNaturalLanguageModel.js listModelEvaluations -a "ModelID"
-  node automlNaturalLanguageModel.js getModelEvaluation -a "ModelId" -e "ModelEvaluationID"
-  node automlNaturalLanguageModel.js displayEvaluation -a "ModelId"
-  node automlNaturalLanguageModel.js deleteModel -a "ModelID"
+  node automlNaturalLanguageModel.js create-model -i "DatasetID" -m "myModelName" -t "2"
+  node automlNaturalLanguageModel.js get-operation-status -i "datasetId" -o "OperationFullID"
+  node automlNaturalLanguageModel.js list-models -f "textClassificationModelMetadata:*"
+  node automlNaturalLanguageModel.js get-model -a "ModelID"
+  node automlNaturalLanguageModel.js list-model-evaluations -a "ModelID"
+  node automlNaturalLanguageModel.js get-model-evaluation -a "ModelId" -e "ModelEvaluationID"
+  node automlNaturalLanguageModel.js display-evaluation -a "ModelId"
+  node automlNaturalLanguageModel.js delete-model -a "ModelID"
 
 For more information, see https://cloud.google.com/natural-language/docs
 ```
