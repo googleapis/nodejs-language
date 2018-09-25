@@ -17,6 +17,7 @@
 
 const assert = require(`assert`);
 const tools = require(`@google-cloud/nodejs-repo-tools`);
+
 const cmdDataset = `node automlNaturalLanguageDataset.js`;
 const cmdModel = `node automlNaturalLanguageModel.js`;
 const cmdPredict = `node automlNaturalLanguagePredict.js`;
