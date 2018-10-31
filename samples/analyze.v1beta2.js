@@ -15,7 +15,7 @@
 
 'use strict';
 
-function analyzeSentimentOfText(text) {
+async function analyzeSentimentOfText(text) {
   // [START language_sentiment_string]
   // Imports the Google Cloud client library
   const language = require('@google-cloud/language').v1beta2;
@@ -35,28 +35,22 @@ function analyzeSentimentOfText(text) {
   };
 
   // Detects the sentiment of the document
-  client
-    .analyzeSentiment({document: document})
-    .then(results => {
-      const sentiment = results[0].documentSentiment;
-      console.log(`Document sentiment:`);
-      console.log(`  Score: ${sentiment.score}`);
-      console.log(`  Magnitude: ${sentiment.magnitude}`);
+  const [result] = await client.analyzeSentiment({document: document});
+  const sentiment = result.documentSentiment;
+  console.log(`Document sentiment:`);
+  console.log(`  Score: ${sentiment.score}`);
+  console.log(`  Magnitude: ${sentiment.magnitude}`);
 
-      const sentences = results[0].sentences;
-      sentences.forEach(sentence => {
-        console.log(`Sentence: ${sentence.text.content}`);
-        console.log(`  Score: ${sentence.sentiment.score}`);
-        console.log(`  Magnitude: ${sentence.sentiment.magnitude}`);
-      });
-    })
-    .catch(err => {
-      console.error('ERROR:', err);
-    });
+  const sentences = result.sentences;
+  sentences.forEach(sentence => {
+    console.log(`Sentence: ${sentence.text.content}`);
+    console.log(`  Score: ${sentence.sentiment.score}`);
+    console.log(`  Magnitude: ${sentence.sentiment.magnitude}`);
+  });
   // [END language_sentiment_string]
 }
 
-function analyzeSentimentInFile(bucketName, fileName) {
+async function analyzeSentimentInFile(bucketName, fileName) {
   // [START language_sentiment_file]
   // Imports the Google Cloud client library
   const language = require('@google-cloud/language').v1beta2;
@@ -77,28 +71,23 @@ function analyzeSentimentInFile(bucketName, fileName) {
   };
 
   // Detects the sentiment of the document
-  client
-    .analyzeSentiment({document: document})
-    .then(results => {
-      const sentiment = results[0].documentSentiment;
-      console.log(`Document sentiment:`);
-      console.log(`  Score: ${sentiment.score}`);
-      console.log(`  Magnitude: ${sentiment.magnitude}`);
+  const [result] = await client.analyzeSentiment({document: document});
+  const sentiment = result.documentSentiment;
+  console.log(`Document sentiment:`);
+  console.log(`  Score: ${sentiment.score}`);
+  console.log(`  Magnitude: ${sentiment.magnitude}`);
 
-      const sentences = results[0].sentences;
-      sentences.forEach(sentence => {
-        console.log(`Sentence: ${sentence.text.content}`);
-        console.log(`  Score: ${sentence.sentiment.score}`);
-        console.log(`  Magnitude: ${sentence.sentiment.magnitude}`);
-      });
-    })
-    .catch(err => {
-      console.error('ERROR:', err);
-    });
+  const sentences = result.sentences;
+  sentences.forEach(sentence => {
+    console.log(`Sentence: ${sentence.text.content}`);
+    console.log(`  Score: ${sentence.sentiment.score}`);
+    console.log(`  Magnitude: ${sentence.sentiment.magnitude}`);
+  });
+
   // [END language_sentiment_file]
 }
 
-function analyzeEntitiesOfText(text) {
+async function analyzeEntitiesOfText(text) {
   // [START language_entities_string]
   // Imports the Google Cloud client library
   const language = require('@google-cloud/language').v1beta2;
@@ -118,27 +107,22 @@ function analyzeEntitiesOfText(text) {
   };
 
   // Detects entities in the document
-  client
-    .analyzeEntities({document: document})
-    .then(results => {
-      const entities = results[0].entities;
+  const [result] = await client.analyzeEntities({document: document});
+  const entities = result.entities;
 
-      console.log('Entities:');
-      entities.forEach(entity => {
-        console.log(entity.name);
-        console.log(` - Type: ${entity.type}, Salience: ${entity.salience}`);
-        if (entity.metadata && entity.metadata.wikipedia_url) {
-          console.log(` - Wikipedia URL: ${entity.metadata.wikipedia_url}$`);
-        }
-      });
-    })
-    .catch(err => {
-      console.error('ERROR:', err);
-    });
+  console.log('Entities:');
+  entities.forEach(entity => {
+    console.log(entity.name);
+    console.log(` - Type: ${entity.type}, Salience: ${entity.salience}`);
+    if (entity.metadata && entity.metadata.wikipedia_url) {
+      console.log(` - Wikipedia URL: ${entity.metadata.wikipedia_url}$`);
+    }
+  });
+
   // [END language_entities_string]
 }
 
-function analyzeEntitiesInFile(bucketName, fileName) {
+async function analyzeEntitiesInFile(bucketName, fileName) {
   // [START language_entities_file]
   // Imports the Google Cloud client library
   const language = require('@google-cloud/language').v1beta2;
@@ -159,27 +143,22 @@ function analyzeEntitiesInFile(bucketName, fileName) {
   };
 
   // Detects entities in the document
-  client
-    .analyzeEntities({document: document})
-    .then(results => {
-      const entities = results[0].entities;
+  const [result] = await client.analyzeEntities({document: document});
+  const entities = result.entities;
 
-      console.log('Entities:');
-      entities.forEach(entity => {
-        console.log(entity.name);
-        console.log(` - Type: ${entity.type}, Salience: ${entity.salience}`);
-        if (entity.metadata && entity.metadata.wikipedia_url) {
-          console.log(` - Wikipedia URL: ${entity.metadata.wikipedia_url}$`);
-        }
-      });
-    })
-    .catch(err => {
-      console.error('ERROR:', err);
-    });
+  console.log('Entities:');
+  entities.forEach(entity => {
+    console.log(entity.name);
+    console.log(` - Type: ${entity.type}, Salience: ${entity.salience}`);
+    if (entity.metadata && entity.metadata.wikipedia_url) {
+      console.log(` - Wikipedia URL: ${entity.metadata.wikipedia_url}$`);
+    }
+  });
+
   // [END language_entities_file]
 }
 
-function analyzeSyntaxOfText(text) {
+async function analyzeSyntaxOfText(text) {
   // [START language_syntax_string]
   // Imports the Google Cloud client library
   const language = require('@google-cloud/language').v1beta2;
@@ -199,24 +178,18 @@ function analyzeSyntaxOfText(text) {
   };
 
   // Detects syntax in the document
-  client
-    .analyzeSyntax({document: document})
-    .then(results => {
-      const syntax = results[0];
+  const [syntax] = await client.analyzeSyntax({document: document});
 
-      console.log('Parts of speech:');
-      syntax.tokens.forEach(part => {
-        console.log(`${part.partOfSpeech.tag}: ${part.text.content}`);
-        console.log(`Morphology:`, part.partOfSpeech);
-      });
-    })
-    .catch(err => {
-      console.error('ERROR:', err);
-    });
+  console.log('Parts of speech:');
+  syntax.tokens.forEach(part => {
+    console.log(`${part.partOfSpeech.tag}: ${part.text.content}`);
+    console.log(`Morphology:`, part.partOfSpeech);
+  });
+
   // [END language_syntax_string]
 }
 
-function analyzeSyntaxInFile(bucketName, fileName) {
+async function analyzeSyntaxInFile(bucketName, fileName) {
   // [START language_syntax_file]
   // Imports the Google Cloud client library
   const language = require('@google-cloud/language').v1beta2;
@@ -237,24 +210,17 @@ function analyzeSyntaxInFile(bucketName, fileName) {
   };
 
   // Detects syntax in the document
-  client
-    .analyzeSyntax({document: document})
-    .then(results => {
-      const syntax = results[0];
+  const [syntax] = await client.analyzeSyntax({document: document});
 
-      console.log('Parts of speech:');
-      syntax.tokens.forEach(part => {
-        console.log(`${part.partOfSpeech.tag}: ${part.text.content}`);
-        console.log(`Morphology:`, part.partOfSpeech);
-      });
-    })
-    .catch(err => {
-      console.error('ERROR:', err);
-    });
+  console.log('Parts of speech:');
+  syntax.tokens.forEach(part => {
+    console.log(`${part.partOfSpeech.tag}: ${part.text.content}`);
+    console.log(`Morphology:`, part.partOfSpeech);
+  });
   // [END language_syntax_file]
 }
 
-function classifyTextOfText(text) {
+async function classifyTextOfText(text) {
   // [START language_classify_string]
   // Imports the Google Cloud client library
   const language = require('@google-cloud/language').v1beta2;
@@ -274,21 +240,11 @@ function classifyTextOfText(text) {
   };
 
   // Classifies text in the document
-  client
-    .classifyText({document: document})
-    .then(results => {
-      const classification = results[0];
-
-      console.log('Categories:');
-      classification.categories.forEach(category => {
-        console.log(
-          `Name: ${category.name}, Confidence: ${category.confidence}`
-        );
-      });
-    })
-    .catch(err => {
-      console.error('ERROR:', err);
-    });
+  const [classification] = await client.classifyText({document: document});
+  console.log('Categories:');
+  classification.categories.forEach(category => {
+    console.log(`Name: ${category.name}, Confidence: ${category.confidence}`);
+  });
   // [END language_classify_string]
 }
 
@@ -337,31 +293,46 @@ require(`yargs`)
     `sentiment-text <text>`,
     `Detects sentiment of a string.`,
     {},
-    opts => analyzeSentimentOfText(opts.text)
+    async opts => await analyzeSentimentOfText(opts.text).catch(console.error)
   )
   .command(
     `sentiment-file <bucketName> <fileName>`,
     `Detects sentiment in a file in Google Cloud Storage.`,
     {},
-    opts => analyzeSentimentInFile(opts.bucketName, opts.fileName)
+    async opts =>
+      await analyzeSentimentInFile(opts.bucketName, opts.fileName).catch(
+        console.error
+      )
   )
-  .command(`entities-text <text>`, `Detects entities in a string.`, {}, opts =>
-    analyzeEntitiesOfText(opts.text)
+  .command(
+    `entities-text <text>`,
+    `Detects entities in a string.`,
+    {},
+    async opts => await analyzeEntitiesOfText(opts.text).catch(console.error)
   )
   .command(
     `entities-file <bucketName> <fileName>`,
     `Detects entities in a file in Google Cloud Storage.`,
     {},
-    opts => analyzeEntitiesInFile(opts.bucketName, opts.fileName)
+    async opts =>
+      await analyzeEntitiesInFile(opts.bucketName, opts.fileName).catch(
+        console.error
+      )
   )
-  .command(`syntax-text <text>`, `Detects syntax of a string.`, {}, opts =>
-    analyzeSyntaxOfText(opts.text)
+  .command(
+    `syntax-text <text>`,
+    `Detects syntax of a string.`,
+    {},
+    async opts => await analyzeSyntaxOfText(opts.text).catch(console.error)
   )
   .command(
     `syntax-file <bucketName> <fileName>`,
     `Detects syntax in a file in Google Cloud Storage.`,
     {},
-    opts => analyzeSyntaxInFile(opts.bucketName, opts.fileName)
+    async opts =>
+      await analyzeSyntaxInFile(opts.bucketName, opts.fileName).catch(
+        console.error
+      )
   )
   .command(`classify-text <text>`, `Classifies text of a string.`, {}, opts =>
     classifyTextOfText(opts.text)
@@ -370,7 +341,10 @@ require(`yargs`)
     `classify-file <bucketName> <fileName>`,
     `Classifies text in a file in Google Cloud Storage.`,
     {},
-    opts => classifyTextInFile(opts.bucketName, opts.fileName)
+    async opts =>
+      await classifyTextInFile(opts.bucketName, opts.fileName).catch(
+        console.error
+      )
   )
   .example(
     `node $0 sentiment-text "President Obama is speaking at the White House."`

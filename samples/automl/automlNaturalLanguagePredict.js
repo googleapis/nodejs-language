@@ -23,7 +23,7 @@
 
 `use strict`;
 
-function predict(projectId, computeRegion, modelId, filePath) {
+async function predict(projectId, computeRegion, modelId, filePath) {
   // [START automl_natural_language_predict]
   const automl = require(`@google-cloud/automl`);
   const fs = require(`fs`);
@@ -55,18 +55,16 @@ function predict(projectId, computeRegion, modelId, filePath) {
 
   // Params is additional domain-specific parameters.
   // Currently there is no additional parameters supported.
-  client
-    .predict({name: modelFullId, payload: payload, params: {}})
-    .then(responses => {
-      console.log(`Prediction results:`);
-      responses[0].payload.forEach(result => {
-        console.log(`Predicted class name: ${result.displayName}`);
-        console.log(`Predicted class score: ${result.classification.score}`);
-      });
-    })
-    .catch(err => {
-      console.error(err);
-    });
+  const [response] = await client.predict({
+    name: modelFullId,
+    payload: payload,
+    params: {},
+  });
+  console.log(`Prediction results:`);
+  response[0].payload.forEach(result => {
+    console.log(`Predicted class name: ${result.displayName}`);
+    console.log(`Predicted class score: ${result.classification.score}`);
+  });
   // [END automl_natural_language_predict]
 }
 
@@ -110,14 +108,18 @@ require(`yargs`)
         `only produce results that have at least this confidence score threshold.  Default is .5`,
     },
   })
-  .command(`predict`, `classify the content`, {}, opts =>
-    predict(
-      opts.projectId,
-      opts.computeRegion,
-      opts.modelId,
-      opts.filePath,
-      opts.scoreThreshold
-    )
+  .command(
+    `predict`,
+    `classify the content`,
+    {},
+    async opts =>
+      await predict(
+        opts.projectId,
+        opts.computeRegion,
+        opts.modelId,
+        opts.filePath,
+        opts.scoreThreshold
+      ).catch(console.error)
   )
   .example(`node $0 predict -i "modelId" -f "./resources/test.txt" -s "0.5"`)
   .wrap(120)
