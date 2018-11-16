@@ -35,7 +35,7 @@ async function analyzeSentimentOfText(text) {
   };
 
   // Detects the sentiment of the document
-  const [result] = await client.analyzeSentiment({document: document});
+  const [result] = await client.analyzeSentiment({document});
   const sentiment = result.documentSentiment;
   console.log(`Document sentiment:`);
   console.log(`  Score: ${sentiment.score}`);
@@ -71,7 +71,7 @@ async function analyzeSentimentInFile(bucketName, fileName) {
   };
 
   // Detects the sentiment of the document
-  const [result] = await client.analyzeSentiment({document: document});
+  const [result] = await client.analyzeSentiment({document});
   const sentiment = result.documentSentiment;
   console.log(`Document sentiment:`);
   console.log(`  Score: ${sentiment.score}`);
@@ -107,7 +107,7 @@ async function analyzeEntitiesOfText(text) {
   };
 
   // Detects entities in the document
-  const [result] = await client.analyzeEntities({document: document});
+  const [result] = await client.analyzeEntities({document});
   const entities = result.entities;
 
   console.log('Entities:');
@@ -143,7 +143,7 @@ async function analyzeEntitiesInFile(bucketName, fileName) {
   };
 
   // Detects entities in the document
-  const [result] = await client.analyzeEntities({document: document});
+  const [result] = await client.analyzeEntities({document});
   const entities = result.entities;
 
   console.log('Entities:');
@@ -178,7 +178,7 @@ async function analyzeSyntaxOfText(text) {
   };
 
   // Detects syntax in the document
-  const [syntax] = await client.analyzeSyntax({document: document});
+  const [syntax] = await client.analyzeSyntax({document});
 
   console.log('Parts of speech:');
   syntax.tokens.forEach(part => {
@@ -210,7 +210,7 @@ async function analyzeSyntaxInFile(bucketName, fileName) {
   };
 
   // Detects syntax in the document
-  const [syntax] = await client.analyzeSyntax({document: document});
+  const [syntax] = await client.analyzeSyntax({document});
 
   console.log('Parts of speech:');
   syntax.tokens.forEach(part => {
@@ -240,7 +240,7 @@ async function classifyTextOfText(text) {
   };
 
   // Classifies text in the document
-  const [classification] = await client.classifyText({document: document});
+  const [classification] = await client.classifyText({document});
   console.log('Categories:');
   classification.categories.forEach(category => {
     console.log(`Name: ${category.name}, Confidence: ${category.confidence}`);
@@ -270,7 +270,7 @@ function classifyTextInFile(bucketName, fileName) {
 
   // Classifies text in the document
   client
-    .classifyText({document: document})
+    .classifyText({document})
     .then(results => {
       const classification = results[0];
 
@@ -287,7 +287,7 @@ function classifyTextInFile(bucketName, fileName) {
   // [END language_classify_file]
 }
 
-function main() {
+async function main() {
   require(`yargs`)
     .demand(1)
     .command(

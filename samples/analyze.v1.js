@@ -35,7 +35,7 @@ async function analyzeSentimentOfText(text) {
   };
 
   // Detects the sentiment of the document
-  const [result] = await client.analyzeSentiment({document: document});
+  const [result] = await client.analyzeSentiment({document});
 
   const sentiment = result.documentSentiment;
   console.log(`Document sentiment:`);
@@ -73,7 +73,7 @@ async function analyzeSentimentInFile(bucketName, fileName) {
   };
 
   // Detects the sentiment of the document
-  const [result] = await client.analyzeSentiment({document: document});
+  const [result] = await client.analyzeSentiment({document});
 
   const sentiment = result.documentSentiment;
   console.log(`Document sentiment:`);
@@ -109,7 +109,7 @@ async function analyzeEntitiesOfText(text) {
   };
 
   // Detects entities in the document
-  const [result] = await client.analyzeEntities({document: document});
+  const [result] = await client.analyzeEntities({document});
 
   const entities = result.entities;
 
@@ -145,7 +145,7 @@ async function analyzeEntitiesInFile(bucketName, fileName) {
   };
 
   // Detects entities in the document
-  const [result] = await client.analyzeEntities({document: document});
+  const [result] = await client.analyzeEntities({document});
   const entities = result.entities;
 
   console.log('Entities:');
@@ -180,7 +180,7 @@ async function analyzeSyntaxOfText(text) {
   };
 
   // Detects syntax in the document
-  const [syntax] = await client.analyzeSyntax({document: document});
+  const [syntax] = await client.analyzeSyntax({document});
 
   console.log('Tokens:');
   syntax.tokens.forEach(part => {
@@ -211,7 +211,7 @@ async function analyzeSyntaxInFile(bucketName, fileName) {
   };
 
   // Detects syntax in the document
-  const [syntax] = await client.analyzeSyntax({document: document});
+  const [syntax] = await client.analyzeSyntax({document});
 
   console.log('Parts of speech:');
   syntax.tokens.forEach(part => {
@@ -241,7 +241,7 @@ async function analyzeEntitySentimentOfText(text) {
   };
 
   // Detects sentiment of entities in the document
-  const [result] = client.analyzeEntitySentiment({document: document});
+  const [result] = await client.analyzeEntitySentiment({document});
   const entities = result.entities;
 
   console.log(`Entities and sentiments:`);
@@ -275,7 +275,7 @@ async function analyzeEntitySentimentInFile(bucketName, fileName) {
   };
 
   // Detects sentiment of entities in the document
-  const [result] = client.analyzeEntitySentiment({document: document});
+  const [result] = await client.analyzeEntitySentiment({document});
   const entities = result.entities;
 
   console.log(`Entities and sentiments:`);
@@ -308,7 +308,7 @@ async function classifyTextOfText(text) {
   };
 
   // Classifies text in the document
-  const [classification] = await client.classifyText({document: document});
+  const [classification] = await client.classifyText({document});
   console.log('Categories:');
   classification.categories.forEach(category => {
     console.log(`Name: ${category.name}, Confidence: ${category.confidence}`);
@@ -337,7 +337,7 @@ async function classifyTextInFile(bucketName, fileName) {
   };
 
   // Classifies text in the document
-  const [classification] = await client.classifyText({document: document});
+  const [classification] = await client.classifyText({document});
 
   console.log('Categories:');
   classification.categories.forEach(category => {
