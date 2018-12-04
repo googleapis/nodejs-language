@@ -12,8 +12,12 @@
 
 * [Before you begin](#before-you-begin)
 * [Samples](#samples)
+  * [Quickstart](#quickstart)
   * [Analyze v1](#analyze-v1)
   * [Analyze v1beta2](#analyze-v1beta2)
+  * [AutoML Dataset](#auto-ml-dataset)
+  * [AutoML Model](#auto-ml-model)
+  * [AutoML Predict](#auto-ml-predict)
 
 ## Before you begin
 
@@ -23,9 +27,26 @@ library's README.
 
 ## Samples
 
+### Quickstart
+
+View the [source code][quickstart_0_code].
+
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-language&page=editor&open_in_editor=samples/quickstart.js,samples/README.md)
+
+__Usage:__ `node quickstart.js`
+
+```
+Text: Hello, world!
+Sentiment score: 0.30000001192092896
+Sentiment magnitude: 0.30000001192092896
+```
+
+[quickstart_0_docs]: https://cloud.google.com/natural-language/docs/quickstart-client-libraries
+[quickstart_0_code]: quickstart.js
+
 ### Analyze v1
 
-View the [source code][analyze-v1_0_code].
+View the [source code][analyze-v1_1_code].
 
 [![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-language&page=editor&open_in_editor=samples/analyze.v1.js,samples/README.md)
 
@@ -67,12 +88,12 @@ Examples:
 For more information, see https://cloud.google.com/natural-language/docs
 ```
 
-[analyze-v1_0_docs]: https://cloud.google.com/natural-language/docs/
-[analyze-v1_0_code]: analyze.v1.js
+[analyze-v1_1_docs]: https://cloud.google.com/natural-language/docs/
+[analyze-v1_1_code]: analyze.v1.js
 
 ### Analyze v1beta2
 
-View the [source code][analyze-v1beta2_1_code].
+View the [source code][analyze-v1beta2_2_code].
 
 [![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-language&page=editor&open_in_editor=samples/analyze.v1beta2.js,samples/README.md)
 
@@ -110,8 +131,133 @@ Examples:
 For more information, see https://cloud.google.com/natural-language/docs
 ```
 
-[analyze-v1beta2_1_docs]: https://cloud.google.com/natural-language/docs/
-[analyze-v1beta2_1_code]: analyze.v1beta2.js
+[analyze-v1beta2_2_docs]: https://cloud.google.com/natural-language/docs/
+[analyze-v1beta2_2_code]: analyze.v1beta2.js
+
+### AutoML Dataset
+
+View the [source code][automl-nl-dataset_3_code].
+
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-language&page=editor&open_in_editor=samples/automl/automlNaturalLanguageDataset.js,samples/README.md)
+
+__Usage:__ `node automl/automlNaturalLanguageDataset.js --help`
+
+```
+automlNaturalLanguageDataset.js <command>
+
+Commands:
+  automlNaturalLanguageDataset.js create-dataset  creates a new Dataset
+  automlNaturalLanguageDataset.js list-datasets   list all Datasets
+  automlNaturalLanguageDataset.js get-dataset     Get a Dataset
+  automlNaturalLanguageDataset.js delete-dataset  Delete a dataset
+  automlNaturalLanguageDataset.js import-data     Import labeled items into dataset
+  automlNaturalLanguageDataset.js export-data     Export a dataset to a Google Cloud Storage Bucket
+
+Options:
+  --version            Show version number                                                                     [boolean]
+  --computeRegion, -c  region name e.g. "us-central1"                                                           [string]
+  --datasetName, -n    Name of the Dataset                                             [string] [default: "testDataSet"]
+  --datasetId, -i      Id of the dataset                                                                        [string]
+  --filter, -f         filter expression                    [string] [default: "text_classification_dataset_metadata:*"]
+  --multilabel, -m     Type of the classification problem, False - MULTICLASS, True - MULTILABEL.
+                                                                                               [string] [default: false]
+  --outputUri, -o      URI (or local path) to export dataset                                                    [string]
+  --path, -p           URI or local path to input .csv, or array of .csv paths
+                                              [string] [default: "gs://nodejs-docs-samples-vcm/flowerTraindataMini.csv"]
+  --projectId, -z      The GCLOUD_PROJECT string, e.g. "my-gcloud-project"           [number] [default: "long-door-651"]
+  --help               Show help                                                                               [boolean]
+
+Examples:
+  node automlNaturalLanguageDataset.js create-dataset -n "newDataSet"
+  node automlNaturalLanguageDataset.js list-datasets -f "imageClassificationDatasetMetadata:*"
+  node automlNaturalLanguageDataset.js get-dataset -i "DATASETID"
+  node automlNaturalLanguageDataset.js delete-dataset -i "DATASETID"
+  node automlNaturalLanguageDataset.js import-data -i "dataSetId" -p "gs://myproject/mytraindata.csv"
+  node automlNaturalLanguageDataset.js export-data -i "dataSetId" -o "gs://myproject/outputdestination.csv"
+```
+
+[automl-nl-dataset_3_docs]: https://cloud.google.com/natural-language/docs/
+[automl-nl-dataset_3_code]: automl/automlNaturalLanguageDataset.js
+
+### AutoML Model
+
+View the [source code][automl-nl-model_4_code].
+
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-language&page=editor&open_in_editor=samples/automl/automlNaturalLanguageModel.js,samples/README.md)
+
+__Usage:__ `node automl/automlNaturalLanguageModel.js --help`
+
+```
+automlNaturalLanguageModel.js <command>
+
+Commands:
+  automlNaturalLanguageModel.js create-model            creates a new Model
+  automlNaturalLanguageModel.js get-operation-status    Gets status of current operation
+  automlNaturalLanguageModel.js list-models             list all Models
+  automlNaturalLanguageModel.js get-model               Get a Model
+  automlNaturalLanguageModel.js list-model-evaluations  List model evaluations
+  automlNaturalLanguageModel.js get-model-evaluation    Get model evaluation
+  automlNaturalLanguageModel.js display-evaluation      Display evaluation
+  automlNaturalLanguageModel.js delete-model            Delete a Model
+
+Options:
+  --version                Show version number                                                                 [boolean]
+  --computeRegion, -c      region name e.g. "us-central1"                                                       [string]
+  --datasetId, -i          Id of the dataset                                                                    [string]
+  --filter, -f             Name of the Dataset to search for                                      [string] [default: ""]
+  --modelName, -m          Name of the model                                                   [string] [default: false]
+  --modelId, -a            Id of the model                                                        [string] [default: ""]
+  --modelEvaluationId, -e  Id of the model evaluation                                             [string] [default: ""]
+  --operationFullId, -o    Full name of an operation                                              [string] [default: ""]
+  --projectId, -z          The GCLOUD_PROJECT string, e.g. "my-gcloud-project"       [number] [default: "long-door-651"]
+  --trainBudget, -t        Budget for training the model                                          [string] [default: ""]
+  --help                   Show help                                                                           [boolean]
+
+Examples:
+  node automlNaturalLanguageModel.js create-model -i "DatasetID" -m "myModelName" -t "2"
+  node automlNaturalLanguageModel.js get-operation-status -i "datasetId" -o "OperationFullID"
+  node automlNaturalLanguageModel.js list-models -f "textClassificationModelMetadata:*"
+  node automlNaturalLanguageModel.js get-model -a "ModelID"
+  node automlNaturalLanguageModel.js list-model-evaluations -a "ModelID"
+  node automlNaturalLanguageModel.js get-model-evaluation -a "ModelId" -e "ModelEvaluationID"
+  node automlNaturalLanguageModel.js display-evaluation -a "ModelId"
+  node automlNaturalLanguageModel.js delete-model -a "ModelID"
+```
+
+[automl-nl-model_4_docs]: https://cloud.google.com/natural-language/docs/
+[automl-nl-model_4_code]: automl/automlNaturalLanguageModel.js
+
+### AutoML Predict
+
+View the [source code][automl-nl-predict_5_code].
+
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-language&page=editor&open_in_editor=samples/automl/automlNaturalLanguagePredict.js,samples/README.md)
+
+__Usage:__ `node automl/automlNaturalLanguagePredict.js --help`
+
+```
+automlNaturalLanguagePredict.js <command>
+
+Commands:
+  automlNaturalLanguagePredict.js predict  classify the content
+
+Options:
+  --version             Show version number                                                                    [boolean]
+  --computeRegion, -c   region name e.g. "us-central1"                                                          [string]
+  --filePath, -f        local text file path of the content to be classified  [string] [default: "./resources/test.txt"]
+  --modelId, -i         Id of the model which will be used for text classification                              [string]
+  --projectId, -z       The GCLOUD_PROJECT string, e.g. "my-gcloud-project"          [number] [default: "long-door-651"]
+  --scoreThreshold, -s  A value from 0.0 to 1.0.  When the model makes predictions for an image it willonly produce
+                        results that have at least this confidence score threshold.  Default is .5
+                                                                                               [string] [default: "0.5"]
+  --help                Show help                                                                              [boolean]
+
+Examples:
+  node automlNaturalLanguagePredict.js predict -i "modelId" -f "./resources/test.txt" -s "0.5"
+```
+
+[automl-nl-predict_5_docs]: https://cloud.google.com/natural-language/docs/
+[automl-nl-predict_5_code]: automl/automlNaturalLanguagePredict.js
 
 [shell_img]: https://gstatic.com/cloudssh/images/open-btn.png
 [shell_link]: https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-language&page=editor&open_in_editor=samples/README.md

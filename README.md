@@ -69,8 +69,12 @@ has instructions for running the samples.
 
 | Sample                      | Source Code                       | Try it |
 | --------------------------- | --------------------------------- | ------ |
+| Quickstart | [source code](https://github.com/googleapis/nodejs-language/blob/master/samples/quickstart.js) | [![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-language&page=editor&open_in_editor=samples/quickstart.js,samples/README.md) |
 | Analyze v1 | [source code](https://github.com/googleapis/nodejs-language/blob/master/samples/analyze.v1.js) | [![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-language&page=editor&open_in_editor=samples/analyze.v1.js,samples/README.md) |
 | Analyze v1beta2 | [source code](https://github.com/googleapis/nodejs-language/blob/master/samples/analyze.v1beta2.js) | [![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-language&page=editor&open_in_editor=samples/analyze.v1beta2.js,samples/README.md) |
+| AutoML Dataset | [source code](https://github.com/googleapis/nodejs-language/blob/master/samples/automl/automlNaturalLanguageDataset.js) | [![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-language&page=editor&open_in_editor=samples/automl/automlNaturalLanguageDataset.js,samples/README.md) |
+| AutoML Model | [source code](https://github.com/googleapis/nodejs-language/blob/master/samples/automl/automlNaturalLanguageModel.js) | [![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-language&page=editor&open_in_editor=samples/automl/automlNaturalLanguageModel.js,samples/README.md) |
+| AutoML Predict | [source code](https://github.com/googleapis/nodejs-language/blob/master/samples/automl/automlNaturalLanguagePredict.js) | [![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-language&page=editor&open_in_editor=samples/automl/automlNaturalLanguagePredict.js,samples/README.md) |
 
 The [Natural Language API Node.js Client API Reference][client-docs] documentation
 also contains samples.
