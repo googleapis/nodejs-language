@@ -26,6 +26,7 @@ const testDataSetName = 'testDataset';
 const dummyDataSet = 'dummyDataset';
 const testModelName = 'dummyModel';
 const sampleText = './resources/test.txt';
+const projectId = process.env.GCLOUD_PROJECT;
 
 const exec = async cmd => (await execa.shell(cmd)).stdout;
 

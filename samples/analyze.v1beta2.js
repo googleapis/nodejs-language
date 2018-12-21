@@ -272,9 +272,7 @@ async function classifyTextInFile(bucketName, fileName) {
   const [classification] = await client.classifyText({document});
   console.log('Categories:');
   classification.categories.forEach(category => {
-    console.log(
-      `Name: ${category.name}, Confidence: ${category.confidence}`
-    );
+    console.log(`Name: ${category.name}, Confidence: ${category.confidence}`);
   });
   // [END language_classify_file]
 }
