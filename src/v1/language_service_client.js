@@ -165,7 +165,10 @@ class LanguageServiceClient {
    * in this service.
    */
   static get scopes() {
-    return ['https://www.googleapis.com/auth/cloud-platform'];
+    return [
+      'https://www.googleapis.com/auth/cloud-language',
+      'https://www.googleapis.com/auth/cloud-platform',
+    ];
   }
 
   /**
@@ -207,7 +210,7 @@ class LanguageServiceClient {
    *
    * @example
    *
-   * const language = require('@google-cloud/language');
+   * const language = require('language.v1');
    *
    * const client = new language.v1.LanguageServiceClient({
    *   // optional auth parameters.
@@ -261,7 +264,7 @@ class LanguageServiceClient {
    *
    * @example
    *
-   * const language = require('@google-cloud/language');
+   * const language = require('language.v1');
    *
    * const client = new language.v1.LanguageServiceClient({
    *   // optional auth parameters.
@@ -316,7 +319,7 @@ class LanguageServiceClient {
    *
    * @example
    *
-   * const language = require('@google-cloud/language');
+   * const language = require('language.v1');
    *
    * const client = new language.v1.LanguageServiceClient({
    *   // optional auth parameters.
@@ -374,7 +377,7 @@ class LanguageServiceClient {
    *
    * @example
    *
-   * const language = require('@google-cloud/language');
+   * const language = require('language.v1');
    *
    * const client = new language.v1.LanguageServiceClient({
    *   // optional auth parameters.
@@ -422,7 +425,7 @@ class LanguageServiceClient {
    *
    * @example
    *
-   * const language = require('@google-cloud/language');
+   * const language = require('language.v1');
    *
    * const client = new language.v1.LanguageServiceClient({
    *   // optional auth parameters.
@@ -479,7 +482,7 @@ class LanguageServiceClient {
    *
    * @example
    *
-   * const language = require('@google-cloud/language');
+   * const language = require('language.v1');
    *
    * const client = new language.v1.LanguageServiceClient({
    *   // optional auth parameters.
