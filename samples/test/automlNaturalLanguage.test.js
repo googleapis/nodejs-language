@@ -28,7 +28,6 @@ const testModelName = 'dummyModel';
 const sampleText = './resources/test.txt';
 const projectId = process.env.GCLOUD_PROJECT;
 
-
 describe.skip('automl', () => {
   // Skipped because it's been taking too long to delete datasets
   it('should create a create, list, and delete a dataset', async () => {

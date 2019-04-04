@@ -22,7 +22,6 @@ const {assert} = require('chai');
 const {execSync} = require('child_process');
 const uuid = require('uuid');
 
-
 describe('analyze.v1', () => {
   const storage = new Storage();
   const cmd = 'node analyze.v1.js';
@@ -56,9 +55,7 @@ describe('analyze.v1', () => {
   });
 
   it('should analyze sentiment in a file', async () => {
-    const output = execSync(
-      `${cmd} sentiment-file ${bucketName} ${fileName}`
-    );
+    const output = execSync(`${cmd} sentiment-file ${bucketName} ${fileName}`);
     assert(output, /Document sentiment:/);
     assert.match(output, new RegExp(`Sentence: ${text}`));
     assert.match(output, /Score: 0/);
@@ -122,9 +119,7 @@ describe('analyze.v1', () => {
   });
 
   it('should classify text in a file', async () => {
-    const output = execSync(
-      `${cmd} classify-file ${bucketName} ${fileName2}`
-    );
+    const output = execSync(`${cmd} classify-file ${bucketName} ${fileName2}`);
     assert.match(output, /Name:/);
     assert.match(output, /Computers & Electronics/);
   });

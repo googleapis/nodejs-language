@@ -56,9 +56,7 @@ describe('analyze.v1beta2', () => {
   });
 
   it(`should analyze sentiment in a file`, async () => {
-    const output = execSync(
-      `${cmd} sentiment-file ${bucketName} ${fileName}`
-    );
+    const output = execSync(`${cmd} sentiment-file ${bucketName} ${fileName}`);
     assert.match(output, /Document sentiment:/);
     assert.match(output, new RegExp(`Sentence: ${text}`));
     assert.match(output, /Score: 0/);
@@ -109,9 +107,7 @@ describe('analyze.v1beta2', () => {
   });
 
   it('should classify text in a file', async () => {
-    const output = execSync(
-      `${cmd} classify-file ${bucketName} ${fileName2}`
-    );
+    const output = execSync(`${cmd} classify-file ${bucketName} ${fileName2}`);
     assert.match(output, /Name:/);
     assert.match(output, /Computers & Electronics/);
   });
