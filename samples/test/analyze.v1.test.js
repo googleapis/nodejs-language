@@ -19,11 +19,21 @@ const fs = require('fs');
 const path = require('path');
 const {Storage} = require('@google-cloud/storage');
 const {assert} = require('chai');
+<<<<<<< HEAD
 const cp = require('child_process');
 const uuid = require('uuid');
 
 const execSync = (cmd) => cp.execSync(cmd, {encoding: 'utf-8'});
 
+const execSync = (cmd) => cp.execSync(cmd, {encoding: 'utf-8'});
+
+=======
+const cp = require('child_process');
+const uuid = require('uuid');
+
+const execSync = (cmd) => cp.execSync(cmd, {encoding: 'utf-8'});
+
+>>>>>>> master
 describe('analyze.v1', () => {
   const storage = new Storage();
   const cmd = 'node analyze.v1.js';

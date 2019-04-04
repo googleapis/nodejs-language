@@ -16,7 +16,15 @@
 'use strict';
 
 const {assert} = require('chai');
+<<<<<<< HEAD
 const cp = require('child_process');
+
+const execSync = (cmd) => cp.execSync(cmd, {encoding: 'utf-8'});
+
+const execSync = (cmd) => cp.execSync(cmd, {encoding: 'utf-8'});
+=======
+const cp = require('child_process');
+>>>>>>> master
 
 const execSync = (cmd) => cp.execSync(cmd, {encoding: 'utf-8'});
 
