@@ -38,7 +38,7 @@
     "test-no-cover": "mocha test/*.js",
     "test": "npm run cover",
     "fix": "eslint --fix '**/*.js'",
-    "docs-test": "linkinator docs -r --skip www.googleapis.com",
+    "docs-test": "linkinator docs -r --skip https://github.com/googleapis/nodejs-language/blob/master/samples/.+",
     "predocs-test": "npm run docs"
   },
   "dependencies": {
