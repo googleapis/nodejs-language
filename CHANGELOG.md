@@ -4,6 +4,14 @@
 
 [1]: https://www.npmjs.com/package/@google-cloud/language?activeTab=versions
 
+### [3.2.7](https://www.github.com/googleapis/nodejs-language/compare/v3.2.6...v3.2.7) (2019-09-03)
+
+
+### Bug Fixes
+
+* **deps:** update dependency yargs to v14 ([bf2363e](https://www.github.com/googleapis/nodejs-language/commit/bf2363e))
+* use process versions object for client header ([#287](https://www.github.com/googleapis/nodejs-language/issues/287)) ([ee18e83](https://www.github.com/googleapis/nodejs-language/commit/ee18e83))
+
 ### [3.2.6](https://www.github.com/googleapis/nodejs-language/compare/v3.2.5...v3.2.6) (2019-08-03)
 
 
