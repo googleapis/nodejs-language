@@ -9,7 +9,7 @@ gapic = gcp.GAPICGenerator()
 # tasks has two product names, and a poorly named artman yaml
 for version in ['v1', 'v1beta2']:
     library = gapic.node_library(
-        'language', version)
+        'language', version, include_samples=True)
 
     # skip index, protos, package.json, and README.md
     s.copy(
