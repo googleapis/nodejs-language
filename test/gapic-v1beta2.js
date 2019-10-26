@@ -24,14 +24,12 @@ error.code = FAKE_STATUS_CODE;
 
 describe('LanguageServiceClient', () => {
   it('has servicePath', () => {
-    const servicePath =
-      languageModule.v1beta2.LanguageServiceClient.servicePath;
+    const servicePath = languageModule.v1beta2.LanguageServiceClient.servicePath;
     assert(servicePath);
   });
 
   it('has apiEndpoint', () => {
-    const apiEndpoint =
-      languageModule.v1beta2.LanguageServiceClient.apiEndpoint;
+    const apiEndpoint = languageModule.v1beta2.LanguageServiceClient.apiEndpoint;
     assert(apiEndpoint);
   });
 
@@ -47,9 +45,7 @@ describe('LanguageServiceClient', () => {
   });
 
   it('should create a client with gRPC fallback', () => {
-    const client = new languageModule.v1beta2.LanguageServiceClient({
-      fallback: true,
-    });
+    const client = new languageModule.v1beta2.LanguageServiceClient({fallback: true});
     assert(client);
   });
 
@@ -413,6 +409,7 @@ describe('LanguageServiceClient', () => {
       });
     });
   });
+
 });
 
 function mockSimpleGrpcMethod(expectedRequest, response, error) {

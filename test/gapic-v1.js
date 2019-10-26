@@ -45,9 +45,7 @@ describe('LanguageServiceClient', () => {
   });
 
   it('should create a client with gRPC fallback', () => {
-    const client = new languageModule.v1.LanguageServiceClient({
-      fallback: true,
-    });
+    const client = new languageModule.v1.LanguageServiceClient({fallback: true});
     assert(client);
   });
 
@@ -411,6 +409,7 @@ describe('LanguageServiceClient', () => {
       });
     });
   });
+
 });
 
 function mockSimpleGrpcMethod(expectedRequest, response, error) {
