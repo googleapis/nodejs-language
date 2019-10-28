@@ -15,7 +15,7 @@
 'use strict';
 
 async function setEndpoint() {
-  // [START language_set_endpoint]  
+  // [START language_set_endpoint]
   // Imports the Google Cloud client library
   const language = require('@google-cloud/language');
 
