@@ -70,7 +70,9 @@ class LanguageServiceClient {
     const gaxModule = !global.isBrowser && opts.fallback ? gax.fallback : gax;
 
     const servicePath =
-      opts.servicePath || opts.apiEndpoint || this.constructor.servicePath;
+      opts.servicePath ||
+      opts.apiEndpoint ||
+      this.constructor.servicePath;
 
     // Ensure that options include the service address and port.
     opts = Object.assign(
@@ -111,15 +113,11 @@ class LanguageServiceClient {
     // For Node.js, pass the path to JSON proto file.
     // For browsers, pass the JSON content.
 
-    const nodejsProtoPath = path.join(
-      __dirname,
-      '..',
-      '..',
-      'protos',
-      'protos.json'
-    );
+    const nodejsProtoPath = path.join(__dirname, '..', '..', 'protos', 'protos.json');
     const protos = gaxGrpc.loadProto(
-      opts.fallback ? require('../../protos/protos.json') : nodejsProtoPath
+      opts.fallback ?
+        require("../../protos/protos.json") :
+        nodejsProtoPath
     );
 
     // Put together the default options sent with requests.
@@ -138,9 +136,9 @@ class LanguageServiceClient {
     // Put together the "service stub" for
     // google.cloud.language.v1.LanguageService.
     const languageServiceStub = gaxGrpc.createStub(
-      opts.fallback
-        ? protos.lookupService('google.cloud.language.v1.LanguageService')
-        : protos.google.cloud.language.v1.LanguageService,
+      opts.fallback ?
+        protos.lookupService('google.cloud.language.v1.LanguageService') :
+        protos.google.cloud.language.v1.LanguageService,
       opts
     );
 
@@ -376,11 +374,7 @@ class LanguageServiceClient {
     request = request || {};
     options = options || {};
 
-    return this._innerApiCalls.analyzeEntitySentiment(
-      request,
-      options,
-      callback
-    );
+    return this._innerApiCalls.analyzeEntitySentiment(request, options, callback);
   }
 
   /**
@@ -550,5 +544,6 @@ class LanguageServiceClient {
     return this._innerApiCalls.annotateText(request, options, callback);
   }
 }
+
 
 module.exports = LanguageServiceClient;
