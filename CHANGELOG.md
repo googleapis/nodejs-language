@@ -4,6 +4,28 @@
 
 [1]: https://www.npmjs.com/package/@google-cloud/language?activeTab=versions
 
+### [3.6.2](https://www.github.com/googleapis/nodejs-language/compare/v3.6.1...v3.6.2) (2019-11-18)
+
+
+### Bug Fixes
+
+* **deps:** update dependency yargs to v15 ([#328](https://www.github.com/googleapis/nodejs-language/issues/328)) ([f035a45](https://www.github.com/googleapis/nodejs-language/commit/f035a4596f5b48d44289474fb7f46432be3a6123))
+
+### [3.6.1](https://www.github.com/googleapis/nodejs-language/compare/v3.6.0...v3.6.1) (2019-11-14)
+
+
+### Bug Fixes
+
+* import long into proto ts declaration file ([#323](https://www.github.com/googleapis/nodejs-language/issues/323)) ([d327d99](https://www.github.com/googleapis/nodejs-language/commit/d327d997c78ea2ec76fa6ca75fe94097965b7b71))
+* **docs:** snippets are now replaced in jsdoc comments ([#322](https://www.github.com/googleapis/nodejs-language/issues/322)) ([e316d9a](https://www.github.com/googleapis/nodejs-language/commit/e316d9a69de76c673ce273fe72b692e2e29a3756))
+
+## [3.6.0](https://www.github.com/googleapis/nodejs-language/compare/v3.5.1...v3.6.0) (2019-11-05)
+
+
+### Features
+
+* added endpoint samples and updated docs for language api ([#315](https://www.github.com/googleapis/nodejs-language/issues/315)) ([0a01ee5](https://www.github.com/googleapis/nodejs-language/commit/0a01ee571464a042a2bd953ee2f7a45fd189d7ce))
+
 ### [3.5.1](https://www.github.com/googleapis/nodejs-language/compare/v3.5.0...v3.5.1) (2019-10-22)
 
 
