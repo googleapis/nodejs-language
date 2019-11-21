@@ -524,6 +524,8 @@ class LanguageServiceClient {
    *
    * const document = {};
    * const features = {};
+   *
+   * // Construct request
    * const request = {
    *   document: document,
    *   features: features,

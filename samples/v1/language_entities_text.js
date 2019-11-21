@@ -21,83 +21,82 @@
 
 'use strict';
 
-// [START language_entities_text]
-
-const {LanguageServiceClient} = require('@google-cloud/language').v1;
-
-/**
- * Analyzing Entities in a String
- *
- * @param textContent {string} The text content to analyze
- */
-function sampleAnalyzeEntities(textContent) {
-  const client = new LanguageServiceClient();
+function main(textContent = 'California is a state.') {
+  // [START language_entities_text]
+  /**
+   * TODO(developer): Uncomment these variables before running the sample.
+   */
   // const textContent = 'California is a state.';
 
-  // Available types: PLAIN_TEXT, HTML
-  const type = 'PLAIN_TEXT';
+  // Imports the client library
+  const {LanguageServiceClient} = require('@google-cloud/language').v1;
 
-  // Optional. If not specified, the language is automatically detected.
-  // For list of supported languages:
-  // https://cloud.google.com/natural-language/docs/languages
-  const language = 'en';
-  const document = {
-    content: textContent,
-    type: type,
-    language: language,
-  };
+  // Instantiates a client
+  const languageServiceClient = new LanguageServiceClient();
 
-  // Available values: NONE, UTF8, UTF16, UTF32
-  const encodingType = 'UTF8';
-  const request = {
-    document: document,
-    encodingType: encodingType,
-  };
-  client
-    .analyzeEntities(request)
-    .then(responses => {
-      const response = responses[0];
-      // Loop through entitites returned from the API
-      for (const entity of response.entities) {
-        console.log(`Representative name for the entity: ${entity.name}`);
-        // Get entity type, e.g. PERSON, LOCATION, ADDRESS, NUMBER, et al
-        console.log(`Entity type: ${entity.type}`);
-        // Get the salience score associated with the entity in the [0, 1.0] range
-        console.log(`Salience score: ${entity.salience}`);
-        // Loop over the metadata associated with entity. For many known entities,
-        // the metadata is a Wikipedia URL (wikipedia_url) and Knowledge Graph MID (mid).
-        // Some entity types may have additional metadata, e.g. ADDRESS entities
-        // may have metadata for the address street_name, postal_code, et al.
-        for (const [metadataName, metadataValue] of Object.entries(
-          entity.metadata
-        )) {
-          console.log(`${metadataName}: ${metadataValue}`);
-        }
+  async function sampleAnalyzeEntities() {
+    // Available types: PLAIN_TEXT, HTML
+    const type = 'PLAIN_TEXT';
 
-        // Loop over the mentions of this entity in the input document.
-        // The API currently supports proper noun mentions.
-        for (const mention of entity.mentions) {
-          console.log(`Mention text: ${mention.text.content}`);
-          // Get the mention type, e.g. PROPER for proper noun
-          console.log(`Mention type: ${mention.type}`);
-        }
+    // Optional. If not specified, the language is automatically detected.
+    // For list of supported languages:
+    // https://cloud.google.com/natural-language/docs/languages
+    const language = 'en';
+    const document = {
+      content: textContent,
+      type: type,
+      language: language,
+    };
+
+    // Available values: NONE, UTF8, UTF16, UTF32
+    const encodingType = 'UTF8';
+
+    // Construct request
+    const request = {
+      document: document,
+      encodingType: encodingType,
+    };
+
+    // Run request
+    const [response] = await languageServiceClient.analyzeEntities(request);
+
+    // Loop through entitites returned from the API
+    for (const entity of response.entities) {
+      console.log(`Representative name for the entity: ${entity.name}`);
+      // Get entity type, e.g. PERSON, LOCATION, ADDRESS, NUMBER, et al
+      console.log(`Entity type: ${entity.type}`);
+      // Get the salience score associated with the entity in the [0, 1.0] range
+      console.log(`Salience score: ${entity.salience}`);
+      // Loop over the metadata associated with entity. For many known entities,
+      // the metadata is a Wikipedia URL (wikipedia_url) and Knowledge Graph MID (mid).
+      // Some entity types may have additional metadata, e.g. ADDRESS entities
+      // may have metadata for the address street_name, postal_code, et al.
+      for (const [metadataName, metadataValue] of Object.entries(
+        entity.metadata
+      )) {
+        console.log(`${metadataName}: ${metadataValue}`);
       }
-      // Get the language of the text, which will be the same as
-      // the language specified in the request or, if not specified,
-      // the automatically-detected language.
-      console.log(`Language of the text: ${response.language}`);
-    })
-    .catch(err => {
-      console.error(err);
-    });
-}
 
-// [END language_entities_text]
-// tslint:disable-next-line:no-any
+      // Loop over the mentions of this entity in the input document.
+      // The API currently supports proper noun mentions.
+      for (const mention of entity.mentions) {
+        console.log(`Mention text: ${mention.text.content}`);
+        // Get the mention type, e.g. PROPER for proper noun
+        console.log(`Mention type: ${mention.type}`);
+      }
+    }
+    // Get the language of the text, which will be the same as
+    // the language specified in the request or, if not specified,
+    // the automatically-detected language.
+    console.log(`Language of the text: ${response.language}`);
+  }
+  sampleAnalyzeEntities();
+  // [END language_entities_text]
+}
 
 const argv = require(`yargs`).option('text_content', {
   default: 'California is a state.',
   string: true,
 }).argv;
 
-sampleAnalyzeEntities(argv.text_content);
+main(argv.text_content);

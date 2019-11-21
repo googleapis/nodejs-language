@@ -21,53 +21,54 @@
 
 'use strict';
 
-// [START language_classify_text]
-
-const {LanguageServiceClient} = require('@google-cloud/language').v1;
-
-/**
- * Classifying Content in a String
- *
- * @param textContent {string} The text content to analyze. Must include at least 20 words.
- */
-function sampleClassifyText(textContent) {
-  const client = new LanguageServiceClient();
+function main(
+  textContent = 'That actor on TV makes movies in Hollywood and also stars in a variety of popular new TV shows.'
+) {
+  // [START language_classify_text]
+  /**
+   * TODO(developer): Uncomment these variables before running the sample.
+   */
   // const textContent = 'That actor on TV makes movies in Hollywood and also stars in a variety of popular new TV shows.';
 
-  // Available types: PLAIN_TEXT, HTML
-  const type = 'PLAIN_TEXT';
+  // Imports the client library
+  const {LanguageServiceClient} = require('@google-cloud/language').v1;
 
-  // Optional. If not specified, the language is automatically detected.
-  // For list of supported languages:
-  // https://cloud.google.com/natural-language/docs/languages
-  const language = 'en';
-  const document = {
-    content: textContent,
-    type: type,
-    language: language,
-  };
-  client
-    .classifyText({document: document})
-    .then(responses => {
-      const response = responses[0];
-      // Loop through classified categories returned from the API
-      for (const category of response.categories) {
-        // Get the name of the category representing the document.
-        // See the predefined taxonomy of categories:
-        // https://cloud.google.com/natural-language/docs/categories
-        console.log(`Category name: ${category.name}`);
-        // Get the confidence. Number representing how certain the classifier
-        // is that this category represents the provided text.
-        console.log(`Confidence: ${category.confidence}`);
-      }
-    })
-    .catch(err => {
-      console.error(err);
+  // Instantiates a client
+  const languageServiceClient = new LanguageServiceClient();
+
+  async function sampleClassifyText() {
+    // Available types: PLAIN_TEXT, HTML
+    const type = 'PLAIN_TEXT';
+
+    // Optional. If not specified, the language is automatically detected.
+    // For list of supported languages:
+    // https://cloud.google.com/natural-language/docs/languages
+    const language = 'en';
+    const document = {
+      content: textContent,
+      type: type,
+      language: language,
+    };
+
+    // Run request
+    const [response] = await languageServiceClient.classifyText({
+      document: document,
     });
-}
 
-// [END language_classify_text]
-// tslint:disable-next-line:no-any
+    // Loop through classified categories returned from the API
+    for (const category of response.categories) {
+      // Get the name of the category representing the document.
+      // See the predefined taxonomy of categories:
+      // https://cloud.google.com/natural-language/docs/categories
+      console.log(`Category name: ${category.name}`);
+      // Get the confidence. Number representing how certain the classifier
+      // is that this category represents the provided text.
+      console.log(`Confidence: ${category.confidence}`);
+    }
+  }
+  sampleClassifyText();
+  // [END language_classify_text]
+}
 
 const argv = require(`yargs`).option('text_content', {
   default:
@@ -75,4 +76,4 @@ const argv = require(`yargs`).option('text_content', {
   string: true,
 }).argv;
 
-sampleClassifyText(argv.text_content);
+main(argv.text_content);

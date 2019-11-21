@@ -21,59 +21,58 @@
 
 'use strict';
 
-// [START language_classify_gcs]
-
-const {LanguageServiceClient} = require('@google-cloud/language').v1;
-
-/**
- * Classifying Content in text file stored in Cloud Storage
- *
- * @param gcsContentUri {string} Google Cloud Storage URI where the file content is located.
- * e.g. gs://[Your Bucket]/[Path to File]
- * The text file must include at least 20 words.
- */
-function sampleClassifyText(gcsContentUri) {
-  const client = new LanguageServiceClient();
+function main(
+  gcsContentUri = 'gs://cloud-samples-data/language/classify-entertainment.txt'
+) {
+  // [START language_classify_gcs]
+  /**
+   * TODO(developer): Uncomment these variables before running the sample.
+   */
   // const gcsContentUri = 'gs://cloud-samples-data/language/classify-entertainment.txt';
 
-  // Available types: PLAIN_TEXT, HTML
-  const type = 'PLAIN_TEXT';
+  // Imports the client library
+  const {LanguageServiceClient} = require('@google-cloud/language').v1;
 
-  // Optional. If not specified, the language is automatically detected.
-  // For list of supported languages:
-  // https://cloud.google.com/natural-language/docs/languages
-  const language = 'en';
-  const document = {
-    gcsContentUri: gcsContentUri,
-    type: type,
-    language: language,
-  };
-  client
-    .classifyText({document: document})
-    .then(responses => {
-      const response = responses[0];
-      // Loop through classified categories returned from the API
-      for (const category of response.categories) {
-        // Get the name of the category representing the document.
-        // See the predefined taxonomy of categories:
-        // https://cloud.google.com/natural-language/docs/categories
-        console.log(`Category name: ${category.name}`);
-        // Get the confidence. Number representing how certain the classifier
-        // is that this category represents the provided text.
-        console.log(`Confidence: ${category.confidence}`);
-      }
-    })
-    .catch(err => {
-      console.error(err);
+  // Instantiates a client
+  const languageServiceClient = new LanguageServiceClient();
+
+  async function sampleClassifyText() {
+    // Available types: PLAIN_TEXT, HTML
+    const type = 'PLAIN_TEXT';
+
+    // Optional. If not specified, the language is automatically detected.
+    // For list of supported languages:
+    // https://cloud.google.com/natural-language/docs/languages
+    const language = 'en';
+    const document = {
+      gcsContentUri: gcsContentUri,
+      type: type,
+      language: language,
+    };
+
+    // Run request
+    const [response] = await languageServiceClient.classifyText({
+      document: document,
     });
-}
 
-// [END language_classify_gcs]
-// tslint:disable-next-line:no-any
+    // Loop through classified categories returned from the API
+    for (const category of response.categories) {
+      // Get the name of the category representing the document.
+      // See the predefined taxonomy of categories:
+      // https://cloud.google.com/natural-language/docs/categories
+      console.log(`Category name: ${category.name}`);
+      // Get the confidence. Number representing how certain the classifier
+      // is that this category represents the provided text.
+      console.log(`Confidence: ${category.confidence}`);
+    }
+  }
+  sampleClassifyText();
+  // [END language_classify_gcs]
+}
 
 const argv = require(`yargs`).option('gcs_content_uri', {
   default: 'gs://cloud-samples-data/language/classify-entertainment.txt',
   string: true,
 }).argv;
 
-sampleClassifyText(argv.gcs_content_uri);
+main(argv.gcs_content_uri);

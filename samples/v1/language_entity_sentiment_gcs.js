@@ -21,88 +21,90 @@
 
 'use strict';
 
-// [START language_entity_sentiment_gcs]
-
-const {LanguageServiceClient} = require('@google-cloud/language').v1;
-
-/**
- * Analyzing Entity Sentiment in text file stored in Cloud Storage
- *
- * @param gcsContentUri {string} Google Cloud Storage URI where the file content is located.
- * e.g. gs://[Your Bucket]/[Path to File]
- */
-function sampleAnalyzeEntitySentiment(gcsContentUri) {
-  const client = new LanguageServiceClient();
+function main(
+  gcsContentUri = 'gs://cloud-samples-data/language/entity-sentiment.txt'
+) {
+  // [START language_entity_sentiment_gcs]
+  /**
+   * TODO(developer): Uncomment these variables before running the sample.
+   */
   // const gcsContentUri = 'gs://cloud-samples-data/language/entity-sentiment.txt';
 
-  // Available types: PLAIN_TEXT, HTML
-  const type = 'PLAIN_TEXT';
+  // Imports the client library
+  const {LanguageServiceClient} = require('@google-cloud/language').v1;
 
-  // Optional. If not specified, the language is automatically detected.
-  // For list of supported languages:
-  // https://cloud.google.com/natural-language/docs/languages
-  const language = 'en';
-  const document = {
-    gcsContentUri: gcsContentUri,
-    type: type,
-    language: language,
-  };
+  // Instantiates a client
+  const languageServiceClient = new LanguageServiceClient();
 
-  // Available values: NONE, UTF8, UTF16, UTF32
-  const encodingType = 'UTF8';
-  const request = {
-    document: document,
-    encodingType: encodingType,
-  };
-  client
-    .analyzeEntitySentiment(request)
-    .then(responses => {
-      const response = responses[0];
-      // Loop through entitites returned from the API
-      for (const entity of response.entities) {
-        console.log(`Representative name for the entity: ${entity.name}`);
-        // Get entity type, e.g. PERSON, LOCATION, ADDRESS, NUMBER, et al
-        console.log(`Entity type: ${entity.type}`);
-        // Get the salience score associated with the entity in the [0, 1.0] range
-        console.log(`Salience score: ${entity.salience}`);
-        // Get the aggregate sentiment expressed for this entity in the provided document.
-        const sentiment = entity.sentiment;
-        console.log(`Entity sentiment score: ${sentiment.score}`);
-        console.log(`Entity sentiment magnitude: ${sentiment.magnitude}`);
-        // Loop over the metadata associated with entity. For many known entities,
-        // the metadata is a Wikipedia URL (wikipedia_url) and Knowledge Graph MID (mid).
-        // Some entity types may have additional metadata, e.g. ADDRESS entities
-        // may have metadata for the address street_name, postal_code, et al.
-        for (const [metadataName, metadataValue] of Object.entries(
-          entity.metadata
-        )) {
-          console.log(`${metadataName} = ${metadataValue}`);
-        }
+  async function sampleAnalyzeEntitySentiment() {
+    // Available types: PLAIN_TEXT, HTML
+    const type = 'PLAIN_TEXT';
 
-        // Loop over the mentions of this entity in the input document.
-        // The API currently supports proper noun mentions.
-        for (const mention of entity.mentions) {
-          console.log(`Mention text: ${mention.text.content}`);
-          // Get the mention type, e.g. PROPER for proper noun
-          console.log(`Mention type: ${mention.type}`);
-        }
+    // Optional. If not specified, the language is automatically detected.
+    // For list of supported languages:
+    // https://cloud.google.com/natural-language/docs/languages
+    const language = 'en';
+    const document = {
+      gcsContentUri: gcsContentUri,
+      type: type,
+      language: language,
+    };
+
+    // Available values: NONE, UTF8, UTF16, UTF32
+    const encodingType = 'UTF8';
+
+    // Construct request
+    const request = {
+      document: document,
+      encodingType: encodingType,
+    };
+
+    // Run request
+    const [response] = await languageServiceClient.analyzeEntitySentiment(
+      request
+    );
+
+    // Loop through entitites returned from the API
+    for (const entity of response.entities) {
+      console.log(`Representative name for the entity: ${entity.name}`);
+      // Get entity type, e.g. PERSON, LOCATION, ADDRESS, NUMBER, et al
+      console.log(`Entity type: ${entity.type}`);
+      // Get the salience score associated with the entity in the [0, 1.0] range
+      console.log(`Salience score: ${entity.salience}`);
+      // Get the aggregate sentiment expressed for this entity in the provided document.
+      const sentiment = entity.sentiment;
+      console.log(`Entity sentiment score: ${sentiment.score}`);
+      console.log(`Entity sentiment magnitude: ${sentiment.magnitude}`);
+      // Loop over the metadata associated with entity. For many known entities,
+      // the metadata is a Wikipedia URL (wikipedia_url) and Knowledge Graph MID (mid).
+      // Some entity types may have additional metadata, e.g. ADDRESS entities
+      // may have metadata for the address street_name, postal_code, et al.
+      for (const [metadataName, metadataValue] of Object.entries(
+        entity.metadata
+      )) {
+        console.log(`${metadataName} = ${metadataValue}`);
       }
-      // Get the language of the text, which will be the same as
-      // the language specified in the request or, if not specified,
-      // the automatically-detected language.
-      console.log(`Language of the text: ${response.language}`);
-    })
-    .catch(err => {
-      console.error(err);
-    });
-}
 
-// [END language_entity_sentiment_gcs]
-// tslint:disable-next-line:no-any
+      // Loop over the mentions of this entity in the input document.
+      // The API currently supports proper noun mentions.
+      for (const mention of entity.mentions) {
+        console.log(`Mention text: ${mention.text.content}`);
+        // Get the mention type, e.g. PROPER for proper noun
+        console.log(`Mention type: ${mention.type}`);
+      }
+    }
+    // Get the language of the text, which will be the same as
+    // the language specified in the request or, if not specified,
+    // the automatically-detected language.
+    console.log(`Language of the text: ${response.language}`);
+  }
+  sampleAnalyzeEntitySentiment();
+  // [END language_entity_sentiment_gcs]
+}
 
 const argv = require(`yargs`).option('gcs_content_uri', {
   default: 'gs://cloud-samples-data/language/entity-sentiment.txt',
   string: true,
 }).argv;
 
-sampleAnalyzeEntitySentiment(argv.gcs_content_uri);
+main(argv.gcs_content_uri);
