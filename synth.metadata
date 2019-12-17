@@ -1,12 +1,12 @@
 {
-  "updateTime": "2019-12-17T01:21:01.159090Z",
+  "updateTime": "2019-12-17T18:35:16.393750Z",
   "sources": [
     {
       "git": {
         "name": "googleapis",
         "remote": "https://github.com/googleapis/googleapis.git",
-        "sha": "41fc1403738b61427f3a798ca9750ef47eb9c0f2",
-        "internalRef": "285824386"
+        "sha": "6ad2bb13bc4b0f3f785517f0563118f6ca52ddfd",
+        "internalRef": "286008145"
       }
     },
     {
@@ -109,6 +109,9 @@
     },
     {
       "path": "system-test/fixtures/sample/src/index.ts"
+    },
+    {
+      "path": "__pycache__/synth.cpython-36.pyc"
     },
     {
       "path": "samples/README.md"
