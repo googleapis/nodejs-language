@@ -11,7 +11,8 @@ for version in ['v1', 'v1beta2']:
     library = gapic.typescript_library(
         'language', 
         generator_args={
-            "grpc-service-config": f"google/cloud/language/{version}/language_grpc_service_config.json"
+            "grpc-service-config": f"google/cloud/language/{version}/language_grpc_service_config.json",
+            "package-name":f"@google-cloud/language"
             },
         proto_path=f'/google/cloud/language/{version}',
         version=version)

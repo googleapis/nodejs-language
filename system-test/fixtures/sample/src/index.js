@@ -18,7 +18,7 @@
 
 
 /* eslint-disable node/no-missing-require, no-unused-vars */
-const language = require('language');
+const language = require('@google-cloud/language');
 
 function main() {
   const languageServiceClient = new language.LanguageServiceClient();
