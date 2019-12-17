@@ -1,5 +1,5 @@
 {
-  "updateTime": "2019-12-17T18:44:03.745337Z",
+  "updateTime": "2019-12-17T22:34:22.273165Z",
   "sources": [
     {
       "git": {
@@ -87,6 +87,15 @@
       "path": "linkinator.config.json"
     },
     {
+      "path": "protos/protos.d.ts"
+    },
+    {
+      "path": "protos/protos.json"
+    },
+    {
+      "path": "protos/protos.js"
+    },
+    {
       "path": "protos/google/cloud/language/v1/language_service.proto"
     },
     {
@@ -109,9 +118,6 @@
     },
     {
       "path": "system-test/fixtures/sample/src/index.ts"
-    },
-    {
-      "path": "__pycache__/synth.cpython-36.pyc"
     },
     {
       "path": "samples/README.md"
