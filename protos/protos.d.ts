@@ -755,7 +755,7 @@ export namespace google {
                     aspect?: (google.cloud.language.v1.PartOfSpeech.Aspect|keyof typeof google.cloud.language.v1.PartOfSpeech.Aspect|null);
 
                     /** PartOfSpeech case */
-                    "case"?: (google.cloud.language.v1.PartOfSpeech.Case|null);
+                    "case"?: (google.cloud.language.v1.PartOfSpeech.Case|keyof typeof google.cloud.language.v1.PartOfSpeech.Case|null);
 
                     /** PartOfSpeech form */
                     form?: (google.cloud.language.v1.PartOfSpeech.Form|keyof typeof google.cloud.language.v1.PartOfSpeech.Form|null);
@@ -3556,7 +3556,7 @@ export namespace google {
                     aspect?: (google.cloud.language.v1beta2.PartOfSpeech.Aspect|keyof typeof google.cloud.language.v1beta2.PartOfSpeech.Aspect|null);
 
                     /** PartOfSpeech case */
-                    "case"?: (google.cloud.language.v1beta2.PartOfSpeech.Case|null);
+                    "case"?: (google.cloud.language.v1beta2.PartOfSpeech.Case|keyof typeof google.cloud.language.v1beta2.PartOfSpeech.Case|null);
 
                     /** PartOfSpeech form */
                     form?: (google.cloud.language.v1beta2.PartOfSpeech.Form|keyof typeof google.cloud.language.v1beta2.PartOfSpeech.Form|null);
