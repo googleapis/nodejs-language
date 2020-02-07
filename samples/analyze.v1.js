@@ -184,7 +184,7 @@ async function analyzeSyntaxOfText(text) {
   const encodingType = 'UTF-8';
 
   // Detects the sentiment of the document
-  const [syntax] = await client.analyzeSentiment({document, encodingType});
+  const [syntax] = await client.analyzeSyntax({document, encodingType});
 
   console.log('Tokens:');
   syntax.tokens.forEach(part => {
@@ -218,7 +218,7 @@ async function analyzeSyntaxInFile(bucketName, fileName) {
   const encodingType = 'UTF-8';
 
   // Detects the sentiment of the document
-  const [syntax] = await client.analyzeSentiment({document, encodingType});
+  const [syntax] = await client.analyzeSyntax({document, encodingType});
 
   console.log('Parts of speech:');
   syntax.tokens.forEach(part => {
