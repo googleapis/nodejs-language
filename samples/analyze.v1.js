@@ -181,7 +181,7 @@ async function analyzeSyntaxOfText(text) {
   };
 
   // Need to specify an encodingType to receive word offsets
-  const encodingType = 'UTF-8';
+  const encodingType = 'UTF8';
 
   // Detects the sentiment of the document
   const [syntax] = await client.analyzeSyntax({document, encodingType});
@@ -215,7 +215,7 @@ async function analyzeSyntaxInFile(bucketName, fileName) {
   };
 
   // Need to specify an encodingType to receive word offsets
-  const encodingType = 'UTF-8';
+  const encodingType = 'UTF8';
 
   // Detects the sentiment of the document
   const [syntax] = await client.analyzeSyntax({document, encodingType});
