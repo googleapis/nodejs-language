@@ -18,385 +18,369 @@
 
 import * as protosTypes from '../protos/protos';
 import * as assert from 'assert';
-import {describe, it} from 'mocha';
+import { describe, it } from 'mocha';
+/* eslint-disable @typescript-eslint/no-var-requires */
 const languageserviceModule = require('../src');
 
+
 const FAKE_STATUS_CODE = 1;
-class FakeError {
-  name: string;
-  message: string;
-  code: number;
-  constructor(n: number) {
-    this.name = 'fakeName';
-    this.message = 'fake message';
-    this.code = n;
-  }
+class FakeError{
+    name: string;
+    message: string;
+    code: number;
+    constructor(n: number){
+        this.name = 'fakeName';
+        this.message = 'fake message';
+        this.code = n;
+    }
 }
 const error = new FakeError(FAKE_STATUS_CODE);
 export interface Callback {
-  (err: FakeError | null, response?: {} | null): void;
+  (err: FakeError|null, response?: {} | null): void;
 }
 
-export class Operation {
-  constructor() {}
-  promise() {}
+export class Operation{
+    constructor(){};
+    promise() {};
 }
-function mockSimpleGrpcMethod(
-  expectedRequest: {},
-  response: {} | null,
-  error: FakeError | null
-) {
-  return (actualRequest: {}, options: {}, callback: Callback) => {
-    assert.deepStrictEqual(actualRequest, expectedRequest);
-    if (error) {
-      callback(error);
-    } else if (response) {
-      callback(null, response);
-    } else {
-      callback(null);
-    }
-  };
+function mockSimpleGrpcMethod(expectedRequest: {}, response: {} | null, error: FakeError | null) {
+    return (actualRequest: {}, options: {}, callback: Callback) => {
+        assert.deepStrictEqual(actualRequest, expectedRequest);
+        if (error) {
+            callback(error);
+        } else if (response) {
+            callback(null, response);
+        } else {
+            callback(null);
+        }
+    };
 }
 describe('v1beta2.LanguageServiceClient', () => {
-  it('has servicePath', () => {
-    const servicePath =
-      languageserviceModule.v1beta2.LanguageServiceClient.servicePath;
-    assert(servicePath);
-  });
-  it('has apiEndpoint', () => {
-    const apiEndpoint =
-      languageserviceModule.v1beta2.LanguageServiceClient.apiEndpoint;
-    assert(apiEndpoint);
-  });
-  it('has port', () => {
-    const port = languageserviceModule.v1beta2.LanguageServiceClient.port;
-    assert(port);
-    assert(typeof port === 'number');
-  });
-  it('should create a client with no option', () => {
-    const client = new languageserviceModule.v1beta2.LanguageServiceClient();
-    assert(client);
-  });
-  it('should create a client with gRPC fallback', () => {
-    const client = new languageserviceModule.v1beta2.LanguageServiceClient({
-      fallback: true,
+    it('has servicePath', () => {
+        const servicePath = languageserviceModule.v1beta2.LanguageServiceClient.servicePath;
+        assert(servicePath);
     });
-    assert(client);
-  });
-  it('has initialize method and supports deferred initialization', async () => {
-    const client = new languageserviceModule.v1beta2.LanguageServiceClient({
-      credentials: {client_email: 'bogus', private_key: 'bogus'},
-      projectId: 'bogus',
+    it('has apiEndpoint', () => {
+        const apiEndpoint = languageserviceModule.v1beta2.LanguageServiceClient.apiEndpoint;
+        assert(apiEndpoint);
     });
-    assert.strictEqual(client.languageServiceStub, undefined);
-    await client.initialize();
-    assert(client.languageServiceStub);
-  });
-  it('has close method', () => {
-    const client = new languageserviceModule.v1beta2.LanguageServiceClient({
-      credentials: {client_email: 'bogus', private_key: 'bogus'},
-      projectId: 'bogus',
+    it('has port', () => {
+        const port = languageserviceModule.v1beta2.LanguageServiceClient.port;
+        assert(port);
+        assert(typeof port === 'number');
     });
-    client.close();
-  });
-  describe('analyzeSentiment', () => {
-    it('invokes analyzeSentiment without error', done => {
-      const client = new languageserviceModule.v1beta2.LanguageServiceClient({
-        credentials: {client_email: 'bogus', private_key: 'bogus'},
-        projectId: 'bogus',
-      });
-      // Initialize client before mocking
-      client.initialize();
-      // Mock request
-      const request: protosTypes.google.cloud.language.v1beta2.IAnalyzeSentimentRequest = {};
-      // Mock response
-      const expectedResponse = {};
-      // Mock gRPC layer
-      client._innerApiCalls.analyzeSentiment = mockSimpleGrpcMethod(
-        request,
-        expectedResponse,
-        null
-      );
-      client.analyzeSentiment(request, (err: {}, response: {}) => {
-        assert.ifError(err);
-        assert.deepStrictEqual(response, expectedResponse);
-        done();
-      });
+    it('should create a client with no option', () => {
+        const client = new languageserviceModule.v1beta2.LanguageServiceClient();
+        assert(client);
     });
+    it('should create a client with gRPC fallback', () => {
+        const client = new languageserviceModule.v1beta2.LanguageServiceClient({
+            fallback: true,
+        });
+        assert(client);
+    });
+    it('has initialize method and supports deferred initialization', async () => {
+        const client = new languageserviceModule.v1beta2.LanguageServiceClient({
+            credentials: { client_email: 'bogus', private_key: 'bogus' },
+            projectId: 'bogus',
+        });
+        assert.strictEqual(client.languageServiceStub, undefined);
+        await client.initialize();
+        assert(client.languageServiceStub);
+    });
+    it('has close method', () => {
+        const client = new languageserviceModule.v1beta2.LanguageServiceClient({
+            credentials: { client_email: 'bogus', private_key: 'bogus' },
+            projectId: 'bogus',
+        });
+        client.close();
+    });
+    describe('analyzeSentiment', () => {
+        it('invokes analyzeSentiment without error', done => {
+            const client = new languageserviceModule.v1beta2.LanguageServiceClient({
+                credentials: {client_email: 'bogus', private_key: 'bogus'},
+                projectId: 'bogus',
+            });
+            // Initialize client before mocking
+            client.initialize();
+            // Mock request
+            const request: protosTypes.google.cloud.language.v1beta2.IAnalyzeSentimentRequest = {};
+            // Mock response
+            const expectedResponse = {};
+            // Mock gRPC layer
+            client._innerApiCalls.analyzeSentiment = mockSimpleGrpcMethod(
+                request,
+                expectedResponse,
+                null
+            );
+            client.analyzeSentiment(request, (err: {}, response: {}) => {
+                assert.ifError(err);
+                assert.deepStrictEqual(response, expectedResponse);
+                done();
+            })
+        });
 
-    it('invokes analyzeSentiment with error', done => {
-      const client = new languageserviceModule.v1beta2.LanguageServiceClient({
-        credentials: {client_email: 'bogus', private_key: 'bogus'},
-        projectId: 'bogus',
-      });
-      // Initialize client before mocking
-      client.initialize();
-      // Mock request
-      const request: protosTypes.google.cloud.language.v1beta2.IAnalyzeSentimentRequest = {};
-      // Mock response
-      const expectedResponse = {};
-      // Mock gRPC layer
-      client._innerApiCalls.analyzeSentiment = mockSimpleGrpcMethod(
-        request,
-        null,
-        error
-      );
-      client.analyzeSentiment(request, (err: FakeError, response: {}) => {
-        assert(err instanceof FakeError);
-        assert.strictEqual(err.code, FAKE_STATUS_CODE);
-        assert(typeof response === 'undefined');
-        done();
-      });
+        it('invokes analyzeSentiment with error', done => {
+            const client = new languageserviceModule.v1beta2.LanguageServiceClient({
+                credentials: {client_email: 'bogus', private_key: 'bogus'},
+                projectId: 'bogus',
+            });
+            // Initialize client before mocking
+            client.initialize();
+            // Mock request
+            const request: protosTypes.google.cloud.language.v1beta2.IAnalyzeSentimentRequest = {};
+            // Mock gRPC layer
+            client._innerApiCalls.analyzeSentiment = mockSimpleGrpcMethod(
+                request,
+                null,
+                error
+            );
+            client.analyzeSentiment(request, (err: FakeError, response: {}) => {
+                assert(err instanceof FakeError);
+                assert.strictEqual(err.code, FAKE_STATUS_CODE);
+                assert(typeof response === 'undefined');
+                done();
+            })
+        });
     });
-  });
-  describe('analyzeEntities', () => {
-    it('invokes analyzeEntities without error', done => {
-      const client = new languageserviceModule.v1beta2.LanguageServiceClient({
-        credentials: {client_email: 'bogus', private_key: 'bogus'},
-        projectId: 'bogus',
-      });
-      // Initialize client before mocking
-      client.initialize();
-      // Mock request
-      const request: protosTypes.google.cloud.language.v1beta2.IAnalyzeEntitiesRequest = {};
-      // Mock response
-      const expectedResponse = {};
-      // Mock gRPC layer
-      client._innerApiCalls.analyzeEntities = mockSimpleGrpcMethod(
-        request,
-        expectedResponse,
-        null
-      );
-      client.analyzeEntities(request, (err: {}, response: {}) => {
-        assert.ifError(err);
-        assert.deepStrictEqual(response, expectedResponse);
-        done();
-      });
-    });
+    describe('analyzeEntities', () => {
+        it('invokes analyzeEntities without error', done => {
+            const client = new languageserviceModule.v1beta2.LanguageServiceClient({
+                credentials: {client_email: 'bogus', private_key: 'bogus'},
+                projectId: 'bogus',
+            });
+            // Initialize client before mocking
+            client.initialize();
+            // Mock request
+            const request: protosTypes.google.cloud.language.v1beta2.IAnalyzeEntitiesRequest = {};
+            // Mock response
+            const expectedResponse = {};
+            // Mock gRPC layer
+            client._innerApiCalls.analyzeEntities = mockSimpleGrpcMethod(
+                request,
+                expectedResponse,
+                null
+            );
+            client.analyzeEntities(request, (err: {}, response: {}) => {
+                assert.ifError(err);
+                assert.deepStrictEqual(response, expectedResponse);
+                done();
+            })
+        });
 
-    it('invokes analyzeEntities with error', done => {
-      const client = new languageserviceModule.v1beta2.LanguageServiceClient({
-        credentials: {client_email: 'bogus', private_key: 'bogus'},
-        projectId: 'bogus',
-      });
-      // Initialize client before mocking
-      client.initialize();
-      // Mock request
-      const request: protosTypes.google.cloud.language.v1beta2.IAnalyzeEntitiesRequest = {};
-      // Mock response
-      const expectedResponse = {};
-      // Mock gRPC layer
-      client._innerApiCalls.analyzeEntities = mockSimpleGrpcMethod(
-        request,
-        null,
-        error
-      );
-      client.analyzeEntities(request, (err: FakeError, response: {}) => {
-        assert(err instanceof FakeError);
-        assert.strictEqual(err.code, FAKE_STATUS_CODE);
-        assert(typeof response === 'undefined');
-        done();
-      });
+        it('invokes analyzeEntities with error', done => {
+            const client = new languageserviceModule.v1beta2.LanguageServiceClient({
+                credentials: {client_email: 'bogus', private_key: 'bogus'},
+                projectId: 'bogus',
+            });
+            // Initialize client before mocking
+            client.initialize();
+            // Mock request
+            const request: protosTypes.google.cloud.language.v1beta2.IAnalyzeEntitiesRequest = {};
+            // Mock gRPC layer
+            client._innerApiCalls.analyzeEntities = mockSimpleGrpcMethod(
+                request,
+                null,
+                error
+            );
+            client.analyzeEntities(request, (err: FakeError, response: {}) => {
+                assert(err instanceof FakeError);
+                assert.strictEqual(err.code, FAKE_STATUS_CODE);
+                assert(typeof response === 'undefined');
+                done();
+            })
+        });
     });
-  });
-  describe('analyzeEntitySentiment', () => {
-    it('invokes analyzeEntitySentiment without error', done => {
-      const client = new languageserviceModule.v1beta2.LanguageServiceClient({
-        credentials: {client_email: 'bogus', private_key: 'bogus'},
-        projectId: 'bogus',
-      });
-      // Initialize client before mocking
-      client.initialize();
-      // Mock request
-      const request: protosTypes.google.cloud.language.v1beta2.IAnalyzeEntitySentimentRequest = {};
-      // Mock response
-      const expectedResponse = {};
-      // Mock gRPC layer
-      client._innerApiCalls.analyzeEntitySentiment = mockSimpleGrpcMethod(
-        request,
-        expectedResponse,
-        null
-      );
-      client.analyzeEntitySentiment(request, (err: {}, response: {}) => {
-        assert.ifError(err);
-        assert.deepStrictEqual(response, expectedResponse);
-        done();
-      });
-    });
+    describe('analyzeEntitySentiment', () => {
+        it('invokes analyzeEntitySentiment without error', done => {
+            const client = new languageserviceModule.v1beta2.LanguageServiceClient({
+                credentials: {client_email: 'bogus', private_key: 'bogus'},
+                projectId: 'bogus',
+            });
+            // Initialize client before mocking
+            client.initialize();
+            // Mock request
+            const request: protosTypes.google.cloud.language.v1beta2.IAnalyzeEntitySentimentRequest = {};
+            // Mock response
+            const expectedResponse = {};
+            // Mock gRPC layer
+            client._innerApiCalls.analyzeEntitySentiment = mockSimpleGrpcMethod(
+                request,
+                expectedResponse,
+                null
+            );
+            client.analyzeEntitySentiment(request, (err: {}, response: {}) => {
+                assert.ifError(err);
+                assert.deepStrictEqual(response, expectedResponse);
+                done();
+            })
+        });
 
-    it('invokes analyzeEntitySentiment with error', done => {
-      const client = new languageserviceModule.v1beta2.LanguageServiceClient({
-        credentials: {client_email: 'bogus', private_key: 'bogus'},
-        projectId: 'bogus',
-      });
-      // Initialize client before mocking
-      client.initialize();
-      // Mock request
-      const request: protosTypes.google.cloud.language.v1beta2.IAnalyzeEntitySentimentRequest = {};
-      // Mock response
-      const expectedResponse = {};
-      // Mock gRPC layer
-      client._innerApiCalls.analyzeEntitySentiment = mockSimpleGrpcMethod(
-        request,
-        null,
-        error
-      );
-      client.analyzeEntitySentiment(request, (err: FakeError, response: {}) => {
-        assert(err instanceof FakeError);
-        assert.strictEqual(err.code, FAKE_STATUS_CODE);
-        assert(typeof response === 'undefined');
-        done();
-      });
+        it('invokes analyzeEntitySentiment with error', done => {
+            const client = new languageserviceModule.v1beta2.LanguageServiceClient({
+                credentials: {client_email: 'bogus', private_key: 'bogus'},
+                projectId: 'bogus',
+            });
+            // Initialize client before mocking
+            client.initialize();
+            // Mock request
+            const request: protosTypes.google.cloud.language.v1beta2.IAnalyzeEntitySentimentRequest = {};
+            // Mock gRPC layer
+            client._innerApiCalls.analyzeEntitySentiment = mockSimpleGrpcMethod(
+                request,
+                null,
+                error
+            );
+            client.analyzeEntitySentiment(request, (err: FakeError, response: {}) => {
+                assert(err instanceof FakeError);
+                assert.strictEqual(err.code, FAKE_STATUS_CODE);
+                assert(typeof response === 'undefined');
+                done();
+            })
+        });
     });
-  });
-  describe('analyzeSyntax', () => {
-    it('invokes analyzeSyntax without error', done => {
-      const client = new languageserviceModule.v1beta2.LanguageServiceClient({
-        credentials: {client_email: 'bogus', private_key: 'bogus'},
-        projectId: 'bogus',
-      });
-      // Initialize client before mocking
-      client.initialize();
-      // Mock request
-      const request: protosTypes.google.cloud.language.v1beta2.IAnalyzeSyntaxRequest = {};
-      // Mock response
-      const expectedResponse = {};
-      // Mock gRPC layer
-      client._innerApiCalls.analyzeSyntax = mockSimpleGrpcMethod(
-        request,
-        expectedResponse,
-        null
-      );
-      client.analyzeSyntax(request, (err: {}, response: {}) => {
-        assert.ifError(err);
-        assert.deepStrictEqual(response, expectedResponse);
-        done();
-      });
-    });
+    describe('analyzeSyntax', () => {
+        it('invokes analyzeSyntax without error', done => {
+            const client = new languageserviceModule.v1beta2.LanguageServiceClient({
+                credentials: {client_email: 'bogus', private_key: 'bogus'},
+                projectId: 'bogus',
+            });
+            // Initialize client before mocking
+            client.initialize();
+            // Mock request
+            const request: protosTypes.google.cloud.language.v1beta2.IAnalyzeSyntaxRequest = {};
+            // Mock response
+            const expectedResponse = {};
+            // Mock gRPC layer
+            client._innerApiCalls.analyzeSyntax = mockSimpleGrpcMethod(
+                request,
+                expectedResponse,
+                null
+            );
+            client.analyzeSyntax(request, (err: {}, response: {}) => {
+                assert.ifError(err);
+                assert.deepStrictEqual(response, expectedResponse);
+                done();
+            })
+        });
 
-    it('invokes analyzeSyntax with error', done => {
-      const client = new languageserviceModule.v1beta2.LanguageServiceClient({
-        credentials: {client_email: 'bogus', private_key: 'bogus'},
-        projectId: 'bogus',
-      });
-      // Initialize client before mocking
-      client.initialize();
-      // Mock request
-      const request: protosTypes.google.cloud.language.v1beta2.IAnalyzeSyntaxRequest = {};
-      // Mock response
-      const expectedResponse = {};
-      // Mock gRPC layer
-      client._innerApiCalls.analyzeSyntax = mockSimpleGrpcMethod(
-        request,
-        null,
-        error
-      );
-      client.analyzeSyntax(request, (err: FakeError, response: {}) => {
-        assert(err instanceof FakeError);
-        assert.strictEqual(err.code, FAKE_STATUS_CODE);
-        assert(typeof response === 'undefined');
-        done();
-      });
+        it('invokes analyzeSyntax with error', done => {
+            const client = new languageserviceModule.v1beta2.LanguageServiceClient({
+                credentials: {client_email: 'bogus', private_key: 'bogus'},
+                projectId: 'bogus',
+            });
+            // Initialize client before mocking
+            client.initialize();
+            // Mock request
+            const request: protosTypes.google.cloud.language.v1beta2.IAnalyzeSyntaxRequest = {};
+            // Mock gRPC layer
+            client._innerApiCalls.analyzeSyntax = mockSimpleGrpcMethod(
+                request,
+                null,
+                error
+            );
+            client.analyzeSyntax(request, (err: FakeError, response: {}) => {
+                assert(err instanceof FakeError);
+                assert.strictEqual(err.code, FAKE_STATUS_CODE);
+                assert(typeof response === 'undefined');
+                done();
+            })
+        });
     });
-  });
-  describe('classifyText', () => {
-    it('invokes classifyText without error', done => {
-      const client = new languageserviceModule.v1beta2.LanguageServiceClient({
-        credentials: {client_email: 'bogus', private_key: 'bogus'},
-        projectId: 'bogus',
-      });
-      // Initialize client before mocking
-      client.initialize();
-      // Mock request
-      const request: protosTypes.google.cloud.language.v1beta2.IClassifyTextRequest = {};
-      // Mock response
-      const expectedResponse = {};
-      // Mock gRPC layer
-      client._innerApiCalls.classifyText = mockSimpleGrpcMethod(
-        request,
-        expectedResponse,
-        null
-      );
-      client.classifyText(request, (err: {}, response: {}) => {
-        assert.ifError(err);
-        assert.deepStrictEqual(response, expectedResponse);
-        done();
-      });
-    });
+    describe('classifyText', () => {
+        it('invokes classifyText without error', done => {
+            const client = new languageserviceModule.v1beta2.LanguageServiceClient({
+                credentials: {client_email: 'bogus', private_key: 'bogus'},
+                projectId: 'bogus',
+            });
+            // Initialize client before mocking
+            client.initialize();
+            // Mock request
+            const request: protosTypes.google.cloud.language.v1beta2.IClassifyTextRequest = {};
+            // Mock response
+            const expectedResponse = {};
+            // Mock gRPC layer
+            client._innerApiCalls.classifyText = mockSimpleGrpcMethod(
+                request,
+                expectedResponse,
+                null
+            );
+            client.classifyText(request, (err: {}, response: {}) => {
+                assert.ifError(err);
+                assert.deepStrictEqual(response, expectedResponse);
+                done();
+            })
+        });
 
-    it('invokes classifyText with error', done => {
-      const client = new languageserviceModule.v1beta2.LanguageServiceClient({
-        credentials: {client_email: 'bogus', private_key: 'bogus'},
-        projectId: 'bogus',
-      });
-      // Initialize client before mocking
-      client.initialize();
-      // Mock request
-      const request: protosTypes.google.cloud.language.v1beta2.IClassifyTextRequest = {};
-      // Mock response
-      const expectedResponse = {};
-      // Mock gRPC layer
-      client._innerApiCalls.classifyText = mockSimpleGrpcMethod(
-        request,
-        null,
-        error
-      );
-      client.classifyText(request, (err: FakeError, response: {}) => {
-        assert(err instanceof FakeError);
-        assert.strictEqual(err.code, FAKE_STATUS_CODE);
-        assert(typeof response === 'undefined');
-        done();
-      });
+        it('invokes classifyText with error', done => {
+            const client = new languageserviceModule.v1beta2.LanguageServiceClient({
+                credentials: {client_email: 'bogus', private_key: 'bogus'},
+                projectId: 'bogus',
+            });
+            // Initialize client before mocking
+            client.initialize();
+            // Mock request
+            const request: protosTypes.google.cloud.language.v1beta2.IClassifyTextRequest = {};
+            // Mock gRPC layer
+            client._innerApiCalls.classifyText = mockSimpleGrpcMethod(
+                request,
+                null,
+                error
+            );
+            client.classifyText(request, (err: FakeError, response: {}) => {
+                assert(err instanceof FakeError);
+                assert.strictEqual(err.code, FAKE_STATUS_CODE);
+                assert(typeof response === 'undefined');
+                done();
+            })
+        });
     });
-  });
-  describe('annotateText', () => {
-    it('invokes annotateText without error', done => {
-      const client = new languageserviceModule.v1beta2.LanguageServiceClient({
-        credentials: {client_email: 'bogus', private_key: 'bogus'},
-        projectId: 'bogus',
-      });
-      // Initialize client before mocking
-      client.initialize();
-      // Mock request
-      const request: protosTypes.google.cloud.language.v1beta2.IAnnotateTextRequest = {};
-      // Mock response
-      const expectedResponse = {};
-      // Mock gRPC layer
-      client._innerApiCalls.annotateText = mockSimpleGrpcMethod(
-        request,
-        expectedResponse,
-        null
-      );
-      client.annotateText(request, (err: {}, response: {}) => {
-        assert.ifError(err);
-        assert.deepStrictEqual(response, expectedResponse);
-        done();
-      });
-    });
+    describe('annotateText', () => {
+        it('invokes annotateText without error', done => {
+            const client = new languageserviceModule.v1beta2.LanguageServiceClient({
+                credentials: {client_email: 'bogus', private_key: 'bogus'},
+                projectId: 'bogus',
+            });
+            // Initialize client before mocking
+            client.initialize();
+            // Mock request
+            const request: protosTypes.google.cloud.language.v1beta2.IAnnotateTextRequest = {};
+            // Mock response
+            const expectedResponse = {};
+            // Mock gRPC layer
+            client._innerApiCalls.annotateText = mockSimpleGrpcMethod(
+                request,
+                expectedResponse,
+                null
+            );
+            client.annotateText(request, (err: {}, response: {}) => {
+                assert.ifError(err);
+                assert.deepStrictEqual(response, expectedResponse);
+                done();
+            })
+        });
 
-    it('invokes annotateText with error', done => {
-      const client = new languageserviceModule.v1beta2.LanguageServiceClient({
-        credentials: {client_email: 'bogus', private_key: 'bogus'},
-        projectId: 'bogus',
-      });
-      // Initialize client before mocking
-      client.initialize();
-      // Mock request
-      const request: protosTypes.google.cloud.language.v1beta2.IAnnotateTextRequest = {};
-      // Mock response
-      const expectedResponse = {};
-      // Mock gRPC layer
-      client._innerApiCalls.annotateText = mockSimpleGrpcMethod(
-        request,
-        null,
-        error
-      );
-      client.annotateText(request, (err: FakeError, response: {}) => {
-        assert(err instanceof FakeError);
-        assert.strictEqual(err.code, FAKE_STATUS_CODE);
-        assert(typeof response === 'undefined');
-        done();
-      });
+        it('invokes annotateText with error', done => {
+            const client = new languageserviceModule.v1beta2.LanguageServiceClient({
+                credentials: {client_email: 'bogus', private_key: 'bogus'},
+                projectId: 'bogus',
+            });
+            // Initialize client before mocking
+            client.initialize();
+            // Mock request
+            const request: protosTypes.google.cloud.language.v1beta2.IAnnotateTextRequest = {};
+            // Mock gRPC layer
+            client._innerApiCalls.annotateText = mockSimpleGrpcMethod(
+                request,
+                null,
+                error
+            );
+            client.annotateText(request, (err: FakeError, response: {}) => {
+                assert(err instanceof FakeError);
+                assert.strictEqual(err.code, FAKE_STATUS_CODE);
+                assert(typeof response === 'undefined');
+                done();
+            })
+        });
     });
-  });
 });
