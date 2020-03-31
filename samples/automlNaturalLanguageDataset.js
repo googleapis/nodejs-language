@@ -1,1 +1,1 @@
-automl / automlNaturalLanguageDataset.js;
+automl/automlNaturalLanguageDataset.js

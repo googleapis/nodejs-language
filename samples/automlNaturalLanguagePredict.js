@@ -1,1 +1,1 @@
-automl / automlNaturalLanguagePredict.js;
+automl/automlNaturalLanguagePredict.js
