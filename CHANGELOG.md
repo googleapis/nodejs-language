@@ -4,6 +4,13 @@
 
 [1]: https://www.npmjs.com/package/@google-cloud/language?activeTab=versions
 
+## [3.9.0](https://www.github.com/googleapis/nodejs-language/compare/v3.8.0...v3.9.0) (2020-04-01)
+
+
+### Features
+
+* deferred client initialization ([#384](https://www.github.com/googleapis/nodejs-language/issues/384)) ([b329a1c](https://www.github.com/googleapis/nodejs-language/commit/b329a1cb7c78902fc7855ef6a3a880cde2c1c83e))
+
 ## [3.8.0](https://www.github.com/googleapis/nodejs-language/compare/v3.7.2...v3.8.0) (2020-02-28)
 
 
