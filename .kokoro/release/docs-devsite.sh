@@ -14,6 +14,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+
+echo "*** pwd:"
+pwd
+echo "*** dirname"
+dirname $0
+
+dir="$(cd "$(dirname "$0")"; pwd)"
+echo $dir
+
+
+
 set -eo pipefail
 
 # build jsdocs (Python is installed on the Node 10 docker image).
@@ -25,27 +36,14 @@ if [[ -z "$CREDENTIALS" ]]; then
   cd $(dirname $0)/../..
 fi
 
-mkdir ./etc
+# Generate the data for the devsite tarball
+dir="$(cd "$(dirname "$0")"; pwd)"
+echo "in the script"
+echo $dir
 
-npm install
-npm run api-extractor
-npm run api-documenter
+. "$dir/.kokoro/release/generate-devsite.sh"
 
 npm i json@9.0.6 -g
-NAME=$(cat .repo-metadata.json | json name)
-
-mkdir ./_devsite
-cp ./yaml/$NAME/* ./_devsite
-
-# Clean up TOC
-# Delete SharePoint item, see https://github.com/microsoft/rushstack/issues/1229
-sed -i -e '1,3d' ./yaml/toc.yml
-sed -i -e 's/^    //' ./yaml/toc.yml
-# Delete interfaces from TOC (name and uid)
-sed -i -e '/name: I[A-Z]/{N;d;}' ./yaml/toc.yml
-sed -i -e '/^ *\@google-cloud.*:interface/d' ./yaml/toc.yml
-
-cp ./yaml/toc.yml ./_devsite/toc.yml
 
 # create docs.metadata, based on package.json and .repo-metadata.json.
 pip install -U pip
