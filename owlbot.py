@@ -50,7 +50,8 @@ templates = common_templates.node_library(source_location='build/src', versions=
 s.copy(templates, excludes=[
   '.kokoro/presubmit/node12/system-test.cfg',
   '.kokoro/release/docs-devsite.cfg',
-  '.kokoro/release/docs-devsite.sh'
+  '.kokoro/release/docs-devsite.sh',
+  'api-extractor.json'
 ])
 
 node.postprocess_gapic_library_hermetic()
