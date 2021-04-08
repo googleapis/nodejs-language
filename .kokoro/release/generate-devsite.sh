@@ -49,6 +49,10 @@ sed -i -e '5a\
 
 NAME=$(ls temp | sed s/.api.json*//)
 
+echo "Here is the name"
+echo $NAME
+echo "##${NAME}##"
+
 ## Delete the default overvew page,
 ## otherwise anchors are added and they break left nav
 rm ./yaml/$NAME.yml
