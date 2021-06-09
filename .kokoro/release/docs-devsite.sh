@@ -14,20 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
-echo "*** pwd:"
-pwd
-echo "*** dirname"
-dirname $0
-
-dir="$(cd "$(dirname "$0")"; pwd)"
-echo $dir
-
-
-
 set -eo pipefail
 
-# build jsdocs (Python is installed on the Node 10 docker image).
 if [[ -z "$CREDENTIALS" ]]; then
   # if CREDENTIALS are explicitly set, assume we're testing locally
   # and don't set NPM_CONFIG_PREFIX.
@@ -36,34 +24,6 @@ if [[ -z "$CREDENTIALS" ]]; then
   cd $(dirname $0)/../..
 fi
 
-# Generate the data for the devsite tarball
-dir="$(cd "$(dirname "$0")"; pwd)"
-echo "in the script"
-echo $dir
-
-. "$dir/.kokoro/release/generate-devsite.sh"
-
-npm i json@9.0.6 -g
-
-# create docs.metadata, based on package.json and .repo-metadata.json.
-pip install -U pip
-python3 -m pip install --user gcp-docuploader
-python3 -m docuploader create-metadata \
-  --name=$NAME \
-  --version=$(cat package.json | json version) \
-  --language=$(cat .repo-metadata.json | json language) \
-  --distribution-name=$(cat .repo-metadata.json | json distribution_name) \
-  --product-page=$(cat .repo-metadata.json | json product_documentation) \
-  --github-repository=$(cat .repo-metadata.json | json repo) \
-  --issue-tracker=$(cat .repo-metadata.json | json issue_tracker)
-cp docs.metadata ./_devsite/docs.metadata
-
-# deploy the docs.
-if [[ -z "$CREDENTIALS" ]]; then
-  CREDENTIALS=${KOKORO_KEYSTORE_DIR}/73713_docuploader_service_account
-fi
-if [[ -z "$BUCKET" ]]; then
-  BUCKET=docs-staging-v2
-fi
-
-python3 -m docuploader upload ./_devsite --destination-prefix docfx --credentials $CREDENTIALS --staging-bucket $BUCKET
+npm install
+npm install --no-save @google-cloud/cloud-rad@^0.2.5
+npx @google-cloud/cloud-rad
