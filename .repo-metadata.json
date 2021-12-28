@@ -13,5 +13,5 @@
   "api_id": "language.googleapis.com",
   "repo": "googleapis/nodejs-language",
   "api_shortname": "language",
-  "library_type": ""
+  "library_type": "GAPIC_AUTO"
 }
