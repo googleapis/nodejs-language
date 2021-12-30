@@ -6,7 +6,6 @@
 
 
 [![npm version](https://img.shields.io/npm/v/@google-cloud/language.svg)](https://www.npmjs.org/package/@google-cloud/language)
-[![codecov](https://img.shields.io/codecov/c/github/googleapis/nodejs-language/main.svg?style=flat)](https://codecov.io/gh/googleapis/nodejs-language)
 
 
 
