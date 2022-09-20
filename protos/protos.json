@@ -1078,6 +1078,14 @@
                         "language": {
                           "type": "string",
                           "id": 4
+                        },
+                        "referenceWebUri": {
+                          "type": "string",
+                          "id": 5
+                        },
+                        "boilerplateHandling": {
+                          "type": "BoilerplateHandling",
+                          "id": 6
                         }
                       },
                       "nested": {
@@ -1086,6 +1094,13 @@
                             "TYPE_UNSPECIFIED": 0,
                             "PLAIN_TEXT": 1,
                             "HTML": 2
+                          }
+                        },
+                        "BoilerplateHandling": {
+                          "values": {
+                            "BOILERPLATE_HANDLING_UNSPECIFIED": 0,
+                            "SKIP_BOILERPLATE": 1,
+                            "KEEP_BOILERPLATE": 2
                           }
                         }
                       }
@@ -1100,6 +1115,14 @@
                           "type": "Sentiment",
                           "id": 2
                         }
+                      }
+                    },
+                    "EncodingType": {
+                      "values": {
+                        "NONE": 0,
+                        "UTF8": 1,
+                        "UTF16": 2,
+                        "UTF32": 3
                       }
                     },
                     "Entity": {
@@ -1169,14 +1192,6 @@
                           "type": "string",
                           "id": 4
                         }
-                      }
-                    },
-                    "EncodingType": {
-                      "values": {
-                        "NONE": 0,
-                        "UTF8": 1,
-                        "UTF16": 2,
-                        "UTF32": 3
                       }
                     },
                     "Sentiment": {
@@ -1525,6 +1540,48 @@
                         }
                       }
                     },
+                    "ClassificationModelOptions": {
+                      "oneofs": {
+                        "modelType": {
+                          "oneof": [
+                            "v1Model",
+                            "v2Model"
+                          ]
+                        }
+                      },
+                      "fields": {
+                        "v1Model": {
+                          "type": "V1Model",
+                          "id": 1
+                        },
+                        "v2Model": {
+                          "type": "V2Model",
+                          "id": 2
+                        }
+                      },
+                      "nested": {
+                        "V1Model": {
+                          "fields": {}
+                        },
+                        "V2Model": {
+                          "fields": {
+                            "contentCategoriesVersion": {
+                              "type": "ContentCategoriesVersion",
+                              "id": 1
+                            }
+                          },
+                          "nested": {
+                            "ContentCategoriesVersion": {
+                              "values": {
+                                "CONTENT_CATEGORIES_VERSION_UNSPECIFIED": 0,
+                                "V1": 1,
+                                "V2": 2
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
                     "AnalyzeSentimentRequest": {
                       "fields": {
                         "document": {
@@ -1654,6 +1711,10 @@
                           "options": {
                             "(google.api.field_behavior)": "REQUIRED"
                           }
+                        },
+                        "classificationModelOptions": {
+                          "type": "ClassificationModelOptions",
+                          "id": 3
                         }
                       }
                     },
@@ -1709,6 +1770,10 @@
                             "classifyText": {
                               "type": "bool",
                               "id": 6
+                            },
+                            "classificationModelOptions": {
+                              "type": "ClassificationModelOptions",
+                              "id": 10
                             }
                           }
                         }
