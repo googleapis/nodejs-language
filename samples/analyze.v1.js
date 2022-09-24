@@ -317,11 +317,14 @@ async function classifyTextOfText(text) {
   const classificationModelOptions = {
     v2Model: {
       contentCategoriesVersion: 'V2',
-    }
+    },
   };
 
   // Classifies text in the document
-  const [classification] = await client.classifyText({document, classificationModelOptions});
+  const [classification] = await client.classifyText({
+      document,
+      classificationModelOptions
+  });
   console.log('Categories:');
   classification.categories.forEach(category => {
     console.log(`Name: ${category.name}, Confidence: ${category.confidence}`);
