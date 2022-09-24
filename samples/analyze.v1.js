@@ -323,7 +323,7 @@ async function classifyTextOfText(text) {
   // Classifies text in the document
   const [classification] = await client.classifyText({
       document,
-      classificationModelOptions
+      classificationModelOptions,
   });
   console.log('Categories:');
   classification.categories.forEach(category => {
